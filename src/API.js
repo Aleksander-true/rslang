@@ -4,6 +4,7 @@ import Words from './api/words';
 import UsersWords from './api/users-words';
 import UsersAggregatedWords from './api/users-aggregated-words';
 import UsersStatistic from './api/users-statistic';
+import UsersSetting from './api/users-setting';
 class Api {
   constructor() {
     this.signInMethods = new SignIn();
@@ -12,6 +13,7 @@ class Api {
     this.usersWordsMethods = new UsersWords();
     this.usersAggregatedWordsMethods = new UsersAggregatedWords();
     this.usersStatisticMethods = new UsersStatistic();
+    this.usersSettingMethods = new UsersSetting();
   }
 }
 
