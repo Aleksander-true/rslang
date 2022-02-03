@@ -22,9 +22,11 @@ const WORDS_MAX = 20;
 //   }
 // }
 
-const SprintGame = () => {
+function SprintGame () {
+  
   return (
     <div>
+      GAME
     {SprintButtons()}
     {SprintStructure(words)}
     </div>
@@ -43,18 +45,18 @@ const SprintButtons = () => {
 
 const SprintStructure = (words) => {
   const [count, setCount] = useState(0);
-  const [maxSeries, setMaxSeries] = useState()
-  const [wordNum, setWordNum] = useState()
+  const [maxSeries, setMaxSeries] = useState(0)
+  const [wordNum, setWordNum] = useState(0)
   const translateAnswer = randomAnswer(words, wordNum)
 
   return (
   <div>
-    <h3>Текущий результат {count}</h3>
+    <h3>Текущий результат {count}
+      </h3>
     <div>
       {showTimer()}
-      {showEnglishWord(words)}
+      {showEnglishWord(words, wordNum)}
       {showTranslate(translateAnswer)}
-  const [maxSeries, setMaxSeries] = useState()
       {ShowButtons(words, wordNum, translateAnswer, setWordNum, count, setCount, maxSeries, setMaxSeries)}
     </div>
   </div>
@@ -84,11 +86,13 @@ const showTranslate = (translateAnswer) => {
 }
 
 const ShowButtons = (words, wordNum, translateAnswer, setWordNum, count, setCount, maxSeries, setMaxSeries) => {
-  const userAnswer = (words[wordNum].translateAnswer === translateAnswer);
+  
+  const userAnswer = (words[wordNum].wordTranslate === translateAnswer);
+  console.log(userAnswer);
   
   const handleClick = (realAnswer) => {
-    console.log('click');
-    setWordNum(words + 1);
+    
+    
 
     if (realAnswer === userAnswer) {
       setCount(count+1);
@@ -96,6 +100,8 @@ const ShowButtons = (words, wordNum, translateAnswer, setWordNum, count, setCoun
     } else {
       setMaxSeries(maxSeries=0)
     }
+
+    setWordNum(wordNum + 1);
   }
 
   return (
@@ -107,10 +113,12 @@ const ShowButtons = (words, wordNum, translateAnswer, setWordNum, count, setCoun
 }
 
 const randomAnswer = (words, wordNum) => {
- if (Math.random) {
+ if (Math.round(Math.random())) {
+  
   return (words[wordNum].wordTranslate)
  } else {
-  return (words[Math.floor(Math.random*WORDS_MAX)])
+   
+  return (words[Math.floor(Math.random()*WORDS_MAX)].wordTranslate)
  }
 }
 
