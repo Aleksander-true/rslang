@@ -1,6 +1,6 @@
-import Api from '../API';
+import ApiErrorHandler from './api-error-handler';
 
-class Users extends Api {
+class Users extends ApiErrorHandler {
   async createNewUser(requestBody) {
     const path = `${this.BASE_URL}${this.USERS}`;
     const options = {

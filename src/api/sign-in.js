@@ -1,6 +1,6 @@
-import Api from '../API';
+import ApiErrorHandler from './api-error-handler';
 
-class SignIn extends Api {
+class SignIn extends ApiErrorHandler {
   async signIn(requestBody) {
     const path = `${this.BASE_URL}${this.SIGNIN}`;
     const options = {
