@@ -3,12 +3,15 @@ import ApiErrorHandler from './api-error-handler';
 class Words extends ApiErrorHandler {
   async getChunkOfWords(group, page) {
     let params = '';
-    if (group && page) {
-      params = `?group=${group}&page=${page}`;
-    } else if (group) {
-      params = `?group=${group}`;
-    } else if (page) {
-      params = `?page=${page}`;
+    if (group || page) {
+      params = '?';
+      if (group) {
+        params += `group=${group}&`;
+      }
+      if (page) {
+        params += `page=${page}&`;
+      }
+      params = params.slice(0, params.length - 1);
     }
     const path = `${this.BASE_URL}${this.WORDS}${params}`;
     const options = {
