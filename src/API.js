@@ -53,7 +53,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersMethods.getUser(id, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getUser');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -86,7 +86,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersMethods.getNewUserTokens(id, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getNewUserTokens');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -119,7 +119,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersWordsMethods.getWord(id, wordID, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getWord');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -163,7 +163,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersAggregatedWordsMethods.getAggregatedWord(id, wordID, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getAggregatedWord');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -174,7 +174,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersStatisticMethods.getStatistics(id, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getStatistics');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -196,7 +196,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.usersSettingMethods.getSettings(id, token);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'getSettings');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -218,7 +218,7 @@ class Api {
     let result;
     try {
       const rawResponse = await this.signInMethods.signIn(requestBody);
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'signIn');
     } catch (e) {
       result = this.returnsErrorMessage(e);
     }
@@ -226,19 +226,51 @@ class Api {
   }
 
   returnsErrorMessage(error) {
-    return { isSuccess: false, errorMessage: `${error.name}: ${error.message}` };
+    return { isSuccess: false, data: { errorMessage: `${error.name}: ${error.message}` } };
   }
 
-  async checkResponse(response) {
-    const succesStatusDigit = '2';
-    if (String(response.status)[0] !== succesStatusDigit) {
-      return { isSuccess: false, errorMessage: `Error ${response.status}: ${response.statusText}` };
-    } else {
-      if (response.status === 204) {
-        return { isSuccess: true, data: { message: response.statusText } };
-      }
-      const responseBody = await response.json();
-      return { isSuccess: true, data: JSON.parse(responseBody) };
+  async checkResponse(response, method) {
+    switch (response.status) {
+      case 200:
+        let responseBody = await response.json();
+        return { isSuccess: true, data: JSON.parse(responseBody) };
+      case 204:
+        let message = "Don't panic. Everything is under control. Continue to work. Big brother is watching you.";
+        return { isSuccess: true, data: { message: message } };
+      case 400:
+        return { isSuccess: false, data: { message: 'Bad request' } };
+      case 401:
+      case 402:
+        return { isSuccess: false, data: { message: 'Access token is missing or invalid' } };
+      case 403:
+        switch (method) {
+          case 'getNewUserTokens':
+            return { isSuccess: false, data: { message: 'Access token is missing or invalid' } };
+          case 'signIn':
+            return { isSuccess: false, data: { message: 'Incorrect e-mail or password' } };
+          default:
+        }
+        break;
+      case 404:
+        switch (method) {
+          case 'getWord':
+          case 'getAggregatedWord':
+            return { isSuccess: false, data: { message: "User's word not found" } };
+          case 'getUser':
+            return { isSuccess: false, data: { message: 'User not found' } };
+          case 'getStatistics':
+            return { isSuccess: false, data: { message: 'Statistics not found' } };
+          case 'getSettings':
+            return { isSuccess: false, data: { message: 'Settings not found' } };
+          default:
+            break;
+        }
+        break;
+      case 422:
+        return { isSuccess: false, data: { message: 'Incorrect e-mail or password' } };
+      default:
+        message = `Response code: ${response.status}. Unknown case: ${response.statusText}`;
+        return { isSuccess: false, data: { message: message } };
     }
   }
 }
