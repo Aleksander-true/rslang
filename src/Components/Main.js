@@ -20,6 +20,6 @@ function Main() {
         </Routes>
       </main>
   );
-}
+} 
 
 export default Main;

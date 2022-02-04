@@ -14,7 +14,7 @@ function Footer() {
             <span className='footer__developer'>Aliaksei </span>
           </a>
           <a href="https://github.com/Aleksander-true" target="_blank" rel="noreferrer">
-              <span className='footer__developer'>Aleksnadr </span>
+              <span className='footer__developer'>Aleksandr </span>
           </a>
           <div className="footer__year">2022</div>
       </footer>

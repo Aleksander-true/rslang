@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 0 200px;
+  margin: 80px 200px 0;
   padding: 20px;
   background-color: #EDEDED;
 }
@@ -56,7 +56,6 @@
 .icon_img {
   height: 100%;
   width: 100%;
-  
 }
 
 .icon_desc {
