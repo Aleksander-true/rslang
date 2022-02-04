@@ -238,16 +238,16 @@ class Api {
         let message = "Don't panic. Everything is under control. Continue to work. Big brother is watching you.";
         return { isSuccess: true, data: { message: message } };
       case 400:
-        return { isSuccess: false, data: { message: 'Bad request' } };
+        return { isSuccess: false, data: { errorMessage: 'Bad request' } };
       case 401:
       case 402:
-        return { isSuccess: false, data: { message: 'Access token is missing or invalid' } };
+        return { isSuccess: false, data: { errorMessage: 'Access token is missing or invalid' } };
       case 403:
         switch (method) {
           case 'getNewUserTokens':
-            return { isSuccess: false, data: { message: 'Access token is missing or invalid' } };
+            return { isSuccess: false, data: { errorMessage: 'Access token is missing or invalid' } };
           case 'signIn':
-            return { isSuccess: false, data: { message: 'Incorrect e-mail or password' } };
+            return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
           default:
         }
         break;
@@ -255,22 +255,22 @@ class Api {
         switch (method) {
           case 'getWord':
           case 'getAggregatedWord':
-            return { isSuccess: false, data: { message: "User's word not found" } };
+            return { isSuccess: false, data: { errorMessage: "User's word not found" } };
           case 'getUser':
-            return { isSuccess: false, data: { message: 'User not found' } };
+            return { isSuccess: false, data: { errorMessage: 'User not found' } };
           case 'getStatistics':
-            return { isSuccess: false, data: { message: 'Statistics not found' } };
+            return { isSuccess: false, data: { errorMessage: 'Statistics not found' } };
           case 'getSettings':
-            return { isSuccess: false, data: { message: 'Settings not found' } };
+            return { isSuccess: false, data: { errorMessage: 'Settings not found' } };
           default:
             break;
         }
         break;
       case 422:
-        return { isSuccess: false, data: { message: 'Incorrect e-mail or password' } };
+        return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
       default:
         message = `Response code: ${response.status}. Unknown case: ${response.statusText}`;
-        return { isSuccess: false, data: { message: message } };
+        return { isSuccess: false, data: { errorMessage: message } };
     }
   }
 }
