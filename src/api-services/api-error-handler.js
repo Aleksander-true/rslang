@@ -1,6 +1,8 @@
+import BASE_URL from '../constants';
+
 class ApiErrorHandler {
   constructor() {
-    this.BASE_URL = 'https://rslang-app-team-9.herokuapp.com';
+    this.BASE_URL = BASE_URL;
     this.SIGNIN = '/signin';
     this.USERS = '/users';
     this.WORDS = '/words';

@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Main from './Components/Main';
-import API from './API';
+import api from './API';
 
 class App extends React.Component {
   constructor(props) {
