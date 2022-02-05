@@ -12,32 +12,15 @@ const answers: string[] = randomAnswer(currentWords);
 
 function SprintGame() {
   return (
-    <><SprintButtons /><SprintGameInside/></>
+    <><SprintButtons /><SprintGameInside /></>
     // <><SprintButtons /><SprintGameInside words={currentWords}/></>
   )
 }
 
 const SprintGameInside = () => {
 
-  // const [timeLeft, setTimeLeft] = useState(TIMER_TIME);
+  const [timeLeft, setTimeLeft] = useState(TIMER_TIME);
   const [wordNum, setWordNum] = useState(0)
-
-  return (
-    <div>
-      {/* {(timeLeft === 0 || wordNum === WORDS_MAX) && ResultsPage()} */}
-      
-      {/* {(timeLeft > 0 ) && Timer(timeLeft, setTimeLeft) } */}
-
-
-      {wordNum < WORDS_MAX && SprintQuestions(wordNum, setWordNum)}
-      {/* {wordNum === WORDS_MAX && ResultsPage()} */}
-      {ResultsPage()}
-    </div>
-  )
-}
-
-const SprintQuestions = (wordNum: number, setWordNum: React.Dispatch<React.SetStateAction<number>>) => {
-  
   const [count, setCount] = useState(0);
   const [maxSeries, setMaxSeries] = useState(0)
   const realAnswer = (currentWords[wordNum].wordTranslate === answers[wordNum]);
@@ -57,6 +40,18 @@ const SprintQuestions = (wordNum: number, setWordNum: React.Dispatch<React.SetSt
       window.removeEventListener('keydown', keyPress);
     };
   }, [count, maxSeries, realAnswer, setWordNum, wordNum]);
+
+
+  return (
+    <div>
+      {(timeLeft === 0 || wordNum === WORDS_MAX) && ResultsPage()}
+      {(timeLeft > 0 && wordNum < WORDS_MAX) && <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />}
+      {(timeLeft > 0 && wordNum < WORDS_MAX) && SprintQuestions(wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer)}
+    </div>
+  )
+}
+
+const SprintQuestions = (wordNum: number, setWordNum: React.Dispatch<React.SetStateAction<number>>, count: number, setCount: React.Dispatch<React.SetStateAction<number>>, maxSeries: number, setMaxSeries: React.Dispatch<React.SetStateAction<number>>, realAnswer: boolean) => {
 
 
   return (
