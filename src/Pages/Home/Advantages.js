@@ -12,10 +12,10 @@ function Advantages() {
         <h1 className='advantages__title'>Учите английский с <span className="marked">RSLang</span></h1>
         <h4 className='advantages__subtitle'>Используй быстрый и эффективный способ изучения языка.</h4>
         <ul className='advantages__list'>
-          <li className='advantages__item'>3600 самых часто используемых английских слов, покрывающих 90% обычного разговора.</li>
-          <li className='advantages__item'>Отмечайте слова для активного изучения, аудио примеры и картинки помогут запомнить лучше.</li>
-          <li className='advantages__item'>Сделайте изучение слов более увлекательным с помощью мини-игр.</li>
-          <li className='advantages__item'>Статистика - Следите за своим прогрессом каждый день.</li>
+          <li className='advantages__item'>3600 самых используемых английских слов, покрывающих 90% потребностей разговора.</li>
+          <li className='advantages__item'>Отмечай слова для активного изучения, аудио примеры и картинки помогут запомнить лучше.</li>
+          <li className='advantages__item'>Сделай изучение слов более увлекательным с помощью мини-игр.</li>
+          <li className='advantages__item'>Следи за своим прогрессом каждый день.</li>
         </ul>
         <div className='advantages__icons-wrapper'>
             <figure className='advantages__icon'> 

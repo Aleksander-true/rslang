@@ -13,7 +13,7 @@ function Team() {
         <figure className='team__person'>
           <img className='team__img' src={photo1} alt=''></img>
           <h3 className='team__name'>Александр Серяпин</h3>
-          <p className='team__description'><i>Роль:</i> теамлидер</p>
+          <p className='team__description'><i>Роль:</i> тимлидер </p>
           <p className='team__description'><i>Достижения:</i></p>
         </figure>
         <figure className='team__person'>
