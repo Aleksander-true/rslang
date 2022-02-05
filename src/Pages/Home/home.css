@@ -1,0 +1,9 @@
+.home {
+}
+
+.home__title {
+  font-family: var(--main-font-family);
+  font-size: 48px;
+  text-align: center;
+}
+
