@@ -1,4 +1,4 @@
-import BASE_URL from '../constants';
+import { BASE_URL } from '../constants';
 
 class ApiErrorHandler {
   constructor() {
@@ -12,7 +12,10 @@ class ApiErrorHandler {
     this.TOKENS = '/tokens';
   }
 
-  async apiErrorHandler(path, options, counter) {
+  async apiErrorHandler(path, options, rawResponse, counter) {
+    if (rawResponse.status !== 503) {
+      return rawResponse;
+    }
     let response = new Response();
     let i;
     switch (Boolean(counter)) {
@@ -21,14 +24,13 @@ class ApiErrorHandler {
         break;
       default:
         switch (counter) {
-          case 10:
-            response = new Response(null, { status: 429, statusText: 'Too Many Requests' });
-            return response;
+          case 3:
+            return rawResponse;
           default:
         }
         i = counter;
     }
-    switch (i < 10) {
+    switch (i < 3) {
       case true:
         await new Promise((resolve) => {
           setTimeout(() => {
@@ -38,7 +40,7 @@ class ApiErrorHandler {
         try {
           response = await fetch(path, options);
         } catch {
-          response = await this.apiErrorHandler(path, options, i);
+          response = await this.apiErrorHandler(path, options, response, i);
         }
         return response;
       default:

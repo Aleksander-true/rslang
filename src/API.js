@@ -232,8 +232,8 @@ class Api {
   async checkResponse(response, method) {
     switch (response.status) {
       case 200:
-        let responseBody = await response.json();
-        return { isSuccess: true, data: JSON.parse(responseBody) };
+        const responseBody = await response.json();
+        return { isSuccess: true, data: responseBody };
       case 204:
         let message = "Don't panic. Everything is under control. Continue to work. Big brother is watching you.";
         return { isSuccess: true, data: { message: message } };
@@ -263,11 +263,12 @@ class Api {
           case 'getSettings':
             return { isSuccess: false, data: { errorMessage: 'Settings not found' } };
           default:
-            break;
+            return { isSuccess: false, data: { errorMessage: 'Not found' } };
         }
-        break;
       case 422:
         return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
+      case 503:
+        return { isSuccess: false, data: { errorMessage: 'Service unavailable' } };
       default:
         message = `Response code: ${response.status}. Unknown case: ${response.statusText}`;
         return { isSuccess: false, data: { errorMessage: message } };
