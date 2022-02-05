@@ -32,7 +32,7 @@ class UsersAggregatedWords extends ApiErrorHandler {
     try {
       rawResponse = await fetch(path, options);
     } catch (e) {
-      rawResponse = await this.apiErrorHandler(path, options, rawResponse);
+      rawResponse = await this.apiErrorHandler(path, options);
     }
     return rawResponse;
   }
@@ -51,7 +51,7 @@ class UsersAggregatedWords extends ApiErrorHandler {
     try {
       rawResponse = await fetch(path, options);
     } catch (e) {
-      rawResponse = await this.apiErrorHandler(path, options, rawResponse);
+      rawResponse = await this.apiErrorHandler(path, options);
     }
     return rawResponse;
   }
