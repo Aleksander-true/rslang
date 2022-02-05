@@ -30,27 +30,27 @@ class Authorization extends React.Component {
       <>
         <h3>Введите ваши данные:</h3>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <div class="mb-3">
-            <label class="form-label">
+          <div className="mb-3">
+            <label className="form-label">
               Адрес электронной почты
-              <input type="email" class="form-control" onInput={(e) => this.handleInput(e)}></input>
+              <input type="email" className="form-control" onInput={(e) => this.handleInput(e)}></input>
             </label>
           </div>
-          <div class="mb-3">
-            <label class="form-label">
+          <div className="mb-3">
+            <label className="form-label">
               Пароль
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 aria-describedby="passwordHelp"
                 onInput={(e) => this.handleInput(e)}
               ></input>
             </label>
-            <div id="passwordHelp" class="form-text">
+            <div id="passwordHelp" className="form-text">
               Длинна пароля не менее 8 символов
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Войти
           </button>
         </form>
