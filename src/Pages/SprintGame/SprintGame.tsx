@@ -6,6 +6,7 @@ import Button from '../../Components/Button';
 import ResultsPage from './Components/Results';
 import LevelPage from './Components/LevelPage';
 import Timer from './Components/Timer';
+import  './sprintStyles.css'
 
 
 const currentWords: WordFromCollection[] = shuffledWords();
@@ -19,9 +20,11 @@ const SprintGame = () => {
   const [timeToGo, setTimeToGo] = useState(3)
   return (
     <div className='sprint'><SprintButtons />
+      <div className='sprint__main'>
       {!level && <LevelPage level={level} setLevel={setLevel}/>}
       {(level && timeToGo !==0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo}/>}
       {(level && timeToGo ===0) && <SprintGameInside />}
+      </div>
     </div>
   )
 }
@@ -124,10 +127,11 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ wordNum, setWordN
 
 const SprintButtons = () => {
   return (
-    <div>
+    <div className='sprint__header' >
       {CLOSE_ICON}
+      <div className='sprint__header__controls'>
       {FULL_SCREEN_ICON}
-      {SOUND_ICON}
+      {SOUND_ICON} </div>
     </div>
   )
 }
