@@ -19,8 +19,11 @@ class LogOut extends React.Component {
   render() {
     return (
       <>
-        <h4>Вы уверены, что хотите продолжить как гость</h4>
-        <p>В гостевом режиме не доступен пользовательский словарь, статистика продвижения и другие функции</p>
+        <h4>Хотите выйти и продолжить как гость?</h4>
+        <p className="fs-5">
+          В гостевом режиме недоступен пользовательский словарь, <br /> статистика продвижения и другие полезные
+          функции.
+        </p>
         <div className="d-grid gap-2 d-md-flex justify-content-around">
           <button type="submit" className="btn btn-warning" onClick={() => this.unAuthorize()}>
             Продолжить как гость

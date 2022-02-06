@@ -16,7 +16,6 @@ class Registration extends React.Component {
       email: this.state.email,
       password: this.state.password,
     });
-    console.log('response', response);
     if (response.isSuccess) {
       this.setState({ message: 'Спасибо за регистрацию!' });
       setTimeout(() => this.props.callLogIn(), 1000);

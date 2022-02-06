@@ -10,14 +10,13 @@ class LogIn extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
     const response = await api.signIn({ email: this.state.email, password: this.state.password });
-    console.log('response', response);
     if (response.isSuccess) {
       this.setState({ message: '' });
       localStorage.setItem('userId', response.data.userId);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       localStorage.setItem('name', response.data.name);
-      this.props.authorize();
+      this.props.authorize(response.data.name);
       this.props.modal.closeModal();
       this.props.setFormToLogOut();
     } else {

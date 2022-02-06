@@ -17,12 +17,10 @@ class App extends React.Component {
 
   openModal() {
     this.setState({ showModal: true });
-    console.log('openModal this.state.showModal', this.state.showModal);
   }
 
   closeModal() {
     this.setState({ showModal: false });
-    console.log('closeModal this.state.showModal', this.state.showModal);
   }
 
   render() {

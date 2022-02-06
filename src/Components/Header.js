@@ -7,6 +7,8 @@ const NAV_CLASSES = 'header__link ';
 const ACTIVE_LINK_CLASS = 'header__link_active';
 
 function Header(props) {
+  const isAuthorized = localStorage.getItem('userId') ? true : false;
+
   return (
     <header className="header">
       <NavLink to="/">
@@ -31,12 +33,14 @@ function Header(props) {
         >
           Аудиовызов
         </NavLink>
-        <NavLink
-          className={({ isActive }) => (isActive ? NAV_CLASSES + ACTIVE_LINK_CLASS : NAV_CLASSES)}
-          to="/statictics"
-        >
-          Статистика
-        </NavLink>
+        {isAuthorized && (
+          <NavLink
+            className={({ isActive }) => (isActive ? NAV_CLASSES + ACTIVE_LINK_CLASS : NAV_CLASSES)}
+            to="/statistics"
+          >
+            Статистика
+          </NavLink>
+        )}
 
         <Authorization modal={props.modal} mainClasses={NAV_CLASSES} activeClass={ACTIVE_LINK_CLASS} />
       </nav>

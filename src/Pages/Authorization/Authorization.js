@@ -5,11 +5,35 @@ import Registration from './Registration';
 import LogOut from './LogOut';
 import './../../Components/header.css';
 import './authrisation.css';
+import api from '../../API';
 
 class Authorization extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { form: 'logIn', userAuthorized: false };
+    this.state = { form: 'logIn', userAuthorized: false, userName: 'guest' };
+  }
+
+  async componentDidMount() {
+    if (!localStorage.getItem('userId')) return;
+
+    let response = await api.getUser(localStorage.getItem('userId'), localStorage.getItem('token'));
+    if (response.isSuccess) {
+      this.setState({ userAuthorized: true, form: 'logOut', userName: response.data.name });
+    } else {
+      response = await api.getUser(localStorage.getItem('userId'), localStorage.getItem('refreshToken'));
+      if (response.isSuccess) {
+        this.setState({ userAuthorized: true, form: 'logOut', userName: response.data.name });
+      } else {
+        this.clearUserDataFromLocalStorage();
+      }
+    }
+  }
+
+  clearUserDataFromLocalStorage() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('name');
   }
 
   setFormTo(formName) {
@@ -17,7 +41,7 @@ class Authorization extends React.Component {
   }
 
   authorize() {
-    this.setState({ userAuthorized: true });
+    this.componentDidMount();
   }
 
   unAuthorize() {
@@ -51,7 +75,7 @@ class Authorization extends React.Component {
     if (this.state.userAuthorized) {
       button = (
         <div className={this.props.mainClasses} onClick={() => this.props.modal.openModal()}>
-          <span className="log-out">Выйти</span>
+          <span className="log-out">{this.state.userName.slice(0, 10)}</span>
         </div>
       );
     } else {
