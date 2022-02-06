@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { WordFromCollection } from './words';
-import { shuffledWords, randomAnswer, showEnglishWord, showTranslate, WordString, handleClick, ShowButtons } from './util';
+import { shuffledWords, randomAnswer, showEnglishWord, showTranslate, } from './util';
 import { WORDS_MAX, TIMER_TIME, SOUND_ICON, FULL_SCREEN_ICON, CLOSE_ICON } from './const';
-import Timer from './timer';
+import Timer from './Components/timer';
+import Button from '../../Components/Button';
+import ResultsPage from './Components/Results';
+
 
 const currentWords: WordFromCollection[] = shuffledWords();
 const correctWords: WordFromCollection[] = [];
@@ -11,9 +14,9 @@ const answers: string[] = randomAnswer(currentWords);
 
 
 function SprintGame() {
+
   return (
     <><SprintButtons /><SprintGameInside /></>
-    // <><SprintButtons /><SprintGameInside words={currentWords}/></>
   )
 }
 
@@ -24,15 +27,36 @@ const SprintGameInside = () => {
   const [count, setCount] = useState(0);
   const [maxSeries, setMaxSeries] = useState(0)
   const realAnswer = (currentWords[wordNum].wordTranslate === answers[wordNum]);
-  console.log(wordNum);
 
   useEffect(() => {
     const keyPress = (event: { keyCode: number; }) => {
-      if (event.keyCode === 39) { //right
-        handleClick(correctWords, wrongWords, realAnswer, true, count, setCount, maxSeries, setMaxSeries, currentWords, wordNum, setWordNum);
+      if (wordNum > WORDS_MAX - 1) {
+        return
       }
-      else if (event.keyCode === 37) { //left
-        handleClick(correctWords, wrongWords, realAnswer, false, count, setCount, maxSeries, setMaxSeries, currentWords, wordNum, setWordNum);
+
+      if (event.keyCode === 39) { //right
+        if (realAnswer) {
+          setCount(prev => prev + 1);
+          setMaxSeries(prev => prev + 1);
+          correctWords.push(currentWords[wordNum]);
+          setWordNum(prev => prev + 1);
+        } else {
+          setMaxSeries(0)
+          wrongWords.push(currentWords[wordNum]);
+          setWordNum(prev => prev + 1);
+        }
+      }
+      else if (event.keyCode === 37) {
+        if (!realAnswer) {
+          setCount(prev => prev + 1);
+          setMaxSeries(prev => prev + 1);
+          correctWords.push(currentWords[wordNum]);
+          setWordNum(prev => prev + 1);
+        } else {
+          setMaxSeries(0)
+          wrongWords.push(currentWords[wordNum]);
+          setWordNum(prev => prev + 1);
+        }
       }
     }
     window.addEventListener('keydown', keyPress);
@@ -44,15 +68,38 @@ const SprintGameInside = () => {
 
   return (
     <div>
-      {(timeLeft === 0 || wordNum === WORDS_MAX) && ResultsPage()}
+      {(timeLeft === 0 || wordNum === WORDS_MAX) && <ResultsPage correctWords={correctWords} wrongWords={wrongWords} />}
       {(timeLeft > 0 && wordNum < WORDS_MAX) && <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />}
-      {(timeLeft > 0 && wordNum < WORDS_MAX) && SprintQuestions(wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer)}
+      {(timeLeft > 0 && wordNum < WORDS_MAX) && <SprintQuestions wordNum={wordNum} setWordNum={setWordNum} count={count} setCount={setCount} maxSeries={maxSeries} setMaxSeries={setMaxSeries} realAnswer={realAnswer}/>}
     </div>
   )
 }
 
-const SprintQuestions = (wordNum: number, setWordNum: React.Dispatch<React.SetStateAction<number>>, count: number, setCount: React.Dispatch<React.SetStateAction<number>>, maxSeries: number, setMaxSeries: React.Dispatch<React.SetStateAction<number>>, realAnswer: boolean) => {
+type SprintQuestionsPropsType = {
+  wordNum: number; 
+  setWordNum: React.Dispatch<React.SetStateAction<number>>;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+  maxSeries: number;
+  setMaxSeries: React.Dispatch<React.SetStateAction<number>>;
+  realAnswer: boolean
+}
 
+const SprintQuestions:React.FC<SprintQuestionsPropsType> = ({wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer}) => {
+
+  const handleClick = (userAnswer: string) => {
+
+    if (JSON.parse(userAnswer) === realAnswer) {
+      setCount(prev => prev + 1);
+      setMaxSeries(prev => prev + 1);
+      correctWords.push(currentWords[wordNum]);
+      setWordNum(prev => prev + 1);
+    } else {
+      setMaxSeries(0)
+      wrongWords.push(currentWords[wordNum]);
+      setWordNum(prev => prev + 1);
+    }
+  }
 
   return (
     <div>
@@ -62,31 +109,9 @@ const SprintQuestions = (wordNum: number, setWordNum: React.Dispatch<React.SetSt
       <div>
         {showEnglishWord(currentWords, wordNum)}
         {showTranslate(answers[wordNum])}
-        {ShowButtons(correctWords, wrongWords, currentWords, wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer)}
+        <Button title='no' onClick={handleClick} type='danger' action='false' />
+        <Button title='yes' onClick={handleClick} type='success' action='true' />
       </div>
-    </div>
-  )
-}
-
-const ResultsPage = () => {
-
-  console.log('results')
-  const correctWordsElements = correctWords.map(word =>
-    <WordString englishWord={word.word} russianWord={word.wordTranslate} sound={word.audio} id={word.id} />
-  )
-
-  const wrongWordsElements = wrongWords.map(word =>
-    <WordString englishWord={word.word} russianWord={word.wordTranslate} sound={word.audio} id={word.id} />
-  )
-
-  return (
-    <div>
-      <ul>
-        <p>correct</p>
-        {correctWordsElements}
-        <p>wrong</p>
-        {wrongWordsElements}
-      </ul>
     </div>
   )
 }
