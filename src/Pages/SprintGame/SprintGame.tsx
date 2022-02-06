@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { WordFromCollection } from './words';
 import { shuffledWords, randomAnswer, showEnglishWord, showTranslate, } from './util';
 import { WORDS_MAX, TIMER_TIME, SOUND_ICON, FULL_SCREEN_ICON, CLOSE_ICON } from './const';
-import Timer from './Components/timer';
 import Button from '../../Components/Button';
 import ResultsPage from './Components/Results';
+import LevelPage from './Components/LevelPage';
+import Timer from './Components/Timer';
 
 
 const currentWords: WordFromCollection[] = shuffledWords();
@@ -13,10 +14,15 @@ const wrongWords: WordFromCollection[] = [];
 const answers: string[] = randomAnswer(currentWords);
 
 
-function SprintGame() {
-
+const SprintGame = () => {
+  const [level, setLevel] = useState(0)
+  const [timeToGo, setTimeToGo] = useState(3)
   return (
-    <><SprintButtons /><SprintGameInside /></>
+    <div className='sprint'><SprintButtons />
+      {!level && <LevelPage level={level} setLevel={setLevel}/>}
+      {(level && timeToGo !==0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo}/>}
+      {(level && timeToGo ===0) && <SprintGameInside />}
+    </div>
   )
 }
 
@@ -70,13 +76,13 @@ const SprintGameInside = () => {
     <div>
       {(timeLeft === 0 || wordNum === WORDS_MAX) && <ResultsPage correctWords={correctWords} wrongWords={wrongWords} />}
       {(timeLeft > 0 && wordNum < WORDS_MAX) && <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />}
-      {(timeLeft > 0 && wordNum < WORDS_MAX) && <SprintQuestions wordNum={wordNum} setWordNum={setWordNum} count={count} setCount={setCount} maxSeries={maxSeries} setMaxSeries={setMaxSeries} realAnswer={realAnswer}/>}
+      {(timeLeft > 0 && wordNum < WORDS_MAX) && <SprintQuestions wordNum={wordNum} setWordNum={setWordNum} count={count} setCount={setCount} maxSeries={maxSeries} setMaxSeries={setMaxSeries} realAnswer={realAnswer} />}
     </div>
   )
 }
 
 type SprintQuestionsPropsType = {
-  wordNum: number; 
+  wordNum: number;
   setWordNum: React.Dispatch<React.SetStateAction<number>>;
   count: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
@@ -85,7 +91,7 @@ type SprintQuestionsPropsType = {
   realAnswer: boolean
 }
 
-const SprintQuestions:React.FC<SprintQuestionsPropsType> = ({wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer}) => {
+const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer }) => {
 
   const handleClick = (userAnswer: string) => {
 

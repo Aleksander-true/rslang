@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "typeRoots" : ["node_modules/@types", "src/types"],
     "jsx": "react",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
