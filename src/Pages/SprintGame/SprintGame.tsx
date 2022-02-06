@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WordFromCollection } from './words';
-import { shuffledWords, randomAnswer, showEnglishWord, showTranslate, } from './util';
+import { shuffledWords, randomAnswer, ShowEnglishWord, ShowTranslate, } from './util';
 import { WORDS_MAX, TIMER_TIME, SOUND_ICON, FULL_SCREEN_ICON, CLOSE_ICON } from './const';
 import Button from '../../Components/Button';
 import ResultsPage from './Components/Results';
@@ -76,7 +76,7 @@ const SprintGameInside = () => {
 
 
   return (
-    <div>
+    <div className='sprint__question-page'>
       {(timeLeft === 0 || wordNum === WORDS_MAX) && <ResultsPage correctWords={correctWords} wrongWords={wrongWords} />}
       {(timeLeft > 0 && wordNum < WORDS_MAX) && <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />}
       {(timeLeft > 0 && wordNum < WORDS_MAX) && <SprintQuestions wordNum={wordNum} setWordNum={setWordNum} count={count} setCount={setCount} maxSeries={maxSeries} setMaxSeries={setMaxSeries} realAnswer={realAnswer} />}
@@ -111,13 +111,13 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ wordNum, setWordN
   }
 
   return (
-    <div>
+    <div className='sprint__question-page'>
       <h3>Текущий результат: {count}</h3>
       <p>Угадано подряд: {maxSeries}</p>
 
       <div>
-        {showEnglishWord(currentWords, wordNum)}
-        {showTranslate(answers[wordNum])}
+        <ShowEnglishWord words={currentWords} wordNum={wordNum}/>
+        <ShowTranslate answers={answers[wordNum]}/>
         <Button title='no' onClick={handleClick} type='danger' action='false' />
         <Button title='yes' onClick={handleClick} type='success' action='true' />
       </div>

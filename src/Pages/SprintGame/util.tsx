@@ -21,18 +21,18 @@ export const randomAnswer = (words: WordFromCollection[]) => {
     return answers;
 }
 
-export const showEnglishWord = (words: WordFromCollection[], wordNum: number) => {
+export const ShowEnglishWord = (props: {words: WordFromCollection[], wordNum: number}) => {
     return (
-        <div>
-            {words[wordNum].word}
-        </div>
+        <h4>
+            {words[props.wordNum].word}
+        </h4>
     )
 }
 
-export const showTranslate = (translateAnswer: string) => {
+export const ShowTranslate = (props: {answers: string}) => {
     return (
-        <div>
-            {translateAnswer}
-        </div>
+        <h4>
+            {props.answers}
+        </h4>
     )
 }
