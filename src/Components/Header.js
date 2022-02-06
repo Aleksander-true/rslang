@@ -1,17 +1,21 @@
 import { NavLink } from 'react-router-dom';
+import logo from './../assets/svg/logo.svg'
 
-const NAV_CLASSES = 'btn btn-outline-primary';
+const NAV_CLASSES = 'header__link';
 
 function Header() { 
   return (
-      <header className="container header">
-        <div className="btn-group">
-          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' active' : NAV_CLASSES} to="/">Home</NavLink>
-          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' active' : NAV_CLASSES} to="/textbook">Textbook</NavLink>
-          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' active' : NAV_CLASSES} to="/sprintGame">Sprint Game</NavLink>
-          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' active' : NAV_CLASSES} to="/audioGame">Audio Game</NavLink>
-          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' active' : NAV_CLASSES} to="/about">About</NavLink>
-        </div>
+      <header className="header">
+        <NavLink to="/">
+          <img className='logo' src={logo} alt='logo' />
+        </NavLink>
+        <nav className="nav">
+          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' header__link_active' : NAV_CLASSES} to="/textbook">Учебник</NavLink>
+          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' header__link_active' : NAV_CLASSES} to="/sprintGame">Спринт</NavLink>
+          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' header__link_active' : NAV_CLASSES} to="/audioGame">Аудиовызов</NavLink>
+          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' header__link_active' : NAV_CLASSES} to="/statistics">Статистика</NavLink>
+          <NavLink className={({ isActive }) => isActive ? NAV_CLASSES + ' header__link_active' : NAV_CLASSES} to="/authorization">Войти</NavLink>
+        </nav>
       </header>
   );
 }

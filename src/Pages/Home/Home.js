@@ -1,22 +1,18 @@
 import React from 'react';
+import './advantages.css';
+import './home.css';
+import Advantages from './Advantages';   
+import VideoReview from './VideoReview';   
+import Team from './Team';
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: "Home"};
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
-  render() {
-    return (
-        <h1>{this.state.text}</h1>
-    );
-  }
+function Home() {
+  return (
+    <div className='home'>
+      <Advantages />
+      <VideoReview />
+      <Team />
+    </div>
+  );
 }
 
 export default Home;
