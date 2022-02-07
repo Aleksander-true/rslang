@@ -1,20 +1,25 @@
 import React from 'react';
+import Levels from './Levels';
+import Words from './Words';
+import './textbook.css';
 
 class Textbook extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {text: "Textbook"};
+    this.state = { text: 'Textbook' };
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   render() {
     return (
-        <h1>{this.state.text}</h1>
+      <div className="textbook">
+        <h2 className="textbook__title">Электронный учебник</h2>
+        <Levels />
+        <Words />
+      </div>
     );
   }
 }

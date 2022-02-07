@@ -1,0 +1,17 @@
+.words-wrapper {
+  display: flex;
+}
+
+.word__card {
+  width: 400px;
+  background-color: #f3f4f8;
+}
+
+.card__description-wrapper {
+  padding: 5px;
+}
+
+.card__img {
+  width: 100%;
+  object-fit: contain;
+}
