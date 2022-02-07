@@ -6,7 +6,12 @@ import Button from '../../Components/Button';
 import ResultsPage from './Components/Results';
 import LevelPage from './Components/LevelPage';
 import Timer from './Components/Timer';
-import  './sprintStyles.css'
+import './sprintStyles.css'
+import closeImg from "../../assets/svg/x-lg.svg"
+import volume from "../../assets/svg/volume-up.svg"
+// import mute from "../../assets/svg/volume-mute.svg"
+import fullscreen from "../../assets/svg/fullscreen.svg"
+// import fullscreenExit from "../../assets/svg/fullscreen-exit.svg"
 
 
 const currentWords: WordFromCollection[] = shuffledWords();
@@ -21,9 +26,9 @@ const SprintGame = () => {
   return (
     <div className='sprint'><SprintButtons />
       <div className='sprint__main'>
-      {!level && <LevelPage level={level} setLevel={setLevel}/>}
-      {(level && timeToGo !==0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo}/>}
-      {(level && timeToGo ===0) && <SprintGameInside />}
+        {!level && <LevelPage level={level} setLevel={setLevel} />}
+        {(level && timeToGo !== 0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo} />}
+        {(level && timeToGo === 0) && <SprintGameInside />}
       </div>
     </div>
   )
@@ -116,8 +121,8 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ wordNum, setWordN
       <p>Угадано подряд: {maxSeries}</p>
 
       <div>
-        <ShowEnglishWord words={currentWords} wordNum={wordNum}/>
-        <ShowTranslate answers={answers[wordNum]}/>
+        <ShowEnglishWord words={currentWords} wordNum={wordNum} />
+        <ShowTranslate answers={answers[wordNum]} />
         <Button title='no' onClick={handleClick} type='danger' action='false' />
         <Button title='yes' onClick={handleClick} type='success' action='true' />
       </div>
@@ -130,8 +135,8 @@ const SprintButtons = () => {
     <div className='sprint__header' >
       {CLOSE_ICON}
       <div className='sprint__header__controls'>
-      {FULL_SCREEN_ICON}
-      {SOUND_ICON} </div>
+        {FULL_SCREEN_ICON}
+        {SOUND_ICON} </div>
     </div>
   )
 }
