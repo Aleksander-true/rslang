@@ -1,4 +1,5 @@
 import rs_logo from './../assets/svg/rs_logo.svg';
+import './footer.css';
 
 function Footer() {
   return (

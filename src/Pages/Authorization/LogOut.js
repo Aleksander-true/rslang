@@ -25,10 +25,10 @@ class LogOut extends React.Component {
           функции.
         </p>
         <div className="d-grid gap-2 d-md-flex justify-content-around">
-          <button type="submit" className="btn btn-warning" onClick={() => this.unAuthorize()}>
+          <button type="submit" className="btn btn-warning btn-lg" onClick={() => this.unAuthorize()}>
             Продолжить как гость
           </button>
-          <button type="button" className="btn btn-success" onClick={() => this.props.modal.closeModal()}>
+          <button type="button" className="btn btn-success btn-lg" onClick={() => this.props.modal.closeModal()}>
             Отмена
           </button>
         </div>

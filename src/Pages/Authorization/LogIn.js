@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../../API';
+import './authrisation.css';
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -61,10 +62,10 @@ class LogIn extends React.Component {
             </label>
           </div>
           <div className="d-grid gap-2 d-md-flex justify-content-around">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn button_ok btn-lg">
               Войти
             </button>
-            <button type="button" className="btn btn-link" onClick={this.props.callRegistration}>
+            <button type="button" className="btn btn-link btn-lg" onClick={this.props.callRegistration}>
               Регистрация
             </button>
           </div>
