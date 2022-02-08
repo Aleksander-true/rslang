@@ -3,18 +3,30 @@ import React from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Main from './Components/Main';
-import api from './API';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { main: 'Home' };
+    this.state = { showModal: false };
+    this.modal = {
+      openModal: this.openModal.bind(this),
+      closeModal: this.closeModal.bind(this),
+      show: () => this.state.showModal,
+    };
+  }
+
+  openModal() {
+    this.setState({ showModal: true });
+  }
+
+  closeModal() {
+    this.setState({ showModal: false });
   }
 
   render() {
     return (
-      <div className='wrapper'>
-        <Header />
+      <div className="wrapper">
+        <Header modal={this.modal} />
         <Main />
         <Footer />
       </div>

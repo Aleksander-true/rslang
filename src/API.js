@@ -151,7 +151,14 @@ class Api {
   async getAllUserAggregatedWords(id, token, group, page, wordsPerPage, filter) {
     let result;
     try {
-      const rawResponse = await this.usersAggregatedWordsMethods.getAllUserAggregatedWords(id, token, group, page, wordsPerPage, filter);
+      const rawResponse = await this.usersAggregatedWordsMethods.getAllUserAggregatedWords(
+        id,
+        token,
+        group,
+        page,
+        wordsPerPage,
+        filter,
+      );
       result = await this.checkResponse(rawResponse);
     } catch (e) {
       result = this.returnsErrorMessage(e);
@@ -265,6 +272,8 @@ class Api {
           default:
             return { isSuccess: false, data: { errorMessage: 'Not found' } };
         }
+      case 417:
+        return { isSuccess: false, data: { errorMessage: 'User with this e-mail exists' } };
       case 422:
         return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
       case 503:

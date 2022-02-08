@@ -1,15 +1,15 @@
-import { BASE_URL } from '../constants';
+import { BASE_URL } from "../constants";
 
 class ApiErrorHandler {
   constructor() {
     this.BASE_URL = BASE_URL;
-    this.SIGNIN = '/signin';
-    this.USERS = '/users';
-    this.WORDS = '/words';
-    this.AGGREGATED_WORDS = '/aggregatedWords';
-    this.STATISTICS = '/statistics';
-    this.SETTINGS = '/settings';
-    this.TOKENS = '/tokens';
+    this.SIGNIN = "/signin";
+    this.USERS = "/users";
+    this.WORDS = "/words";
+    this.AGGREGATED_WORDS = "/aggregatedWords";
+    this.STATISTICS = "/statistics";
+    this.SETTINGS = "/settings";
+    this.TOKENS = "/tokens";
   }
 
   async apiErrorHandler(path, options, counter) {
