@@ -1,7 +1,5 @@
 import { words, WordFromCollection } from './words';
 import { WORDS_MAX } from './const';
-import React from 'react';
-
 
 export const shuffledWords = () => {
     let arr = words.slice()
@@ -21,18 +19,3 @@ export const randomAnswer = (words: WordFromCollection[]) => {
     return answers;
 }
 
-export const ShowEnglishWord = (props: {words: WordFromCollection[], wordNum: number}) => {
-    return (
-        <h4>
-            {words[props.wordNum].word}
-        </h4>
-    )
-}
-
-export const ShowTranslate = (props: {answers: string}) => {
-    return (
-        <h4>
-            {props.answers}
-        </h4>
-    )
-}
