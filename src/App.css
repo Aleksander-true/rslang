@@ -1,7 +1,6 @@
 @font-face {
-	font-family: 'Mouth Breather'; 
-	src: local('v_mouthbreatherbb'),
-		url('./assets/fonts/v_mouthbreatherbb.ttf'); 
+  font-family: "Mouth Breather";
+  src: local("v_mouthbreatherbb"), url("./assets/fonts/v_mouthbreatherbb.ttf");
 }
 
 a {
@@ -9,11 +8,11 @@ a {
 }
 
 :root {
-  --main-font-family: 'Mouth Breather';
-  --second-font-family: 'Verdana';
+  --main-font-family: "Mouth Breather";
+  --second-font-family: "Verdana";
   --main-text-color: #000;
-  --mark-color: #FFBA4A;
-  --link-hover-color: #FC7E53;
+  --mark-color: #ffba4a;
+  --link-hover-color: #fc7e53;
 }
 
 .wrapper {
@@ -21,51 +20,12 @@ a {
   margin: 0 auto;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  min-height: 120px;
-  padding-right: 80px;
-  align-items: center;
-  font-family: 'Mouth Breather' , 'Verdana', 'sans-serif';
-}
-
-.header .nav a:last-child {
-  background-color: var(--mark-color);
-}
-
-.header__link {
-  font-size: 28px;
-  padding: 10px 20px;
-  align-self: center;
-  text-decoration: none;
-  color: var(--main-text-color);
-}
-
-.header__link:hover {
-  color: var(--link-hover-color);
-}
-
-.header__link_active::after {
-  content: '';
-  display: block;
-  position: relative;
-  top: 5px;
-  height: 4px;
-  background-color: var(--mark-color);
-}
-
-.logo {
-  width: 400px;
-}
-
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 120px;
-  padding:0 50px;
+  padding: 0 50px;
   background-color: var(--mark-color);
 }
 
@@ -77,7 +37,7 @@ a {
   font-family: var(--second-font-family);
   font-size: 24px;
   font-weight: 600;
-  color: var(--main-text-color)
+  color: var(--main-text-color);
 }
 
 .footer__developer:hover::before {
@@ -85,12 +45,12 @@ a {
 }
 
 .footer__developer::before {
-  content: '';
+  content: "";
   display: inline-block;
   transform: translateY(25%);
   width: 50px;
   height: 36px;
-  background: url('./assets/svg/github-logo.svg') no-repeat;
+  background: url("./assets/svg/github-logo.svg") no-repeat;
   background-size: 36px;
   color: #000;
   transition: all 0.3s;
