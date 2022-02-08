@@ -89,17 +89,17 @@ class Registration extends React.Component {
 
   isInputsValid() {
     if (this.state.name === '') {
-      this.setState({ message: 'Пожалуйста введите имя' });
+      this.setState({ message: 'Пожалуйста, введите имя' });
       return false;
     }
 
     if (this.state.email === '') {
-      this.setState({ message: 'Пожалуйста введите email' });
+      this.setState({ message: 'Пожалуйста, введите email' });
       return false;
     }
 
     if (this.state.password === '') {
-      this.setState({ message: 'Пожалуйста введите пароль' });
+      this.setState({ message: 'Пожалуйста, введите пароль' });
       return false;
     }
 
