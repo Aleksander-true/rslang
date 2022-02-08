@@ -1,18 +1,17 @@
 import React from 'react';
 import { BASE_URL } from '../../constants';
 import './textbook.css';
+import './words.css';
 
 class WordCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: 'Textbook' };
-  }
 
   render() {
-    const textMeaning = { __html: this.props.word.textMeaning };
-    const textExample = { __html: this.props.word.textExample };
-    const imgUrl = `${BASE_URL}/${this.props.word.image}`;
-    const { word, wordTranslate, transcription, textExampleTranslate, textMeaningTranslate } = this.props.word;
+    const currentWord = this.props.words.find( (item) => item.id === this.props.currentWordId) || this.props.words[0];
+
+    const textMeaning = { __html: currentWord.textMeaning };
+    const textExample = { __html: currentWord.textExample };
+    const imgUrl = `${BASE_URL}/${currentWord.image}`;
+    const { word, wordTranslate, transcription, textExampleTranslate, textMeaningTranslate } = currentWord;
     return (
       <>
         <img className="card__img" src={imgUrl} alt=""></img>

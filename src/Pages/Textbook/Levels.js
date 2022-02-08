@@ -1,67 +1,28 @@
-import React from 'react';
-import './textbook.css';
 
-class Levels extends React.Component {
-  render() {
+function Levels(props) {
     return (
       <div className="level-wrapper">
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Beginner</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>A1</h2>
-          </div>
-        </div>
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Elementary</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>A1+</h2>
-          </div>
-        </div>
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Pre-Intermediate</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>A2</h2>
-          </div>
-        </div>
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Intermediate</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>B1</h2>
-          </div>
-        </div>
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Upper-Intermediate</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>B2</h2>
-          </div>
-        </div>
-        <div className="level__card">
-          <div>
-            <p className="fs-4 m-0">Advanced</p>
-            <p className="m-0">words: 600</p>
-          </div>
-          <div className="card__level-letter">
-            <h2>C1</h2>
-          </div>
-        </div>
+        <Level levelName={'Beginner'} levelLetter={'A1'} clickLevel={()=>props.clickLevel('0')} />
+        <Level levelName={'Elementary'} levelLetter={'A1+'} clickLevel={()=>props.clickLevel('1')} />
+        <Level levelName={'Pre-Intermediate'} levelLetter={'A2'} clickLevel={()=>props.clickLevel('2')} />
+        <Level levelName={'Intermediate'} levelLetter={'B1'} clickLevel={()=>props.clickLevel('3')} />
+        <Level levelName={'Upper-Intermediate'} levelLetter={'B2'} clickLevel={()=>props.clickLevel('4')} />
+        <Level levelName={'Advanced'} levelLetter={'C1'} clickLevel={()=>props.clickLevel('5')} />
       </div>
     );
-  }
+}
+
+function Level(props) {
+  return (
+    <div className="level__card" onClick={()=>props.clickLevel()}>
+      <div>
+        <p className="fs-4 m-0">{props.levelName}</p>
+      </div>
+      <div className="card__level-letter">
+        <h2>{props.levelLetter}</h2>
+      </div>
+    </div>
+  )
 }
 
 export default Levels;

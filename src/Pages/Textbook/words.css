@@ -1,9 +1,10 @@
 .words-wrapper {
   display: flex;
+  gap: 2rem;
 }
 
 .word__card {
-  width: 400px;
+  min-width: 400px;
   background-color: #f3f4f8;
 }
 
@@ -14,4 +15,21 @@
 .card__img {
   width: 100%;
   object-fit: contain;
+}
+.word__list{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.list__button {
+  width: 260px;
+  height: 140px;
+  border-radius: 15px;
+  background-color: #EDEDED;
+}
+
+
+.list__word {
+  text-transform: capitalize;
 }
