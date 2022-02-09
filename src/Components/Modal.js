@@ -4,7 +4,6 @@ import './modal.css';
 
 function Modal(props) {
   const { show, closeModal, children } = props;
-  console.log('show, closeModal, children', show());
 
   const modal = (
     <>

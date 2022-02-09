@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import sprint from './../../assets/svg/sprint_icon.svg';
 import audioCall from './../../assets/svg/audio-call_icon.svg';
