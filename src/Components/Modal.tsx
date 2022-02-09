@@ -1,8 +1,12 @@
-import React, { ReactChildren, ReactChild } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './modal.css';
 
-function Modal(props: { closeModal: () => void; show: () => boolean; children: JSX.Element | undefined }) {
+function Modal(props: {
+  closeModal: ModalProp['closeModal'];
+  show: ModalProp['show'];
+  children: JSX.Element | undefined;
+}) {
   const { show, closeModal, children } = props;
 
   const modal = (
