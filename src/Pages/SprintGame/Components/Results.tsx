@@ -1,6 +1,6 @@
 import React from "react"
 import WordString from "./WordString"
-import { WordFromCollection } from "../words"
+import { WordFromCollection } from "../WordsAPI"
 import cupImg from "../../../assets/svg/Cup.svg"
 
 const ResultsPage = (props: { correctWords: WordFromCollection[]; wrongWords: WordFromCollection[] }) => {

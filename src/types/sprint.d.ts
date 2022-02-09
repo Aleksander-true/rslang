@@ -1,4 +1,4 @@
-import { WordFromCollection } from "../Pages/SprintGame/words";
+import { WordFromCollection } from "../Pages/SprintGame/WordsAPI";
 
 type SprintQuestionsPropsType = {
 
@@ -14,6 +14,35 @@ type ShowEnglishWordPropsType = {
 }
 
 type SprintGameInsidePropsType = {
-    answers:string[];
-    currentWords:WordFromCollection[]
+    level: number;
+}
+
+type optional = {
+    guessed: number;  // сколько раз угадали
+    mistakes: number; // сколько раз ошиблись
+    progress: number; //сколько раз подряд слово угадано, нужно для того чтобы пометить слово изученным
+    time: string; //пишем когда слово появилось в игре последний раз
+}
+
+type optionalStatistics = {
+    learnedWords: number;
+    optional: {
+        sprint: {
+            correctAnswers: number; //общее число угаданных слов сегодня
+            lastChanged: string; // текущая дата
+            newWords: number; // новых слов сегодня
+            longestSeries: number; // максимально правильных ответов подряд
+            wrongAnswers: number; // ошибок сегодня
+        }
+        audio: {
+            correctAnswers: number; //общее число угаданных слов сегодня
+            lastChanged: string; // текущая дата
+            newWords: number; // новых слов сегодня
+            longestSeries: number; // максимально правильных ответов подряд
+            wrongAnswers: number; // ошибок сегодня
+        }
+        wordStatistics: {
+            key?: { correctAnswers: number; mistakes: number; newWords: number; learnedWords: number }
+        }
+    }
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import api from "../../../API";
 import Button from "../../../Components/Button";
-import { SprintQuestionsPropsType } from "../../../Types/sprint";
+import { optional, optionalStatistics, SprintQuestionsPropsType } from "../../../Types/sprint";
+import { clickApiActions } from "../clickAPI";
 import { WORDS_MAX } from "../const";
 import ShowEnglishWord from "./ShowEnglishWord";
 import ShowTranslate from "./ShowTranslate";
@@ -30,18 +32,23 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
         };
     }, [wordNum]);
 
-    const handleClick = (userAnswer: boolean) => {
+    const handleClick = async (userAnswer: boolean) => {
         const realAnswer = (currentWords[wordNum].wordTranslate === answers[wordNum]);
+        let answer: boolean;
+       
         if (userAnswer === realAnswer) {
             setCount(prev => prev + 1);
             setMaxSeries(prev => prev + 1);
             setCorrectWords(prev => [...prev, currentWords[wordNum]])
             setWordNum(prev => prev + 1);
+            answer = true;
         } else {
             setMaxSeries(0)
             setWrongWords(prev => [...prev, currentWords[wordNum]])
-            setWordNum(prev => prev + 1);
+            setWordNum(prev => prev + 1);   
+            answer = false;        
         }
+       if(localStorage.getItem('userId')) {clickApiActions(answer, currentWords, wordNum, maxSeries)};
     }
 
     return (
