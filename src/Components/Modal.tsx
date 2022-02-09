@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactChildren, ReactChild } from 'react';
 import ReactDOM from 'react-dom';
 import './modal.css';
 
-function Modal(props) {
+function Modal(props: { closeModal: () => void; show: () => boolean; children: JSX.Element | undefined }) {
   const { show, closeModal, children } = props;
 
   const modal = (
@@ -18,7 +18,7 @@ function Modal(props) {
       </div>
     </>
   );
-  return ReactDOM.createPortal(modal, document.getElementById('modal-root'));
+  return ReactDOM.createPortal(modal, document.getElementById('modal-root') as HTMLElement);
 }
 
 export default Modal;

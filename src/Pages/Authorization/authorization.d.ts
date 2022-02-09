@@ -1,7 +1,7 @@
 type ModalProp = {
   openModal: () => void;
   closeModal: () => void;
-  show: () => void;
+  show: () => boolean;
 };
 
 type AutorizeProp = {

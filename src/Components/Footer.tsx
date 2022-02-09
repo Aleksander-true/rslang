@@ -1,3 +1,4 @@
+import React from 'react';
 import rs_logo from './../assets/svg/rs_logo.svg';
 import './footer.css';
 
