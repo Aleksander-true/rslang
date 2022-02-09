@@ -1,38 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Levels from './Levels';
 import Words from './Words';
 import api from './../../API';
 import './textbook.css';
 
-class Textbook extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { currentLevel: '1', currentPage: '1', words: [] };
+function Textbook() {
+  const { newLevel = '0' } = useParams();
+  const { newPage = '0' } = useParams();
+  const [words, setWords] = useState([]);
+  const [level, setLevel] = useState('');
+  const [page, setPage] = useState('');
+
+  if (newLevel !== level || newPage !== page) {
+    setLevel(newLevel || '0');
+    setPage(newPage || '0');
+    getWords(newLevel, newPage, setWords);
   }
 
-  componentDidMount() {
-    this.getWords();
+  async function getWords(level = '1', page = '1', setWords) {
+    const response = await api.getChunkOfWords(level, page);
+    setWords(response?.data);
+    console.log('response?.data', response?.data);
   }
 
-  chooseLevel(level) {
-    if (this.state.currentLevel === level) return;
-    this.getWords(level);
-  }
-
-  async getWords(level = '1'){
-    const response = await api.getChunkOfWords(level, '1');
-     this.setState({ currentLevel: level, words: response.data })
-  }
-
-  render() {
-    return (
-      <div className="textbook">
-        <h2 className="textbook__title">Электронный учебник</h2>
-        <Levels clickLevel={(level) => this.chooseLevel(level)} />
-        <Words level={this.state.currentLevel} words={this.state.words}/>
-      </div>
-    );
-  }
+  return (
+    <div className="textbook">
+      <h2 className="textbook__title">Электронный учебник</h2>
+      <Levels />
+      <Words words={words} />
+    </div>
+  );
 }
 
 export default Textbook;

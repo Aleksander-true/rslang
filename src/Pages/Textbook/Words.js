@@ -12,17 +12,17 @@ class Words extends React.Component {
   }
 
   clickWord(id) {
-    this.setState({ currentWordId: id } )
+    this.setState({ currentWordId: id });
   }
 
   render() {
     let wordCard, wordList;
     if (this.props.words.length !== 0) {
-      wordCard = <WordCard words={this.props.words} currentWordId={this.state.currentWordId}/>;
-      wordList = <WordList words={this.props.words} clickWord={(id)=>this.clickWord(id)} />
+      wordCard = <WordCard words={this.props.words} currentWordId={this.state.currentWordId} />;
+      wordList = <WordList words={this.props.words} clickWord={(id) => this.clickWord(id)} />;
     } else {
       wordCard = 'Loading...';
-      wordList = 'Loading...'
+      wordList = 'Loading...';
     }
     return (
       <>
