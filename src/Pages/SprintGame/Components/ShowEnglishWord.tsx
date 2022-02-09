@@ -4,7 +4,7 @@ import { ShowEnglishWordPropsType } from "../../../Types/sprint"
 const ShowEnglishWord:React.FC<ShowEnglishWordPropsType> = ({words, wordNum}) => {
     return (
         <h4>
-            {words[wordNum].word}
+            {words[wordNum]?.word}
         </h4>
     )
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import api from "../../../API";
 import Button from "../../../Components/Button";
-import { optional, optionalStatistics, SprintQuestionsPropsType } from "../../../Types/sprint";
+import { SprintQuestionsPropsType } from "../../../Types/sprint";
 import { clickApiActions } from "../clickAPI";
 import { WORDS_MAX } from "../const";
 import ShowEnglishWord from "./ShowEnglishWord";

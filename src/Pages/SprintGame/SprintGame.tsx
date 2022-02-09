@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import LevelPage from './Components/LevelPage';
-import SprintGameInside from './Components/SprintInside';
 import SprintButtons from './Components/SprintButtons';
-import Timer from './Components/Timer';
 import './sprintStyles.css'
+import CountDownTimer from './Components/CountDownTimer';
+import getWords, { WordFromCollection } from './WordsAPI';
+import SprintGameStart from './Components/SprintStart';
 
 const SprintGame = () => {
+  const [isDone, setIsDone] = useState(false);
   const [level, setLevel] = useState(0);
-  const [timeToGo, setTimeToGo] = useState(3);
+  const [currentWords, setCurrentWords] = useState<WordFromCollection[]>([]);
+
+  const  loadWords = async (selectedLevel:number) =>  {
+    // const myWords = await getWords((selectedLevel - 1).toString());
+    const myWords = await getWords((selectedLevel - 1).toString(), '14');
+    // const myWords = await getWords((1).toString(), '14');
+    setCurrentWords(myWords || []);
+  }
+  
+  useEffect ( () =>   {
+    if (level)  {
+    loadWords(level)
+  }
+  }, [level])
+
 
   return (
     <div className='sprint'><SprintButtons />
       <div className='sprint__main'>
-        {!level && <LevelPage level={level} setLevel={setLevel} />}
-        {(level && timeToGo !== 0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo} />}
-        {(level && timeToGo === 0) && <SprintGameInside level={level}/>}
+        {!level ? <LevelPage level={level} setLevel={setLevel} /> : null}
+        {(level && !isDone) ? <CountDownTimer initialValue={3} setIsDone={setIsDone} /> : null}
+        {(level && isDone) ? <SprintGameStart currentWords={currentWords} />: null}
       </div>
     </div>
   )
-}
+  }
 
-export default SprintGame;
+export default SprintGame

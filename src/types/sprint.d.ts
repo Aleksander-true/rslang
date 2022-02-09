@@ -17,11 +17,14 @@ type SprintGameInsidePropsType = {
     level: number;
 }
 
-type optional = {
-    guessed: number;  // сколько раз угадали
-    mistakes: number; // сколько раз ошиблись
-    progress: number; //сколько раз подряд слово угадано, нужно для того чтобы пометить слово изученным
-    time: string; //пишем когда слово появилось в игре последний раз
+type optionalWord = {
+    difficulty: string;
+    optional: {
+        guessed: number;  // сколько раз угадали
+        mistakes: number; // сколько раз ошиблись
+        progress: number; //сколько раз подряд слово угадано, нужно для того чтобы пометить слово изученным
+        time: string; //пишем когда слово появилось в игре последний раз
+    }
 }
 
 type optionalStatistics = {
