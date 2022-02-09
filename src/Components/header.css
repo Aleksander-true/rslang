@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 120px;
+  padding-right: 80px;
+  align-items: center;
+  font-family: "Mouth Breather", "Verdana", "sans-serif";
+}
+
+.nav div {
+  background-color: var(--mark-color);
+}
+
+.header__link {
+  font-size: 28px;
+  padding: 10px 20px;
+  align-self: center;
+  text-decoration: none;
+  color: var(--main-text-color);
+}
+
+.header__link:hover {
+  color: var(--link-hover-color);
+}
+
+.header__link_active::after {
+  content: "";
+  display: block;
+  position: relative;
+  top: 5px;
+  height: 4px;
+  background-color: var(--mark-color);
+}
+
+.logo {
+  width: 400px;
+}
