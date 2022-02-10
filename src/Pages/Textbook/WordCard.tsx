@@ -3,7 +3,7 @@ import { BASE_URL } from '../../constants';
 import './textbook.css';
 import './words.css';
 
-function WordCard(props) {
+function WordCard(props: WordCardProps) {
   const currentWord = props.words.find((item) => item.id === props.currentWordId) || props.words[0];
 
   const textMeaning = { __html: currentWord.textMeaning };

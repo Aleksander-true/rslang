@@ -2,26 +2,28 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Levels from './Levels';
 import Words from './Words';
-import api from './../../API';
+import api from '../../API';
 import './textbook.css';
 
 function Textbook() {
   const { newLevel = '0' } = useParams();
   const { newPage = '0' } = useParams();
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState([] as GetWordsData);
   const [level, setLevel] = useState('');
   const [page, setPage] = useState('');
+
+  const getWords = async (level = '1', page = '1', setWords: SetWords) => {
+    const response = await api.getChunkOfWords(level, page);
+    if (response?.isSuccess) {
+      const data = response?.data as Word[];
+      setWords(data);
+    }
+  };
 
   if (newLevel !== level || newPage !== page) {
     setLevel(newLevel || '0');
     setPage(newPage || '0');
     getWords(newLevel, newPage, setWords);
-  }
-
-  async function getWords(level = '1', page = '1', setWords) {
-    const response = await api.getChunkOfWords(level, page);
-    setWords(response?.data);
-    console.log('response?.data', response?.data);
   }
 
   return (
