@@ -7,12 +7,15 @@ import ResultsPage from "./Results";
 import SprintQuestions from "./SprintQuestions";
 
 import CountDownTimer from "./CountDownTimer";
+import ResultBtn from "./Restart";
 
 type SprintGameStartPropsTypes = {
-  currentWords: WordFromCollection[]
+  currentWords: WordFromCollection[];
+  level: number;
+  page: number;
 }
 
-const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({ currentWords }) => {
+const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({ currentWords, level, page }) => {
   const answers: string[] = randomAnswer(currentWords) as string[];
   const [isDone, setIsDone] = useState(false);
   const [correctWords, setCorrectWords] = useState<WordFromCollection[]>([]);
@@ -21,7 +24,8 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({ currentWords }) 
 
   return (
     <div className='sprint__question-page'>
-      {(isDone || wordNum === WORDS_MAX) ? <ResultsPage correctWords={correctWords} wrongWords={wrongWords} /> : null}
+      {(isDone || wordNum === WORDS_MAX) ? <> <ResultsPage correctWords={correctWords} wrongWords={wrongWords} />
+        <ResultBtn level={level} page={page} /> </> : null}
       {(!isDone && wordNum < WORDS_MAX) ? <> <CountDownTimer initialValue={TIMER_TIME} setIsDone={setIsDone} />
         <SprintQuestions setCorrectWords={setCorrectWords} setWrongWords={setWrongWords} answers={answers} currentWords={currentWords} />
       </> : null}

@@ -6,21 +6,21 @@ import { WordFromCollection } from "./WordsAPI";
 export const clickApiActions = async (answer: boolean, currentWords: WordFromCollection[], wordNum: number, maxSeries: number) => {
     const date = new Date();
     const wordResponse = await api.getWord(localStorage.getItem('userId'), currentWords[wordNum].id, localStorage.getItem('token'));
-    const statisticsResponse = await api.getWord(localStorage.getItem('userId'), currentWords[wordNum].id, localStorage.getItem('token'))
+    const statisticsResponse = await api.getStatistics(localStorage.getItem('userId'), localStorage.getItem('token'))
 
     const statistics: optionalStatistics = setStatistics(date);
     const words: optionalWord = setWord(date);
 
+    console.log(statisticsResponse);
+
     if (statisticsResponse?.isSuccess) {
         statistics.optional = await statisticsResponse.data.optional;
         statistics.learnedWords = await statisticsResponse.data.learnedWords;
-        console.log(statistics);
     }
 
     if (wordResponse?.isSuccess) {
         words.optional = await wordResponse.data.optional;
         words.difficulty = await wordResponse.data.difficulty;
-        console.log(words);
     }
 
     const newDataToAPI = await update(words, statistics, answer, date, maxSeries, currentWords[wordNum].id);
@@ -29,8 +29,9 @@ export const clickApiActions = async (answer: boolean, currentWords: WordFromCol
         api.updateWord(localStorage.getItem('userId'), currentWords[wordNum].id, localStorage.getItem('token'), newDataToAPI.wordFromBase);
     } else api.createWord(localStorage.getItem('userId'), currentWords[wordNum].id, localStorage.getItem('token'), newDataToAPI.wordFromBase)
 
-    api.upsertStatistics(localStorage.getItem('userId'), localStorage.getItem('token'), newDataToAPI.statistics);
-
+    console.log(newDataToAPI.statistics);
+   const ifSetStat =  api.upsertStatistics(localStorage.getItem('userId'), localStorage.getItem('token'), newDataToAPI.statistics);
+ console.log(ifSetStat)
 }
 
 const update = async (wordFromBase: optionalWord, statistics: optionalStatistics, answer: boolean, date: Date, maxSeries: number, id: string) => {

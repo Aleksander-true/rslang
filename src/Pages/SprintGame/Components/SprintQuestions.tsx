@@ -58,8 +58,8 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
             <div>
                 <ShowEnglishWord words={currentWords} wordNum={wordNum} />
                 <ShowTranslate answers={answers[wordNum]} />
-                <Button title='no' onClick={() => handleClick(false)} type='danger' />
-                <Button title='yes' onClick={() => handleClick(true)} type='success' />
+                <Button title='Неверно' onClick={() => handleClick(false)} type='danger' />
+                <Button title='Верно' onClick={() => handleClick(true)} type='success' />
             </div>
         </div>
     )

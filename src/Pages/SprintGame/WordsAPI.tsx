@@ -16,50 +16,41 @@ export interface WordFromCollection {
     textExampleTranslate: string;
     textMeaningTranslate: string;
     wordTranslate: string;
-  }
+}
 
-const getWords = async (group: string, page?: string) => {
-    let response: { isSuccess: boolean; data: any; } = {isSuccess: false, data:[] };
-    let userWords: { isSuccess: boolean; data: any; }  = {isSuccess: false, data:[] };
+const getWords = async (group: string, page: string) => {
+    let response: { isSuccess: boolean; data: any[]; } = { isSuccess: false, data: [] };
     let currentResponse: { isSuccess: boolean; data: any; };
-    if (page) {
-        response = (await api.getChunkOfWords(group, page))!;
-        // let thisPage = page;
-        // do {
-        //     currentResponse = (await api.getChunkOfWords(group, thisPage))!;
-        //     if (currentResponse.isSuccess) {
-        //         if (response) {
-        //             response = response.data.push(currentResponse.data);
-        //         }
-        //         else response = currentResponse;
-        //     }
-        //     if (localStorage.getItem('userId')) {
-        //         userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId'), localStorage.getItem('token'), group, thisPage, { "$and": [{ "userWord.difficulty": "learned" }] }))!
-        //         if (userWords.isSuccess) {
-        //             for (let i = 0; i < userWords.data.length; i++) {
-        //                 for (let j = 0; j < response.data.length; j++) {
-        //                     if (response.data[j].id === userWords.data[i].id) {
-        //                         response.data.splice(j, 1)
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     if (+thisPage === 0) { break }
-        //     thisPage = (+thisPage - 1).toString();
-        // } while (response.data.length < 20);
-    }
-    else {
-        response = (await api.getChunkOfWords(group, randomize(0, 29)))!;
-    }
+    let thisPage: string;
+    if (+page>=0) { thisPage = page } else { thisPage = randomize(0, 29).toString() }
 
-    console.log(response);
+    do {
+        currentResponse = (await api.getChunkOfWords(group, thisPage))!;
+        if (currentResponse.isSuccess) {
+            response.data = currentResponse.data;
+            response.isSuccess = currentResponse.isSuccess;
+        }
+        if (localStorage.getItem('userId')) {
+            const userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId'), localStorage.getItem('token'), group, thisPage, '20', JSON.stringify({ "userWord.difficulty": "learned" })))!
+            if (userWords.isSuccess) {
+                for (let i = 0; i < userWords.data.length; i++) {
+                    for (let j = 0; j < response.data.length; j++) {
+                        if (response.data[j].id === userWords.data[i].id) {
+                            response.data.splice(j, 1)
+                        }
+                    }
+                }
+            }
+        }
+        if (+thisPage === 0) { break }
+        thisPage = (+thisPage - 1).toString();
+    } while (response.data.length < 20);
 
     if (response.isSuccess) {
-        return shuffledWords(await response.data);
+        return shuffledWords(response.data);
     } else {
         return;
     }
 }
 
-export default getWords
+export default getWords;
