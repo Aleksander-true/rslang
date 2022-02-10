@@ -1,10 +1,12 @@
 .words-wrapper {
   display: flex;
   gap: 2rem;
+  min-height: 800px;
 }
 
 .word__card {
   min-width: 400px;
+
   background-color: #f3f4f8;
 }
 
@@ -16,20 +18,35 @@
   width: 100%;
   object-fit: contain;
 }
-.word__list{
+.word__list {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .list__button {
   width: 260px;
   height: 140px;
   border-radius: 15px;
-  background-color: #EDEDED;
+  background-color: #ededed;
 }
-
 
 .list__word {
   text-transform: capitalize;
+}
+
+.card__volume-icon {
+  font-size: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.card__volume-icon:hover {
+  opacity: 0.7;
+}
+
+.card__word::first-letter {
+  text-transform: uppercase;
 }

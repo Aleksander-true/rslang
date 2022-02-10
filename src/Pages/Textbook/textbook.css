@@ -42,26 +42,32 @@
   border-radius: 0 10px 10px 0;
 }
 
-a:nth-child(1) .card__level-letter {
+.level__card:nth-child(1) .card__level-letter {
   background-color: #fce74e;
 }
 
-a:nth-child(2) .card__level-letter {
+.level__card:nth-child(2) .card__level-letter {
   background-color: #ffba4a;
 }
 
-a:nth-of-type(3) .card__level-letter {
+.level__card:nth-of-type(3) .card__level-letter {
   background-color: #68d4bb;
 }
 
-a:nth-of-type(4) .card__level-letter {
+.level__card:nth-of-type(4) .card__level-letter {
   background-color: #fc7e53;
 }
 
-a:nth-of-type(5) .card__level-letter {
+.level__card:nth-of-type(5) .card__level-letter {
   background-color: #5d7cfd;
 }
 
-a:nth-of-type(6) .card__level-letter {
+.level__card:nth-of-type(6) .card__level-letter {
   background-color: #8c75ff;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Mouth Breather";
-  src: local("v_mouthbreatherbb"), url("./assets/fonts/v_mouthbreatherbb.ttf");
+  font-family: 'Mouth Breather';
+  src: local('v_mouthbreatherbb'), url('./assets/fonts/v_mouthbreatherbb.ttf');
 }
 
 a {
@@ -8,8 +8,8 @@ a {
 }
 
 :root {
-  --main-font-family: "Mouth Breather";
-  --second-font-family: "Verdana";
+  --main-font-family: 'Mouth Breather';
+  --second-font-family: 'Verdana';
   --main-text-color: #000;
   --mark-color: #ffba4a;
   --link-hover-color: #fc7e53;
@@ -45,12 +45,12 @@ a {
 }
 
 .footer__developer::before {
-  content: "";
+  content: '';
   display: inline-block;
   transform: translateY(25%);
   width: 50px;
   height: 36px;
-  background: url("./assets/svg/github-logo.svg") no-repeat;
+  background: url('./assets/svg/github-logo.svg') no-repeat;
   background-size: 36px;
   color: #000;
   transition: all 0.3s;

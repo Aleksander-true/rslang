@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 function Levels() {
   return (
@@ -15,17 +15,19 @@ function Levels() {
 }
 
 function Level(props: LevelProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   return (
-    <Link to={`../textbook/level${props.levelNumber}&page0`}>
-      <div className="level__card">
-        <div>
-          <p className="fs-4 m-0">{props.levelName}</p>
-        </div>
-        <div className="card__level-letter">
-          <h2>{props.levelLetter}</h2>
-        </div>
+    //<Link to={`../textbook/level=${props.levelNumber}&page0`}>
+    <div className="level__card" onClick={() => setSearchParams({ level: props.levelNumber, page: '0' })}>
+      <div>
+        <p className="fs-4 m-0">{props.levelName}</p>
       </div>
-    </Link>
+      <div className="card__level-letter">
+        <h2>{props.levelLetter}</h2>
+      </div>
+    </div>
+    //</Link>
   );
 }
 
