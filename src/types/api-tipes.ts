@@ -1,7 +1,18 @@
-export type Optional = {
+export type OptionalStatistic = {
   sprint: GameOptional;
   audio: GameOptional;
   wordStatistics: Record<string, WordStatisticsType>; //string формата 03.02.2022
+};
+
+export type OptionalUserWord = {
+  isNew: boolean; //true - впервые использовано в играх вне зависимости, открывались игры на странице учебника или по ссылке в меню
+  isLearned: boolean; //true - угадано подряд 3 (если difficulty = 'easy') или 5 (если difficulty = 'hard') раз. false - если игрок ошибся
+  correctAnswers: number; //сколько раз это слово угадано
+  wrongAnswers: number; //сколько раз это слово НЕ угадано
+};
+
+export type OptionalSetting = {
+  // todo
 };
 
 export type WordStatisticsType = {
@@ -38,17 +49,17 @@ export type Word = {
 
 export type UserWord = {
   difficulty: string;
-  optional: Optional;
+  optional: OptionalUserWord;
 };
 
 export type Statistic = {
   learnedWords: string;
-  optional: Optional;
+  optional: OptionalStatistic;
 };
 
 export type Setting = {
   wordsPerDay: string;
-  optional: Optional;
+  optional: OptionalSetting;
 };
 
 export type User = {

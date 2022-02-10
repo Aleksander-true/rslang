@@ -4,13 +4,13 @@ class UsersAggregatedWords extends ApiErrorHandler {
   async getAllUserAggregatedWords(
     id: string,
     token: string,
-    group: string,
-    page: string,
-    wordsPerPage: string,
-    filter: string
+    group?: string,
+    page?: string,
+    wordsPerPage?: string,
+    filter?: string
   ) {
     let params = '';
-    if (group || page) {
+    if (group || page || wordsPerPage || filter) {
       params = '?';
       if (group) {
         params += `group=${group}&`;
