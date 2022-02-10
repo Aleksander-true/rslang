@@ -1,7 +1,7 @@
 import ApiErrorHandler from './api-error-handler';
 
-class UsersAggregatedWords extends ApiErrorHandler {
-  async getAllUserAggregatedWords(id, token, group, page, wordsPerPage, filter) {
+class Words extends ApiErrorHandler {
+  async getChunkOfWords(group: string, page: string) {
     let params = '';
     if (group || page) {
       params = '?';
@@ -11,20 +11,12 @@ class UsersAggregatedWords extends ApiErrorHandler {
       if (page) {
         params += `page=${page}&`;
       }
-      if (wordsPerPage) {
-        params += `wordsPerPage=${wordsPerPage}&`;
-      }
-      if (filter) {
-        params += `filter=${filter}&`;
-      }
       params = params.slice(0, params.length - 1);
     }
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.AGGREGATED_WORDS}${params}`;
+    const path = `${this.BASE_URL}${this.WORDS}${params}`;
     const options = {
       method: 'GET',
-      withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
     };
@@ -37,14 +29,13 @@ class UsersAggregatedWords extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async getAggregatedWord(id, wordID, token) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.AGGREGATED_WORDS}/${wordID}`;
+  async getWordByID(id: string) {
+    const path = `${this.BASE_URL}${this.WORDS}/${id}`;
     const options = {
       method: 'GET',
-      withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     };
     let rawResponse;
@@ -57,4 +48,4 @@ class UsersAggregatedWords extends ApiErrorHandler {
   }
 }
 
-export default UsersAggregatedWords;
+export default Words;

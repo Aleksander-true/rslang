@@ -1,22 +1,14 @@
 import ApiErrorHandler from './api-error-handler';
+import { Statistic } from '../types/api-tipes';
 
-class Words extends ApiErrorHandler {
-  async getChunkOfWords(group, page) {
-    let params = '';
-    if (group || page) {
-      params = '?';
-      if (group) {
-        params += `group=${group}&`;
-      }
-      if (page) {
-        params += `page=${page}&`;
-      }
-      params = params.slice(0, params.length - 1);
-    }
-    const path = `${this.BASE_URL}${this.WORDS}${params}`;
+class UsersStatistic extends ApiErrorHandler {
+  async getStatistics(id: string, token: string) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}${this.STATISTICS}`;
     const options = {
       method: 'GET',
+      withCredentials: true,
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
     };
@@ -29,14 +21,17 @@ class Words extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async getWordByID(id) {
-    const path = `${this.BASE_URL}${this.WORDS}/${id}`;
+  async upsertStatistics(id: string, token: string, requestBody: Statistic) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}${this.STATISTICS}`;
     const options = {
-      method: 'GET',
+      method: 'PUT',
+      withCredentials: true,
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(requestBody),
     };
     let rawResponse;
     try {
@@ -48,4 +43,4 @@ class Words extends ApiErrorHandler {
   }
 }
 
-export default Words;
+export default UsersStatistic;

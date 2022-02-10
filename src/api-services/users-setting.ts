@@ -1,8 +1,9 @@
 import ApiErrorHandler from './api-error-handler';
+import { Setting } from '../types/api-tipes';
 
-class UsersStatistic extends ApiErrorHandler {
-  async getStatistics(id, token) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.STATISTICS}`;
+class UsersSetting extends ApiErrorHandler {
+  async getSettings(id: string, token: string) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}${this.SETTINGS}`;
     const options = {
       method: 'GET',
       withCredentials: true,
@@ -20,8 +21,8 @@ class UsersStatistic extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async upsertStatistics(id, token, requestBody) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.STATISTICS}`;
+  async upsertSettings(id: string, token: string, requestBody: Setting) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}${this.SETTINGS}`;
     const options = {
       method: 'PUT',
       withCredentials: true,
@@ -42,4 +43,4 @@ class UsersStatistic extends ApiErrorHandler {
   }
 }
 
-export default UsersStatistic;
+export default UsersSetting;
