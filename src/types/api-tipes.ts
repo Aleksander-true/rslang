@@ -28,6 +28,7 @@ export type GameOptional = {
   newWords: number; // новых слов сегодня
   longestSeries: number; // максимально правильных ответов подряд
   wrongAnswers: number; // ошибок сегодня
+  totalScore: number; // очки. предлагаю очками считать проценты. угадал 50% слов - получил 50 очков
 };
 
 export type Word = {

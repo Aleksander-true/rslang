@@ -2,14 +2,12 @@ import React from 'react';
 import './audio-call.css';
 import { BASE_URL } from '../../constants';
 import api from '../../API';
+import { Word } from '../../types/api-tipes';
 import StartAudiocall from './StartAudiocall';
 import PlayAudiocall from './PlayAudiocall';
 import ResultsAudiocall from './ResultsAudiocall';
-import { AudioGameState } from './audiocall-types';
-import { ResponseType } from './audiocall-types';
-import { RoundResult } from './audiocall-types';
-import { getRandomIntInclusive } from './functions-helpers';
-import { shuffle } from './functions-helpers';
+import { AudioGameState, ResponseType, RoundResult } from './audiocall-types';
+import { getRandomIntInclusive, shuffle } from './functions-helpers';
 
 class AudioGame extends React.Component<{}> {
   state: AudioGameState;
@@ -26,6 +24,9 @@ class AudioGame extends React.Component<{}> {
       answers: [],
       collection: [],
       gameResults: [],
+      roundLength: 20,
+      audioSrc: '',
+      userID: localStorage.getItem('userId') as string,
     };
   }
 
@@ -40,21 +41,69 @@ class AudioGame extends React.Component<{}> {
     });
   }
 
+  async checkLearnedWords(response: ResponseType): Promise<ResponseType> {
+    const WordsIn = response.data;
+    let WordsOut: Word[] = [];
+    WordsIn.forEach(async (wordObj) => {
+      const userWordInfo = await api.getWord(this.state.userID, wordObj.id, localStorage.getItem('token') as string);
+      if (!userWordInfo?.data.optional.isLearned) {
+        WordsOut.push(wordObj);
+      }
+    });
+
+    return { isSuccess: true, data: WordsOut };
+  }
+
   async startGame(group: number, page?: number) {
     let response: ResponseType;
     if (!page) {
       response = (await api.getChunkOfWords(String(group), String(getRandomIntInclusive(0, 29)))) as ResponseType;
+      if (response.isSuccess) {
+        this.setState({
+          collection: response.data,
+        });
+      } else {
+        return;
+      }
     } else {
       response = (await api.getChunkOfWords(String(group), String(page))) as ResponseType;
+      if (response.isSuccess) {
+        response = await this.checkLearnedWords(response);
+        if (response.data.length < this.state.roundLength) {
+          let currentLength = response.data.length;
+          let currentGroup = group;
+          let currentPage = page;
+          while (currentLength < this.state.roundLength) {
+            if (currentGroup === 0 && currentPage === 0) {
+              break;
+            }
+            currentPage -= 1;
+            if (currentPage < 0) {
+              currentPage = 29;
+              currentGroup -= 1;
+            }
+            let newResponse = (await api.getChunkOfWords(String(currentGroup), String(currentPage))) as ResponseType;
+            newResponse = await this.checkLearnedWords(newResponse);
+            response.data = response.data.concat(newResponse.data);
+            if (response.data.length > this.state.roundLength) {
+              response.data = response.data.slice(0, 20);
+              break;
+            }
+            currentLength = response.data.length;
+          }
+        }
+        this.setState({
+          collection: response.data,
+          roundLength: response.data.length,
+        });
+      } else {
+        return;
+      }
     }
+    // if (this.state.isUserAuthorised) {
+    //   const t = `${this.state.isFinished}`;
+    // }
     this.setDefaultSettings();
-    if (response.isSuccess) {
-      this.setState({
-        collection: response.data,
-      });
-    } else {
-      return;
-    }
     this.state.collection.forEach((w) => this.state.russianWords.push(w.wordTranslate));
     this.round(this.state.currentRound);
     this.setState({
@@ -64,11 +113,11 @@ class AudioGame extends React.Component<{}> {
   }
 
   round(num: number) {
-    if (num === 20) {
-      console.log(this.state.gameResults);
+    if (num === this.state.roundLength) {
       this.setState({
         isFinished: true,
       });
+      return;
     }
     const correctAnswer = this.state.collection[num].wordTranslate;
     this.setState({
@@ -91,6 +140,7 @@ class AudioGame extends React.Component<{}> {
     });
     const wordAudio = new Audio();
     wordAudio.src = `${BASE_URL}/${this.state.collection[num].audio}`;
+    // todo add audioSrc
     wordAudio.play();
   }
 
@@ -123,6 +173,8 @@ class AudioGame extends React.Component<{}> {
       answers: [],
       collection: [],
       gameResults: [],
+      roundLength: 20,
+      audioSrc: '',
     });
   }
 

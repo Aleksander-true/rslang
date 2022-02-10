@@ -10,6 +10,9 @@ export type AudioGameState = {
   answers: string[];
   collection: Word[];
   gameResults: RoundResult[];
+  roundLength: number;
+  audioSrc: string;
+  userID: string;
 };
 
 export type ResponseType = { isSuccess: boolean; data: Word[] };
