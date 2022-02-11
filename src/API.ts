@@ -185,10 +185,10 @@ class Api {
   async getAllUserAggregatedWords(
     id: string,
     token: string,
-    group: string,
-    page: string,
-    wordsPerPage: string,
-    filter: string
+    group?: string,
+    page?: string,
+    wordsPerPage?: string,
+    filter?: string
   ) {
     let result;
     try {
