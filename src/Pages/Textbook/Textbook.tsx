@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Levels from './Levels';
 import Words from './Words';
+import Footer from './../../Components/Footer';
+
 import api from '../../API';
 import './textbook.css';
 import Pagination from './Pagination';
@@ -30,12 +32,15 @@ function Textbook() {
   }
 
   return (
-    <div className="textbook">
-      <h2 className="textbook__title">Электронный учебник</h2>
-      <Levels />
-      <Words words={words} />
-      <Pagination page={+newPage} lastPage={PAGES_QUANTITY - 1} level={newLevel} />
-    </div>
+    <>
+      <div className="textbook">
+        <h2 className="textbook__title">Электронный учебник</h2>
+        <Levels />
+        <Words words={words} />
+        <Pagination page={+newPage} lastPage={PAGES_QUANTITY - 1} level={newLevel} />
+      </div>
+      <Footer />
+    </>
   );
 }
 

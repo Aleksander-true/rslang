@@ -6,6 +6,7 @@ import SprintGame from '../Pages/SprintGame/SprintGame';
 import AudioGame from '../Pages/AudioGame/AudioGame';
 import Home from '../Pages/Home/Home';
 import whatWords from './whatWords';
+import './main.css';
 
 function Main() {
   whatWords.fromURL(useLocation().search);

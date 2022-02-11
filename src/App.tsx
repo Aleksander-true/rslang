@@ -31,7 +31,6 @@ class App extends React.Component<Readonly<{}>> {
       <div className="wrapper">
         <Header modal={this.modal} />
         <Main />
-        <Footer />
       </div>
     );
   }
