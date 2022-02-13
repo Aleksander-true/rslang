@@ -1,5 +1,5 @@
 import ApiErrorHandler from './api-error-handler';
-import { User, UpdateUser } from '../types/api-tipes';
+import { User, UpdateUser } from '../Types/api-tipes';
 
 class Users extends ApiErrorHandler {
   async createNewUser(requestBody: User) {

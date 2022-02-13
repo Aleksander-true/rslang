@@ -31,7 +31,7 @@ const getWords = async (group: string, page: string) => {
             response.isSuccess = currentResponse.isSuccess;
         }
         if (localStorage.getItem('userId')) {
-            const userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId'), localStorage.getItem('token'), group, thisPage, '20', JSON.stringify({ "userWord.difficulty": "learned" })))!
+            const userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId')!, localStorage.getItem('token')!, group, thisPage, '20', JSON.stringify({ "userWord.difficulty": "learned" })))!
             if (userWords.isSuccess) {
                 for (let i = 0; i < userWords.data.length; i++) {
                     for (let j = 0; j < response.data.length; j++) {

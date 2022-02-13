@@ -54,7 +54,7 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
             answer = false;
             console.log(userAnswer, realAnswer, answer)
         }
-        if (localStorage.getItem('userId')) { clickApiActions(answer, currentWords, wordNum, maxSeries) };
+        if (localStorage.getItem('userId')) { clickApiActions(answer, currentWords, wordNum, maxSeries, score) };
     }
 
     useEffect(() => {

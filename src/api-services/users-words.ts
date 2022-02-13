@@ -1,5 +1,5 @@
 import ApiErrorHandler from './api-error-handler';
-import { UserWord } from '../types/api-tipes';
+import { UserWord } from '../Types/api-tipes';
 
 class UsersWords extends ApiErrorHandler {
   async getAllUserWords(id: string, token: string) {
