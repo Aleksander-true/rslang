@@ -27,8 +27,7 @@
 
 .sprint__main {
   background-color: rgb(255, 255, 255, .9);
-  max-width: 70%;
-  min-width: 50%;
+  width: 70%;
   min-height: 50vh;
   margin: 0px auto;
   padding: 30px;
@@ -36,20 +35,22 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
+  justify-content: space-between;
+  border-radius: 30px;
 }
 
 .sprint__levels {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  margin: auto;
+  gap: 40px;
 }
 
 .sprint__levels-options {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
-  gap: 15px;
+  gap: 30px;
 }
 
 .sprint__levels__name {
@@ -71,13 +72,77 @@
   transform: scale(1.15);
 }
 
+.sprint__count-down_small {
+  margin: auto;
+  font-family: var(--main-font-family);
+  font-size: 3em;
+  color: var(--green-color);
+}
+
+.CircularProgressbar-text {
+  font-family: var(--main-font-family);
+}
+
 .sprint__question-page {
   top: 0px;
   bottom: 0px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
+}
+
+.sprint__timer {
+ width: 10%;
+}
+
+.sprint__question-page__header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--mark-color);
+}
+
+.sprint__star {
+  width: 30%;
+  display: flex;
+  gap: 10px;
+}
+
+.sprint__star * {
+  height: 40px;
+
+}
+
+.sprint__question-page__count {
+  font-size: 3em;
+  font-family: var(--main-font-family);
+  color: var(--mark-color);
+  -webkit-text-stroke: 0.5px #000000;
+}
+
+.sprint__question-page__false {
+  color: var(--link-hover-color);
+  -webkit-text-stroke: 0.5px #000000;
+}
+
+.sprint__question-page__correct {
+  color: var(--green-color);
+  -webkit-text-stroke: 0.5px #000000;
+}
+
+.sprint__question-page__words {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 40px;
+  min-height: 30vh;
+}
+
+.sprint__english-word {
+  font-size: 3em;
 }
 
 .sprint__results {
@@ -90,11 +155,14 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  margin: 15px 15px;
+  font-family: var(--main-font-family);
 }
 
 .sprint__results__header-img {
+
   margin: 0px 10px;
-  width: 20%;
+  width: 15%;
 }
 
 .sprint__results-list {
@@ -112,4 +180,11 @@
   width: 15px;
   height: 15px;
   margin-right: 3px;
+}
+
+.sprint__btns {
+  font-size: 2em;
+  margin: 20px 30px;
+  min-width: 150px;
+  min-height: 50px;
 }

@@ -5,10 +5,11 @@ import cupImg from "../../../assets/svg/Cup.svg"
 
 type ResultsPagePropsType = {
     correctWords: WordFromCollection[]; 
-    wrongWords: WordFromCollection[] 
+    wrongWords: WordFromCollection[];
+    score: number; 
 }
 
-const ResultsPage:React.FC<ResultsPagePropsType> = ({ correctWords, wrongWords }) => {
+const ResultsPage:React.FC<ResultsPagePropsType> = ({ correctWords, wrongWords, score }) => {
 
     const correctWordsElements = correctWords.map(word =>
         <WordString englishWord={word.word} russianWord={word.wordTranslate} sound={word.audio} key={word.id} type={"v"} />
@@ -21,10 +22,12 @@ const ResultsPage:React.FC<ResultsPagePropsType> = ({ correctWords, wrongWords }
     return (
         <div className="sprint__results">
             <div className="sprint__results__header">
-                <h3>Верно: 
+                <h3 className='sprint__question-page__correct'>Верно: 
                     <p>{correctWords.length}</p></h3>
-                <img src={cupImg} alt="Cup" className="sprint__results__header-img" />
-                <h3>Ошибки: 
+                    <h3 className='sprint__question-page__count'>{score}</h3>
+                {/* <img src={cupImg} alt="Cup" className="sprint__results__header-img" /> */}
+
+                <h3 className='sprint__question-page__false'>Ошибки: 
                     <p>{wrongWords.length}</p></h3>
             </div>
 

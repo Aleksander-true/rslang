@@ -13,6 +13,10 @@ a {
   --main-text-color: #000;
   --mark-color: #ffba4a;
   --link-hover-color: #fc7e53;
+  --light-red-color: #ffb197;
+  --green-color: #68d4bb;
+  --light-green-color: #aaf3e2;
+  --yellow-color: #fce74e;
 }
 
 .wrapper {

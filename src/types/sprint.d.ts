@@ -6,6 +6,9 @@ type SprintQuestionsPropsType = {
     setWrongWords: React.Dispatch<React.SetStateAction<WordFromCollection[]>>;
     answers: string[];
     currentWords: WordFromCollection[];
+    setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
+    score: number;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 type ShowEnglishWordPropsType = {

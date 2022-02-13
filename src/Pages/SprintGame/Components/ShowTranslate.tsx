@@ -2,9 +2,9 @@ import React from "react"
 
 const ShowTranslate = (props: {answers: string}) => {
     return (
-        <h4>
+        <h3>
             {props.answers}
-        </h4>
+        </h3>
     )
 }
 

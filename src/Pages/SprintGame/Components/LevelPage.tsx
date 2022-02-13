@@ -16,6 +16,7 @@ const LevelPage = (props: { level: null | number, setLevel: (value: number) => v
         <div className="sprint__levels__level" onClick={() => { props.setLevel(5); }}><LevelChoice color="#FFB197" size={iconSize} /> <p className="sprint__levels__name">C1</p></div>
         <div className="sprint__levels__level" onClick={() => { props.setLevel(6); }}><LevelChoice color="#FC7E53" size={iconSize} /> <p className="sprint__levels__name">C2</p></div>
       </div>
+      <p>Выбирай правильный ответ стрелками на клавиатуре, чтобы успеть ещё больше</p>
     </div>
   )
 }
