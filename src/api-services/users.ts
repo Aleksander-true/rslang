@@ -1,32 +1,12 @@
 import ApiErrorHandler from './api-error-handler';
+import { User, UpdateUser } from '../types/api-tipes';
 
-class UsersWords extends ApiErrorHandler {
-  async getAllUserWords(id, token) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}`;
-    const options = {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    };
-    let rawResponse;
-    try {
-      rawResponse = await fetch(path, options);
-    } catch (e) {
-      rawResponse = await this.apiErrorHandler(path, options);
-    }
-    return rawResponse;
-  }
-
-  async createWord(id, wordID, token, requestBody) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}/${wordID}`;
+class Users extends ApiErrorHandler {
+  async createNewUser(requestBody: User) {
+    const path = `${this.BASE_URL}${this.USERS}`;
     const options = {
       method: 'POST',
-      withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -41,8 +21,8 @@ class UsersWords extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async getWord(id, wordID, token) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}/${wordID}`;
+  async getUser(id: string, token: string) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}`;
     const options = {
       method: 'GET',
       withCredentials: true,
@@ -60,8 +40,8 @@ class UsersWords extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async updateWord(id, wordID, token, requestBody) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}/${wordID}`;
+  async updateUser(id: string, token: string, requestBody: UpdateUser) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}`;
     const options = {
       method: 'PUT',
       withCredentials: true,
@@ -81,8 +61,8 @@ class UsersWords extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async deleteWord(id, wordID, token) {
-    const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}/${wordID}`;
+  async deleteUser(id: string, token: string) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}`;
     const options = {
       method: 'DELETE',
       withCredentials: true,
@@ -99,6 +79,25 @@ class UsersWords extends ApiErrorHandler {
     }
     return rawResponse;
   }
+
+  async getNewUserTokens(id: string, token: string) {
+    const path = `${this.BASE_URL}${this.USERS}/${id}${this.TOKENS}`;
+    const options = {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    };
+    let rawResponse;
+    try {
+      rawResponse = await fetch(path, options);
+    } catch (e) {
+      rawResponse = await this.apiErrorHandler(path, options);
+    }
+    return rawResponse;
+  }
 }
 
-export default UsersWords;
+export default Users;
