@@ -5,7 +5,17 @@ import UsersWords from './api-services/users-words';
 import UsersAggregatedWords from './api-services/users-aggregated-words';
 import UsersStatistic from './api-services/users-statistic';
 import UsersSetting from './api-services/users-setting';
+import { User, UpdateUser, UserWord, Statistic, Setting, Auth } from './types/api-tipes';
+
 class Api {
+  wordsMethods: Words;
+  usersMethods: Users;
+  usersWordsMethods: UsersWords;
+  usersAggregatedWordsMethods: UsersAggregatedWords;
+  usersStatisticMethods: UsersStatistic;
+  usersSettingMethods: UsersSetting;
+  signInMethods: SignIn;
+
   constructor() {
     this.wordsMethods = new Words();
     this.usersMethods = new Users();
@@ -16,227 +26,272 @@ class Api {
     this.signInMethods = new SignIn();
   }
 
-  async getChunkOfWords(group, page) {
+  async getChunkOfWords(group: string, page: string) {
     let result;
     try {
-      const rawResponse = await this.wordsMethods.getChunkOfWords(group, page);
+      const rawResponse = (await this.wordsMethods.getChunkOfWords(group, page)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getWordByID(id) {
+  async getWordByID(id: string) {
     let result;
     try {
-      const rawResponse = await this.wordsMethods.getWordByID(id);
+      const rawResponse = (await this.wordsMethods.getWordByID(id)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async createNewUser(requestBody) {
+  async createNewUser(requestBody: User) {
     let result;
     try {
-      const rawResponse = await this.usersMethods.createNewUser(requestBody);
+      const rawResponse = (await this.usersMethods.createNewUser(requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getUser(id, token) {
+  async getUser(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersMethods.getUser(id, token);
+      const rawResponse = (await this.usersMethods.getUser(id, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getUser');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async updateUser(id, token, requestBody) {
+  async updateUser(id: string, token: string, requestBody: UpdateUser) {
     let result;
     try {
-      const rawResponse = await this.usersMethods.updateUser(id, token, requestBody);
+      const rawResponse = (await this.usersMethods.updateUser(id, token, requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async deleteUser(id, token) {
+  async deleteUser(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersMethods.deleteUser(id, token);
+      const rawResponse = (await this.usersMethods.deleteUser(id, token)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getNewUserTokens(id, token) {
+  async getNewUserTokens(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersMethods.getNewUserTokens(id, token);
+      const rawResponse = (await this.usersMethods.getNewUserTokens(id, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getNewUserTokens');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getAllUserWords(id, token) {
+  async getAllUserWords(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersWordsMethods.getAllUserWords(id, token);
+      const rawResponse = (await this.usersWordsMethods.getAllUserWords(id, token)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async createWord(id, wordID, token, requestBody) {
+  async createWord(id: string, wordID: string, token: string, requestBody: UserWord) {
     let result;
     try {
-      const rawResponse = await this.usersWordsMethods.createWord(id, wordID, token, requestBody);
+      const rawResponse = (await this.usersWordsMethods.createWord(id, wordID, token, requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getWord(id, wordID, token) {
+  async getWord(id: string, wordID: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersWordsMethods.getWord(id, wordID, token);
+      const rawResponse = (await this.usersWordsMethods.getWord(id, wordID, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getWord');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async updateWord(id, wordID, token, requestBody) {
+  async updateWord(id: string, wordID: string, token: string, requestBody: UserWord) {
     let result;
     try {
-      const rawResponse = await this.usersWordsMethods.updateWord(id, wordID, token, requestBody);
+      const rawResponse = (await this.usersWordsMethods.updateWord(id, wordID, token, requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async deleteWord(id, wordID, token) {
+  async deleteWord(id: string, wordID: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersWordsMethods.deleteWord(id, wordID, token);
+      const rawResponse = (await this.usersWordsMethods.deleteWord(id, wordID, token)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getAllUserAggregatedWords(id, token, group, page, wordsPerPage, filter) {
+  async getAllUserAggregatedWords(
+    id: string,
+    token: string,
+    group?: string,
+    page?: string,
+    wordsPerPage?: string,
+    filter?: string
+  ) {
     let result;
     try {
-      const rawResponse = await this.usersAggregatedWordsMethods.getAllUserAggregatedWords(
+      const rawResponse = (await this.usersAggregatedWordsMethods.getAllUserAggregatedWords(
         id,
         token,
         group,
         page,
         wordsPerPage,
-        filter,
-      );
+        filter
+      )) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getAggregatedWord(id, wordID, token) {
+  async getAggregatedWord(id: string, wordID: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersAggregatedWordsMethods.getAggregatedWord(id, wordID, token);
+      const rawResponse = (await this.usersAggregatedWordsMethods.getAggregatedWord(id, wordID, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getAggregatedWord');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getStatistics(id, token) {
+  async getStatistics(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersStatisticMethods.getStatistics(id, token);
+      const rawResponse = (await this.usersStatisticMethods.getStatistics(id, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getStatistics');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async upsertStatistics(id, token, requestBody) {
+  async upsertStatistics(id: string, token: string, requestBody: Statistic) {
     let result;
     try {
-      const rawResponse = await this.usersStatisticMethods.upsertStatistics(id, token, requestBody);
+      const rawResponse = (await this.usersStatisticMethods.upsertStatistics(id, token, requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async getSettings(id, token) {
+  async getSettings(id: string, token: string) {
     let result;
     try {
-      const rawResponse = await this.usersSettingMethods.getSettings(id, token);
+      const rawResponse = (await this.usersSettingMethods.getSettings(id, token)) as Response;
       result = await this.checkResponse(rawResponse, 'getSettings');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async upsertSettings(id, token, requestBody) {
+  async upsertSettings(id: string, token: string, requestBody: Setting) {
     let result;
     try {
-      const rawResponse = await this.usersSettingMethods.upsertSettings(id, token, requestBody);
+      const rawResponse = (await this.usersSettingMethods.upsertSettings(id, token, requestBody)) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  async signIn(requestBody) {
+  async signIn(requestBody: Auth) {
     let result;
     try {
-      const rawResponse = await this.signInMethods.signIn(requestBody);
+      const rawResponse = (await this.signInMethods.signIn(requestBody)) as Response;
       result = await this.checkResponse(rawResponse, 'signIn');
     } catch (e) {
-      result = this.returnsErrorMessage(e);
+      if (e instanceof Error) {
+        result = this.returnsErrorMessage(e);
+      }
     }
     return result;
   }
 
-  returnsErrorMessage(error) {
+  returnsErrorMessage(error: Error) {
     return { isSuccess: false, data: { errorMessage: `${error.name}: ${error.message}` } };
   }
 
-  async checkResponse(response, method) {
+  async checkResponse(response: Response, method?: string) {
     switch (response.status) {
       case 200:
         const responseBody = await response.json();

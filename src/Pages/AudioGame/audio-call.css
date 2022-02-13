@@ -1,0 +1,193 @@
+.audiocall-section {
+  background: url(../../assets/jpg/audiocall.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  height: 1px;
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audiocall-start-page,
+.audiocall-game-page,
+.audiocall-results-page {
+  background: rgba(255, 255, 255, 0.9);
+  height: 90%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border-radius: 5vw;
+  padding: 1vw;
+}
+
+.audiocall-game-page {
+  height: 75%;
+  justify-content: flex-end;
+  row-gap: 1vw;
+}
+
+.audiocall-title,
+.difficulty-level {
+  font-family: var(--main-font-family);
+  color: var(--mark-color);
+  text-transform: uppercase;
+}
+
+.audiocall-settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 2vh;
+}
+
+.audiocall-select-start {
+  display: flex;
+  column-gap: 1vw;
+}
+
+.select-difficulty {
+  border: var(--mark-color) 1px solid;
+  border-radius: 0.5vw;
+}
+
+.keys {
+  font-family: var(--main-font-family);
+  color: var(--mark-color);
+}
+
+.btn.btn-primary.play-word {
+  align-items: center;
+  justify-content: center;
+  background-image: url(../../assets/svg/volume-up-fill.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+}
+
+.answers-variants {
+  display: flex;
+  column-gap: 1vw;
+}
+
+.audiocall-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 3vh;
+}
+
+.word-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Таблица игры */
+
+.word-table {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  border-spacing: 0;
+  height: auto;
+  table-layout: fixed;
+}
+
+.word-table,
+.word-table td,
+.word-table th {
+  border: 1px solid black;
+}
+
+.word-table td,
+.word-table th {
+  min-height: 35px;
+  padding: 3px;
+  height: 35px;
+}
+
+.word-table th {
+  background: var(--mark-color);
+  color: #fff;
+  font-weight: normal;
+}
+
+.word-table-head {
+  height: 10vw;
+}
+
+.word-table .column-name,
+.word-table-head th {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.column-play {
+  text-align: center;
+}
+
+.column-image {
+  width: 15%;
+}
+
+.column-play {
+  width: 5%;
+}
+
+.column-en {
+  width: 40%;
+}
+
+.column-ru {
+  width: 40%;
+}
+
+.word-table-image {
+  width: 100%;
+}
+
+.btn.btn-primary.play-word.play-table {
+  width: 2vw;
+  height: 2vw;
+}
+
+/* Таблица результатов */
+
+.result-table,
+.result-table td {
+  border: 1px solid black;
+}
+
+.result-table td {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.audiocall-results-list {
+  overflow: scroll;
+}
+
+.guessed-word {
+  color: green;
+}
+
+.not-guessed-word-translate,
+.not-guessed-word {
+  background: var(--mark-color);
+}
+
+.not-guessed-word {
+  color: red;
+}
