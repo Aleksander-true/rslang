@@ -33,13 +33,80 @@
   position: absolute;
   right: -10px;
   vertical-align: text-top;
-}
-
-.card__bookmark svg {
-  fill: #fce74e;
   cursor: pointer;
 }
 
+.card__bookmark.level0 svg {
+  fill: var(--bkg-level-0);
+}
+
+.card__bookmark.level1 svg {
+  fill: var(--bkg-level-1);
+}
+
+.card__bookmark.level2 svg {
+  fill: var(--bkg-level-2);
+}
+
+.card__bookmark.level3 svg {
+  fill: var(--bkg-level-3);
+}
+
+.card__bookmark.level4 svg {
+  fill: var(--bkg-level-4);
+}
+
+.card__bookmark.level5 svg {
+  fill: var(--bkg-level-5);
+}
+
 .card__bookmark.checked svg {
-  fill: var(--mark-color);
+  fill: red;
+}
+
+.learned-btn {
+  display: inline-block;
+  margin: 10px auto;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  color: #000;
+  background-color: #0d6efd;
+}
+
+.learned-btn.level0 {
+  background-color: var(--bkg-level-0);
+}
+
+.learned-btn.level1 {
+  background-color: var(--bkg-level-1);
+}
+
+.learned-btn.level2 {
+  background-color: var(--bkg-level-2);
+}
+
+.learned-btn.level3 {
+  background-color: var(--bkg-level-3);
+}
+
+.learned-btn.level4 {
+  color: #fff;
+  background-color: var(--bkg-level-4);
+}
+
+.learned-btn.level5 {
+  color: #fff;
+  background-color: var(--bkg-level-5);
 }

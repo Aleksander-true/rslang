@@ -24,6 +24,11 @@ type UserWord = {
   };
 };
 
+type GetUserWordResponse = {
+  isSuccess: boolean;
+  data: UserWord;
+};
+
 type DifficultWord = {
   _id: string;
   group: number;
@@ -46,7 +51,7 @@ type SetWords = Dispatch<SetStateAction<never[] | Word[]>>;
 
 type GetWordsData = never[] | Word[];
 
-type GetDifficultWordsData = [{ paginatedResults: DifficultWord[] | never[]; totalCount: { count: number } }];
+type GetUserWordsData = [{ paginatedResults: DifficultWord[] | never[]; totalCount: { count: number } }];
 
 type LevelProps = {
   levelNumber: string;
@@ -57,17 +62,15 @@ type LevelProps = {
 type WordListProps = {
   words: Word[];
   clickWord: (string) => void;
-  difficultWords: GetDifficultWordsData;
+  userWords: GetUserWordsData;
   currentWord: CurrentWord;
 };
 
 type WordCardProps = {
   words: Word[];
   currentWord: CurrentWord;
-  updateDifficultWords: () => void;
-  difficultWords: GetDifficultWordsData;
+  updateUserWords: (group?: string, page?: string) => void;
+  userWords: GetUserWordsData;
 };
 
 type WordsProps = { words: never[] | Word[] };
-
-type CurrentWord = { id: string; level: number };

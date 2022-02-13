@@ -5,8 +5,8 @@
 }
 
 .word__card {
+  position: relative;
   min-width: 400px;
-
   background-color: #f3f4f8;
 }
 
@@ -39,9 +39,11 @@
   background-color: var(--bkg-level-3);
 }
 .list__button.active.level4 {
+  color: #fff;
   background-color: var(--bkg-level-4);
 }
 .list__button.active.level5 {
+  color: #fff;
   background-color: var(--bkg-level-5);
 }
 .list__button.active.level6 {
@@ -73,4 +75,15 @@
   bottom: 0;
   right: 5px;
   font-size: 30px;
+}
+
+.check-square_top-right {
+  position: absolute;
+  top: -20px;
+  right: -5px;
+  font-size: 45px;
+}
+
+.icon_green {
+  color: green;
 }

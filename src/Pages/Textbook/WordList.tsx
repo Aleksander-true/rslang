@@ -3,11 +3,21 @@ import './textbook.css';
 import './words.css';
 
 function WordList(props: WordListProps) {
-  const difficultIds = props.difficultWords[0].paginatedResults.map((item) => item._id);
+  const isAuthorized = localStorage.getItem('userId') ? true : false;
+  let difficultIds = [''];
+  let learnedIds = [''];
+  if (isAuthorized) {
+    difficultIds = props.userWords[0].paginatedResults
+      .filter((item) => item.userWord?.difficulty === 'hard')
+      .map((item) => item._id);
+    learnedIds = props.userWords[0].paginatedResults
+      .filter((item) => item.userWord?.optional?.isLearned)
+      .map((item) => item._id);
+  }
 
   const words = props.words.map((item) => (
     <button
-      className={'list__button level' + item.group + (props.currentWord.id === item.id ? ' active' : '')}
+      className={'list__button level' + item.group + (props.currentWord === item.id ? ' active' : '')}
       key={item.id}
       onClick={() => {
         props.clickWord(item.id);
@@ -17,7 +27,12 @@ function WordList(props: WordListProps) {
       <h4>
         <i>{item.wordTranslate}</i>
       </h4>
-      {difficultIds.includes(item.id) && <i className="bi bi-exclamation-circle exclamation_bottom-right"></i>}
+      {isAuthorized && difficultIds.includes(item.id) && (
+        <i className="bi bi-exclamation-circle exclamation_bottom-right icon_red"></i>
+      )}
+      {isAuthorized && learnedIds.includes(item.id) && (
+        <i className="bi bi-check-circle-fill check-square_top-right icon_green"></i>
+      )}
     </button>
   ));
   return <>{words}</>;
