@@ -13,13 +13,16 @@ a {
   --main-text-color: #000;
   --mark-color: #ffba4a;
   --link-hover-color: #fc7e53;
+  --bkg-level-0: #fce74e;
+  --bkg-level-1: #ffba4a;
+  --bkg-level-2: #68d4bb;
+  --bkg-level-3: #fc7e53;
+  --bkg-level-4: #5d7cfd;
+  --bkg-level-5: #8c75ff;
+  --bkg-level-user: #ff009d;
 }
 
 .wrapper {
   max-width: 1920px;
   margin: 0 auto;
-}
-
-.main {
-  min-height: calc(100vh - 120px);
 }

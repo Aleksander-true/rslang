@@ -1,0 +1,45 @@
+.card__volume-icon {
+  font-size: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+
+.card__volume-icon:hover {
+  opacity: 0.7;
+}
+
+.card__word {
+  position: relative;
+  margin: 10px 0;
+  text-transform: capitalize;
+}
+
+.card__description-wrapper {
+  padding: 10px;
+}
+
+.card__img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.card__translate {
+  position: relative;
+}
+
+.card__bookmark {
+  position: absolute;
+  right: -10px;
+  vertical-align: text-top;
+}
+
+.card__bookmark svg {
+  fill: #fce74e;
+  cursor: pointer;
+}
+
+.card__bookmark.checked svg {
+  fill: var(--mark-color);
+}

@@ -10,14 +10,6 @@
   background-color: #f3f4f8;
 }
 
-.card__description-wrapper {
-  padding: 5px;
-}
-
-.card__img {
-  width: 100%;
-  object-fit: contain;
-}
 .word__list {
   display: flex;
   gap: 1rem;
@@ -26,27 +18,59 @@
 }
 
 .list__button {
+  position: relative;
   width: 260px;
   height: 140px;
   border-radius: 15px;
   background-color: #ededed;
+  border: none;
+}
+
+.list__button.active.level0 {
+  background-color: var(--bkg-level-0);
+}
+.list__button.active.level1 {
+  background-color: var(--bkg-level-1);
+}
+.list__button.active.level2 {
+  background-color: var(--bkg-level-2);
+}
+.list__button.active.level3 {
+  background-color: var(--bkg-level-3);
+}
+.list__button.active.level4 {
+  background-color: var(--bkg-level-4);
+}
+.list__button.active.level5 {
+  background-color: var(--bkg-level-5);
+}
+.list__button.active.level6 {
+  background-color: var(--bkg-level-6);
 }
 
 .list__word {
   text-transform: capitalize;
 }
 
-.card__volume-icon {
-  font-size: 40px;
-  line-height: 40px;
-  vertical-align: middle;
-  cursor: pointer;
+.corner-icon-cont {
+  color: #fff;
+}
+.corner-icon-cont:before {
+  content: '';
+  height: 50px;
+  width: 50px;
+  transition: 0.5s ease;
+  border-radius: 0 0% 100% 0;
+  background: #337ab7;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1;
 }
 
-.card__volume-icon:hover {
-  opacity: 0.7;
-}
-
-.card__word::first-letter {
-  text-transform: uppercase;
+.exclamation_bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  font-size: 30px;
 }
