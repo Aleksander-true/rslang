@@ -61,7 +61,7 @@ class UsersWords extends ApiErrorHandler {
     return rawResponse;
   }
 
-  async updateWord(id: string, wordID: string, token: string, requestBody: UserWord) {
+  async updateWord(id: string, wordID: string, token: string, requestBody: Partial<UserWord>) {
     const path = `${this.BASE_URL}${this.USERS}/${id}${this.WORDS}/${wordID}`;
     const options = {
       method: 'PUT',

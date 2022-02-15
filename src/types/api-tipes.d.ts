@@ -52,7 +52,7 @@ export type Word = {
 
 export type UserWord = {
   difficulty: 'easy'|'hard';
-  optional: OptionalUserWord;
+  optional?: Partial<OptionalUserWord>;
 };
 
 export type Statistic = {

@@ -38,8 +38,8 @@ function WordCard(props: WordCardProps) {
   };
 
   const getUserWords = (id: string) => {
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId') || '';
+    const token = localStorage.getItem('token') || '';
     const requestBody = {
       difficulty: 'easy',
       optional: {
