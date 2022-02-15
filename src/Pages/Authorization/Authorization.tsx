@@ -23,12 +23,14 @@ class Authorization extends React.Component<AutorizeProp> {
 
   async componentDidMount() {
     if (!localStorage.getItem('userId')) return;
+    const userId = localStorage.getItem('userId') as string;
+    const token = localStorage.getItem('token') as string;
 
-    let response = await api.getUser(localStorage.getItem('userId'), localStorage.getItem('token'));
+    let response = await api.getUser(userId, token);
     if (response?.isSuccess) {
       this.setState({ userAuthorized: true, form: FormName.LOG_OUT, userName: response.data.name });
     } else {
-      response = await api.getUser(localStorage.getItem('userId'), localStorage.getItem('refreshToken'));
+      response = await api.getUser(userId, token);
       if (response?.isSuccess) {
         this.setState({ userAuthorized: true, form: FormName.LOG_OUT, userName: response.data.name });
       } else {
