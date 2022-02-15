@@ -1,38 +1,43 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import api from '../../API';
-import './authrisation.css';
+import './authorization.css';
 
-class LogIn extends React.Component {
-  constructor(props) {
+class LogIn extends React.Component<LogInProp> {
+  state: { email: string; password: string; message: string };
+
+  constructor(props: LogInProp) {
     super(props);
     this.state = { email: '', password: '', message: '' };
   }
 
-  async handleSubmit(e) {
+  async handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const response = await api.signIn({ email: this.state.email, password: this.state.password });
-    if (response.isSuccess) {
+    if (response?.isSuccess) {
       this.setState({ message: '' });
       localStorage.setItem('userId', response.data.userId);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       localStorage.setItem('name', response.data.name);
-      this.props.authorize(response.data.name);
+
+      this.props.authorize();
       this.props.modal.closeModal();
       this.props.setFormToLogOut();
     } else {
-      this.setState({ message: response.data.errorMessage });
+      this.setState({ message: response?.data.errorMessage });
     }
   }
 
-  handleInput(e) {
+  handleInput(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
-    switch (e.target.type) {
+    const target = e.target as HTMLInputElement;
+
+    switch (target.type) {
       case 'email':
-        this.setState({ email: e.target.value });
+        this.setState({ email: target.value });
         break;
       case 'password':
-        this.setState({ password: e.target.value });
+        this.setState({ password: target.value });
         break;
       default:
         break;

@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './modal.css';
 
-function Modal(props) {
+function Modal(props: {
+  closeModal: ModalProp['closeModal'];
+  show: ModalProp['show'];
+  children: JSX.Element | undefined;
+}) {
   const { show, closeModal, children } = props;
-  console.log('show, closeModal, children', show());
 
   const modal = (
     <>
@@ -19,7 +22,7 @@ function Modal(props) {
       </div>
     </>
   );
-  return ReactDOM.createPortal(modal, document.getElementById('modal-root'));
+  return ReactDOM.createPortal(modal, document.getElementById('modal-root') as HTMLElement);
 }
 
 export default Modal;

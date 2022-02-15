@@ -1,11 +1,13 @@
 import './App.css';
 import React from 'react';
 import Header from './Components/Header';
-import Footer from './Components/Footer';
 import Main from './Components/Main';
 
-class App extends React.Component {
-  constructor(props) {
+class App extends React.Component<Readonly<{}>> {
+  state: { showModal: boolean };
+  modal: ModalProp;
+
+  constructor(props: Readonly<{}>) {
     super(props);
     this.state = { showModal: false };
     this.modal = {
@@ -28,7 +30,6 @@ class App extends React.Component {
       <div className="wrapper">
         <Header modal={this.modal} />
         <Main />
-        <Footer />
       </div>
     );
   }
