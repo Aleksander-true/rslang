@@ -15,10 +15,8 @@ const WORDS_ON_PAGE = 20;
 
 function Textbook() {
   const [search] = useSearchParams();
-  const newLevel = search.get('level') || '0';
-  const newPage = search.get('page') || '0';
-  const [level, setLevel] = useState('');
-  const [page, setPage] = useState('');
+  const level = search.get('level') || '0';
+  const page = search.get('page') || '0';
   const [words, setWords] = useState([] as GetWordsData);
   const [currentWordID, setCurrWord] = useState('');
   const [userWords, setUserWords] = useState([
@@ -42,7 +40,7 @@ function Textbook() {
       localStorage.getItem('userId') || '',
       localStorage.getItem('token') || '',
       fromGroup,
-      undefined,
+      fromPage,
       String(WORDS_ON_PAGE),
       '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}',
     );
@@ -58,13 +56,9 @@ function Textbook() {
   };
 
   useEffect(() => {
-    if (newLevel !== level || newPage !== page) {
-      setLevel(newLevel);
-      setPage(newPage);
-      getWords(newLevel, newPage);
-      updateUserWords(newLevel, newPage);
-    }
-  });
+    getWords(level, page);
+    updateUserWords(level, page);
+  }, [level, page]);
 
   let wordCard, wordList;
   if (words.length !== 0) {

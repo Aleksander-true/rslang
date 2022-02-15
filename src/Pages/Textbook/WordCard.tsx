@@ -20,6 +20,9 @@ function WordCard(props: WordCardProps) {
   const difficult = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
   const isDifficult = difficult?.userWord?.difficulty === 'hard' ? true : false;
 
+  const learned = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
+  const isLearned = learned?.userWord?.optional?.isLearned;
+
   const playAudio = (str: string) => {
     let url = '';
     switch (str) {
@@ -37,7 +40,7 @@ function WordCard(props: WordCardProps) {
     audio.play();
   };
 
-  const getUserWords = (id: string) => {
+  const requestData = (id: string) => {
     const userId = localStorage.getItem('userId') || '';
     const token = localStorage.getItem('token') || '';
     const requestBody = {
@@ -48,40 +51,27 @@ function WordCard(props: WordCardProps) {
         wrongAnswers: 0,
       },
     };
-    const response = api.getWord(userId, id, token);
-    return { userId: userId, token: token, requestBody: requestBody, responsePromise: response };
+    return { userId: userId, token: token, requestBody: requestBody };
   };
 
-  const changeDifficulty = async (id: string) => {
-    const { userId, token, requestBody, responsePromise } = getUserWords(id);
-    const response = (await responsePromise) as GetUserWordResponse;
-    if (response?.isSuccess && response.data.difficulty === 'hard') {
-      await api.updateWord(userId, id, token, { difficulty: 'easy' });
-      props.updateUserWords();
-    } else if (response?.isSuccess) {
-      await api.updateWord(userId, id, token, { difficulty: 'hard' });
-      props.updateUserWords();
-    } else {
-      requestBody.difficulty = 'hard';
+  const changeDifficulty = async (id: string, value: string) => {
+    const { userId, token, requestBody } = requestData(id);
+    const response = await api.updateWord(userId, id, token, { difficulty: value });
+    if (response?.isSuccess === false) {
+      requestBody.difficulty = value;
       await api.createWord(userId, id, token, requestBody);
-      props.updateUserWords();
     }
+    props.updateUserWords();
   };
 
-  const changeLearned = async (id: string) => {
-    const { userId, token, requestBody, responsePromise } = getUserWords(id);
-    const response = (await responsePromise) as GetUserWordResponse;
-    if (response?.isSuccess && response.data.optional?.isLearned) {
-      await api.updateWord(userId, id, token, { optional: { isLearned: false } });
-      props.updateUserWords();
-    } else if (response?.isSuccess) {
-      await api.updateWord(userId, id, token, { optional: { isLearned: true } });
-      props.updateUserWords();
-    } else {
-      requestBody.optional.isLearned = true;
+  const changeLearned = async (id: string, value: boolean) => {
+    const { userId, token, requestBody } = requestData(id);
+    const response = await api.updateWord(userId, id, token, { optional: { isLearned: value } });
+    if (response?.isSuccess === false) {
+      requestBody.optional.isLearned = value;
       await api.createWord(userId, id, token, requestBody);
-      props.updateUserWords();
     }
+    props.updateUserWords();
   };
 
   return (
@@ -90,12 +80,16 @@ function WordCard(props: WordCardProps) {
       <div className="card__description-wrapper">
         <h3 className="card__word">
           {word}
-          <span
-            className={`card__bookmark level${level}` + (isDifficult ? ' checked' : '')}
-            onClick={() => changeDifficulty(currentWord.id)}
-          >
-            {isAuthorized && !isDifficult && <Bookmark />}
-            {isAuthorized && isDifficult && <BookmarkDelete />}
+          <span className={`card__bookmark level${level}` + (isDifficult ? ' checked' : '')}>
+            {isAuthorized && !isDifficult && (
+              <Bookmark
+                onClick={() => {
+                  changeDifficulty(currentWord.id, 'hard');
+                  changeLearned(currentWord.id, false);
+                }}
+              />
+            )}
+            {isAuthorized && isDifficult && <BookmarkDelete onClick={() => changeDifficulty(currentWord.id, 'easy')} />}
           </span>
         </h3>
         <h4 className="card__translate">
@@ -117,9 +111,25 @@ function WordCard(props: WordCardProps) {
         </h4>
         <p dangerouslySetInnerHTML={textExample}></p>
         <p>{textExampleTranslate}</p>
-        {isAuthorized && (
-          <button type="button" className={`learned-btn level${level}`} onClick={() => changeLearned(currentWord.id)}>
+        {isAuthorized && !isLearned && (
+          <button
+            type="button"
+            className={`learned-btn level${level}`}
+            onClick={() => {
+              changeLearned(currentWord.id, true);
+              changeDifficulty(currentWord.id, 'easy');
+            }}
+          >
             пометить как выученное
+          </button>
+        )}
+        {isAuthorized && isLearned && (
+          <button
+            type="button"
+            className={`learned-btn level${level}`}
+            onClick={() => changeLearned(currentWord.id, false)}
+          >
+            удалить из выученных
           </button>
         )}
       </div>
