@@ -7,7 +7,7 @@ import Authorization from '../Pages/Authorization/Authorization';
 const NAV_CLASSES = 'header__link ';
 const ACTIVE_LINK_CLASS = 'header__link_active';
 
-function Header(props) {
+function Header(props: { modal: ModalProp }) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
 
   return (

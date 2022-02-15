@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import api from '../../API';
-import './authrisation.css';
+import './authorization.css';
 
-class Registration extends React.Component {
-  constructor(props) {
+type RegProp = { modal: Readonly<ModalProp>; callLogIn: () => void };
+
+class Registration extends React.Component<RegProp> {
+  state: { name: string; email: string; password: string; message: string };
+
+  constructor(props: RegProp) {
     super(props);
     this.state = { name: '', email: '', password: '', message: '' };
   }
 
-  async handleSubmit(e) {
+  async handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!this.isInputsValid()) return;
 
@@ -17,25 +21,26 @@ class Registration extends React.Component {
       email: this.state.email,
       password: this.state.password,
     });
-    if (response.isSuccess) {
+    if (response?.isSuccess) {
       this.setState({ message: 'Спасибо за регистрацию!' });
       setTimeout(() => this.props.callLogIn(), 1000);
     } else {
-      this.setState({ message: response.data.errorMessage });
+      this.setState({ message: response?.data.errorMessage });
     }
   }
 
-  handleInput(e) {
+  handleInput(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
-    switch (e.target.type) {
+    const target = e.target as HTMLInputElement;
+    switch (target.type) {
       case 'text':
-        this.setState({ name: e.target.value });
+        this.setState({ name: target.value });
         break;
       case 'email':
-        this.setState({ email: e.target.value });
+        this.setState({ email: target.value });
         break;
       case 'password':
-        this.setState({ password: e.target.value });
+        this.setState({ password: target.value });
         break;
       default:
         break;

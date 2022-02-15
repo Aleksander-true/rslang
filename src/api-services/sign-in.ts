@@ -1,8 +1,8 @@
 import ApiErrorHandler from './api-error-handler';
-import { Auth } from '../types/api-tipes';
+import { UpdateUser } from '../types/api-tipes';
 
 class SignIn extends ApiErrorHandler {
-  async signIn(requestBody: Auth) {
+  async signIn(requestBody: UpdateUser) {
     const path = `${this.BASE_URL}${this.SIGNIN}`;
     const options = {
       method: 'POST',

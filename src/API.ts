@@ -156,7 +156,7 @@ class Api {
     return result;
   }
 
-  async updateWord(id: string, wordID: string, token: string, requestBody: UserWord) {
+  async updateWord(id: string, wordID: string, token: string, requestBody: Partial<UserWord>) {
     let result;
     try {
       const rawResponse = (await this.usersWordsMethods.updateWord(id, wordID, token, requestBody)) as Response;
@@ -188,7 +188,7 @@ class Api {
     group?: string,
     page?: string,
     wordsPerPage?: string,
-    filter?: string
+    filter?: string,
   ) {
     let result;
     try {
@@ -198,7 +198,7 @@ class Api {
         group,
         page,
         wordsPerPage,
-        filter
+        filter,
       )) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
@@ -274,7 +274,7 @@ class Api {
     return result;
   }
 
-  async signIn(requestBody: Auth) {
+  async signIn(requestBody: UpdateUser) {
     let result;
     try {
       const rawResponse = (await this.signInMethods.signIn(requestBody)) as Response;

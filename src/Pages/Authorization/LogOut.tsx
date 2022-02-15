@@ -1,11 +1,6 @@
 import React from 'react';
 
-class LogOut extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: 'About' };
-  }
-
+class LogOut extends React.Component<LogOutProp> {
   unAuthorize() {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
