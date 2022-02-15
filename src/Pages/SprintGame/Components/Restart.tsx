@@ -3,12 +3,8 @@ import Button from "../../../Components/Button"
 import SprintGame from "../SprintGame"
 
 
-type ResultBtnPropsType = {
-    level: number; 
-    page: number; 
-}
 
-const ResultBtn:React.FC<ResultBtnPropsType> = ({ level, page }) => {
+const ResultBtn = () => {
 
     return (
         <Button title='Играть с этими словами ещё' onClick={() => SprintGame()} type='success' classType='sprint__btns'/>

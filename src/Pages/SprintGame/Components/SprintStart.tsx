@@ -24,7 +24,8 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({ currentWords, le
   return (
     <div className='sprint__question-page'>
       {(isDone || wordNum === WORDS_MAX) ? <> <ResultsPage correctWords={correctWords} wrongWords={wrongWords} score={score}/>
-        <ResultBtn level={level} page={page} /> </> : null}
+        {/* <ResultBtn />  */}
+        </> : null}
       {(!isDone && wordNum < WORDS_MAX) ? <> 
       {/* <CountDownTimer initialValue={TIMER_TIME} setIsDone={setIsDone} /> */}
         <SprintQuestions setCorrectWords={setCorrectWords} setWrongWords={setWrongWords} answers={answers} currentWords={currentWords}  setIsDone={setIsDone} score={score} setScore={setScore}/>
