@@ -1,0 +1,72 @@
+.textbook {
+  padding: 0 0 120px 0;
+}
+
+.textbook__title {
+  margin: 1.5em 0 1em;
+}
+
+.level-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.level-wrapper a {
+  text-decoration: none;
+}
+
+.level__card {
+  box-sizing: border-box;
+  position: relative;
+  height: 70px;
+  min-width: 220px;
+  background-color: #f3f4f8;
+  border-radius: 10px;
+  padding: 0 70px 4px 10px;
+  cursor: pointer;
+  color: var(--main-text-color);
+  transition: all easy 0.5s;
+}
+
+.card__level-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+}
+
+.level__card:nth-child(1) .card__level-letter {
+  background-color: #fce74e;
+}
+
+.level__card:nth-child(2) .card__level-letter {
+  background-color: #ffba4a;
+}
+
+.level__card:nth-of-type(3) .card__level-letter {
+  background-color: #68d4bb;
+}
+
+.level__card:nth-of-type(4) .card__level-letter {
+  background-color: #fc7e53;
+}
+
+.level__card:nth-of-type(5) .card__level-letter {
+  background-color: #5d7cfd;
+}
+
+.level__card:nth-of-type(6) .card__level-letter {
+  background-color: #8c75ff;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
