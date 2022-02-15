@@ -23,7 +23,13 @@ const getWords = async (group: string, page: string) => {
     let currentResponse: { isSuccess: boolean; data: any; };
     let thisPage: string;
     if (+page>=0) { thisPage = page } else { thisPage = randomize(0, 29).toString() }
-
+if (+page === 6) {
+    currentResponse = (await api.getAllUserAggregatedWords(localStorage.getItem('userId')!, localStorage.getItem('token')!, group, thisPage, '20', JSON.stringify({ "userWord.difficulty": "hard" })))!
+    if (currentResponse.isSuccess) {
+        response.data = currentResponse.data;
+        response.isSuccess = currentResponse.isSuccess;
+    }
+} else
     do {
         currentResponse = (await api.getChunkOfWords(group, thisPage))!;
         if (currentResponse.isSuccess) {
@@ -31,7 +37,7 @@ const getWords = async (group: string, page: string) => {
             response.isSuccess = currentResponse.isSuccess;
         }
         if (localStorage.getItem('userId')) {
-            const userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId')!, localStorage.getItem('token')!, group, thisPage, '20', JSON.stringify({ "userWord.difficulty": "learned" })))!
+            const userWords = (await api.getAllUserAggregatedWords(localStorage.getItem('userId')!, localStorage.getItem('token')!, group, thisPage, '20', JSON.stringify({ "userWord.optional.isLearned": "true" })))!
             if (userWords.isSuccess) {
                 for (let i = 0; i < userWords.data.length; i++) {
                     for (let j = 0; j < response.data.length; j++) {

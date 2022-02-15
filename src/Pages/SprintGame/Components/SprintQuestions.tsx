@@ -8,6 +8,8 @@ import CountDownTimer from "./CountDownTimer";
 import ShowEnglishWord from "./ShowEnglishWord";
 import ShowTranslate from "./ShowTranslate";
 import Stars from "./Stars";
+import correctSound from "../../../assets/audio/correct.mp3"
+import wrongSound from "../../../assets/audio/wrong.mp3"
 
 
 const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, setWrongWords, answers, currentWords, setIsDone, score, setScore }) => {
@@ -37,6 +39,8 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
     const handleClick = async (userAnswer: boolean) => {
         const realAnswer = (currentWords[wordNum].wordTranslate === answers[wordNum]);
         let answer: boolean;
+        const audio = new Audio();
+        
 
         if (userAnswer === realAnswer) {
            
@@ -45,6 +49,8 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
             setWordNum(prev => prev + 1);
             setScore(prev => prev + 10*multiplier)
             answer = true;
+            audio.src = correctSound;
+            audio.play()
             console.log(userAnswer, realAnswer, answer)
 
         } else {
@@ -52,6 +58,8 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ setCorrectWords, 
             setWrongWords(prev => [...prev, currentWords[wordNum]])
             setWordNum(prev => prev + 1);
             answer = false;
+            audio.src = wrongSound;
+            audio.play()
             console.log(userAnswer, realAnswer, answer)
         }
         if (localStorage.getItem('userId')) { clickApiActions(answer, currentWords, wordNum, maxSeries, score) };

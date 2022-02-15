@@ -21,7 +21,7 @@ export const clickApiActions = async (answer: boolean, currentWords: WordFromCol
         words.difficulty = await wordResponse.data.difficulty;
     }
 
-    if (!wordResponse?.isSuccess || (words.optional.correctAnswers + words.optional.wrongAnswers) < 1) {
+    if (!wordResponse?.isSuccess || (words.optional!.correctAnswers! + words.optional!.wrongAnswers!) < 1) {
         statistics.optional.sprint.newWords += 1;
     }
 
@@ -38,7 +38,7 @@ export const clickApiActions = async (answer: boolean, currentWords: WordFromCol
 
 const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boolean, date: Date, maxSeries: number, id: string, score: number) => {
     const currentDate = await formDate(date);
-    wordFromBase.optional.time = formDate(date);
+    wordFromBase.optional!.time = formDate(date);
 
     console.log(statistics);
     console.log(wordFromBase);
@@ -57,10 +57,10 @@ const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boo
     }
 
     if (answer) {
-        wordFromBase.optional!.correctAnswers += 1
+        wordFromBase.optional!.correctAnswers! += 1
         wordFromBase.optional!.progress! += 1
         if ((wordFromBase.optional!.progress! > 4 && wordFromBase.difficulty === "hard") || (wordFromBase.optional!.progress! > 2 && wordFromBase.difficulty === "easy")) {
-            wordFromBase.optional.isLearned = true;
+            wordFromBase.optional!.isLearned = true;
             statistics.learnedWords += 1;
             statistics.optional.wordStatistics[currentDate].learnedWords += 1;
         }
@@ -74,12 +74,12 @@ const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boo
 
     } else {
         wordFromBase.optional!.progress = 0;
-        if (wordFromBase.optional.isLearned) {
-            wordFromBase.optional.isLearned = false;
+        if (wordFromBase.optional!.isLearned) {
+            wordFromBase.optional!.isLearned = false;
         }
         statistics.optional.wordStatistics[currentDate].mistakes += 1;
         statistics.optional.sprint.wrongAnswers += 1;
-        wordFromBase.optional!.wrongAnswers += 1;
+        wordFromBase.optional!.wrongAnswers! += 1;
         wordFromBase.optional!.time = currentDate;
     }
 

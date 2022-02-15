@@ -1,7 +1,7 @@
 import React from "react"
 import WordString from "./WordString"
 import { WordFromCollection } from "../WordsAPI"
-import cupImg from "../../../assets/svg/Cup.svg"
+import endSound from "../../../assets/audio/end.mp3"
 
 type ResultsPagePropsType = {
     correctWords: WordFromCollection[]; 
@@ -18,6 +18,10 @@ const ResultsPage:React.FC<ResultsPagePropsType> = ({ correctWords, wrongWords, 
     const wrongWordsElements = wrongWords.map(word =>
         <WordString englishWord={word.word} russianWord={word.wordTranslate} sound={word.audio} key={word.id} type={'x'} />
     )
+
+    const audio = new Audio();
+    audio.src = endSound;
+    audio.play()
 
     return (
         <div className="sprint__results">

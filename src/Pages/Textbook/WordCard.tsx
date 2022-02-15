@@ -40,7 +40,7 @@ function WordCard(props: WordCardProps) {
   const getUserWords = (id: string) => {
     const userId = localStorage.getItem('userId') || '';
     const token = localStorage.getItem('token') || '';
-    const requestBody = {
+    const requestBody: UserWord = {
       difficulty: 'easy',
       optional: {
         isLearned: false,
@@ -78,7 +78,7 @@ function WordCard(props: WordCardProps) {
       await api.updateWord(userId, id, token, { optional: { isLearned: true } });
       props.updateUserWords();
     } else {
-      requestBody.optional.isLearned = true;
+      requestBody.optional!.isLearned = true;
       await api.createWord(userId, id, token, requestBody);
       props.updateUserWords();
     }

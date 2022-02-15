@@ -1,7 +1,7 @@
 import React from "react";
 
 export const WORDS_MAX = 19;
-export const TIMER_TIME: number = 300;
+export const TIMER_TIME: number = 30;
 
 export const SOUND_ICON = <i className="bi bi-volume-up" style={{ color: "white", fontSize: "2rem" }} ></i>
 

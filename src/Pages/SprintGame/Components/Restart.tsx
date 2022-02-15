@@ -11,7 +11,7 @@ type ResultBtnPropsType = {
 const ResultBtn:React.FC<ResultBtnPropsType> = ({ level, page }) => {
 
     return (
-        <Button title='Играть с этими словами ещё' onClick={() => SprintGame(level, page)} type='success' classType='sprint__btns'/>
+        <Button title='Играть с этими словами ещё' onClick={() => SprintGame()} type='success' classType='sprint__btns'/>
     )
 }
 

@@ -5,21 +5,22 @@ import './sprintStyles.css'
 import CountDownTimer from './Components/CountDownTimer';
 import getWords, { WordFromCollection } from './WordsAPI';
 import SprintGameStart from './Components/SprintStart';
+import whatWords from '../../Components/whatWords';
 
-const SprintGame = (currentLevel?: number, currentPage?: number) => {
+const SprintGame = () => {
   const [isDone, setIsDone] = useState(false);
   const [level, setLevel] = useState(0);
   const [currentWords, setCurrentWords] = useState<WordFromCollection[]>([]);
   const [page, setPage] = useState(-1);
   
   useEffect(() => {
-  if (currentPage && currentPage>=0) {
-    console.log(currentPage);
-    setPage(currentPage);
+  if (whatWords.page) {
+    console.log(whatWords.page);
+    setPage(+whatWords.page);
   }
-  if (currentLevel && currentLevel>=0) {
-    console.log(currentLevel);
-    setLevel(currentLevel);
+  if (whatWords.level) {
+    console.log(whatWords.level);
+    setLevel(+whatWords.level + 1);
   }
 }, [])
 
@@ -39,7 +40,7 @@ const SprintGame = (currentLevel?: number, currentPage?: number) => {
   return (
     <div className='sprint'><SprintButtons />
       <div className='sprint__main'>
-        {!level ? <LevelPage level={level} setLevel={setLevel} /> : null}
+        {!level ? <LevelPage setLevel={setLevel} /> : null}
         {(level && !isDone) ? <CountDownTimer initialValue={3} setIsDone={setIsDone} /> : null}
         {(level && isDone) ? <SprintGameStart currentWords={currentWords} level={level} page={page}  /> : null}
       </div>
