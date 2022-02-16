@@ -3,9 +3,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 100vh;
-  height: 1px;
-  /* height: 100%; */
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +21,11 @@
   flex-direction: column;
   border-radius: 5vw;
   padding: 1vw;
+}
+
+.audiocall-results-page {
+  justify-content: center;
+  row-gap: 2vw;
 }
 
 .audiocall-game-page {
@@ -61,6 +64,11 @@
   color: var(--mark-color);
 }
 
+.btn.next-word {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 .btn.btn-primary.play-word {
   align-items: center;
   justify-content: center;
@@ -89,8 +97,54 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.word-info-score {
+  font-size: 46px;
+  font-weight: bold;
+  color: var(--mark-color);
+  text-transform: uppercase;
+  font-family: var(--main-font-family);
+}
+
+.word-info-total-score {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: var(--main-font-family);
+}
+
+.word-info-total-number {
+  color: var(--mark-color);
+}
+
+.word-info-multiplier {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: var(--main-font-family);
+  color: red;
+  height: 3vw;
+}
+
+.dolphins {
+  content: url(../../assets/jpg/two-dolphins.png);
+  width: 10vw;
+  height: 10vw;
+  color: black;
+  filter: invert(84%) sepia(60%) saturate(1447%) hue-rotate(321deg) brightness(102%) contrast(101%);
+  animation: 2s linear infinite dolphins-rotation;
+}
+
+@keyframes dolphins-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 
 /* Таблица игры */

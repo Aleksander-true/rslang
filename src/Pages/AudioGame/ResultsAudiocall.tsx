@@ -34,6 +34,10 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
     );
   }
 
+  makePercents() {
+    return Math.trunc((this.props.finalResult.gameScore * 100) / 1100);
+  }
+
   render() {
     const tableTemplate = this.props.results.map((res: RoundResult) => {
       return this.makeRow(res);
@@ -41,6 +45,14 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
 
     return (
       <div className="audiocall-results-page">
+        <div className="word-info-total-score">
+          Ваш результат: <span className="word-info-total-number">{this.props.finalResult.gameScore}</span> очков (
+          <span className="word-info-total-number">{this.makePercents()}%</span>)
+        </div>
+        <div className="word-info-total-score">
+          Изучено слов сегодня:{' '}
+          <span className="word-info-total-number">{this.props.finalResult.statisticGame.learnedWords}</span>
+        </div>
         <div className="audiocall-results-list">
           <table className="result-table">
             <tbody>{tableTemplate}</tbody>

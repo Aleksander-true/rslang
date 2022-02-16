@@ -5,7 +5,7 @@ import UsersWords from './api-services/users-words';
 import UsersAggregatedWords from './api-services/users-aggregated-words';
 import UsersStatistic from './api-services/users-statistic';
 import UsersSetting from './api-services/users-setting';
-import { User, UpdateUser, UserWord, Statistic, Setting, Auth } from './types/api-tipes';
+import { User, UpdateUser, UserWord, Statistic, Setting } from './types/api-tipes';
 
 class Api {
   wordsMethods: Words;
@@ -56,7 +56,7 @@ class Api {
     let result;
     try {
       const rawResponse = (await this.usersMethods.createNewUser(requestBody)) as Response;
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'createNewUser');
     } catch (e) {
       if (e instanceof Error) {
         result = this.returnsErrorMessage(e);
@@ -160,7 +160,7 @@ class Api {
     let result;
     try {
       const rawResponse = (await this.usersWordsMethods.updateWord(id, wordID, token, requestBody)) as Response;
-      result = await this.checkResponse(rawResponse);
+      result = await this.checkResponse(rawResponse, 'updateWord');
     } catch (e) {
       if (e instanceof Error) {
         result = this.returnsErrorMessage(e);
@@ -188,7 +188,7 @@ class Api {
     group?: string,
     page?: string,
     wordsPerPage?: string,
-    filter?: string,
+    filter?: string
   ) {
     let result;
     try {
@@ -198,7 +198,7 @@ class Api {
         group,
         page,
         wordsPerPage,
-        filter,
+        filter
       )) as Response;
       result = await this.checkResponse(rawResponse);
     } catch (e) {
@@ -330,7 +330,14 @@ class Api {
       case 417:
         return { isSuccess: false, data: { errorMessage: 'User with this e-mail exists' } };
       case 422:
-        return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
+        switch (method) {
+          case 'createNewUser':
+            return { isSuccess: false, data: { errorMessage: 'Incorrect e-mail or password' } };
+          case 'updateWord':
+            return { isSuccess: false, data: { errorMessage: 'Unprocessable Entity' } };
+          default:
+            return { isSuccess: false, data: { errorMessage: 'Not found' } };
+        }
       case 503:
         return { isSuccess: false, data: { errorMessage: 'Service unavailable' } };
       default:

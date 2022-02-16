@@ -1,11 +1,12 @@
 import React from 'react';
-import { BASE_URL } from '../../constants';
+import api from '../../API';
 import WordInfo from './WordInfo';
 import WordExtendedInfo from './WordExtendedInfo';
 import AnswerButton from './AnswerButton';
 import BlockedButton from './BlockedButton';
 import { GameState } from './audiocall-types';
 import { PropsPlayAudiocall } from './audiocall-types';
+import { OptionalUserWord, UserWord } from './../../types/api-tipes';
 
 class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   state: GameState;
@@ -13,6 +14,10 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   constructor(props: PropsPlayAudiocall) {
     super(props);
     this.state = {
+      roundScore: 0,
+      gameScore: 0,
+      correctSeries: 0,
+      multiplier: '',
       isAnswer: false,
       gameResults: [],
     };
@@ -22,10 +27,59 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
 
   componentWillUnmount() {}
 
-  checkAnswer(status: boolean, value?: string) {
-    this.setState({
-      isAnswer: true,
-    });
+  playCorrect() {
+    const correct = new Audio(require('../../assets/audio/correct.mp3'));
+    correct.play();
+  }
+
+  playWrong() {
+    const wrong = new Audio(require('../../assets/audio/wrong.mp3'));
+    wrong.play();
+  }
+
+  calculateScore(series: number) {
+    let score = 0;
+    let multiplier = '';
+    switch (true) {
+      case series < 4:
+        score = 10;
+        break;
+      case series < 7:
+        score = 20;
+        multiplier = 'X2';
+        break;
+      case series < 10:
+        score = 30;
+        multiplier = 'X3';
+        break;
+      case series < 13:
+        score = 40;
+        multiplier = 'X4';
+        break;
+      case series < 16:
+        score = 50;
+        multiplier = 'X5';
+        break;
+      case series < 19:
+        score = 100;
+        multiplier = 'X10';
+        break;
+      case series === 19:
+        score = 150;
+        multiplier = 'X15';
+        break;
+      case series >= 20:
+        score = 200;
+        multiplier = 'X20';
+        break;
+    }
+    return [String(score), multiplier];
+  }
+
+  async checkAnswer(status: boolean, value?: string) {
+    if (!this.props.getState().isWordStatistic) {
+      return;
+    }
     const isGuessed = status;
     const word = this.props.getState().collection[this.props.getState().currentRound].word;
     const translate = this.props.getState().collection[this.props.getState().currentRound].wordTranslate;
@@ -39,7 +93,103 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     const prevState = this.props.getState();
     const prevResults = prevState.gameResults.slice();
     prevResults.push(roundResult);
+    const userWordStatistic = this.props.getState().statisticWord;
+    const gameStatistic = this.props.getState().statisticGame;
+    if (isGuessed) {
+      (userWordStatistic.optional as OptionalUserWord).correctAnswers =
+        (userWordStatistic.optional?.correctAnswers as number) + 1;
+      (userWordStatistic.optional as OptionalUserWord).progress = (userWordStatistic.optional?.progress as number) + 1;
+      if (userWordStatistic.difficulty === 'easy' && userWordStatistic.optional?.progress === 3) {
+        (userWordStatistic.optional as OptionalUserWord).isLearned = true;
+        gameStatistic.learnedWords += 1;
+        gameStatistic.optional.wordStatistics[this.props.getState().date].learnedWords += 1;
+      } else if (userWordStatistic.difficulty === 'hard' && userWordStatistic.optional?.progress === 5) {
+        userWordStatistic.difficulty = 'easy';
+        (userWordStatistic.optional as OptionalUserWord).isLearned = true;
+        gameStatistic.learnedWords += 1;
+        gameStatistic.optional.wordStatistics[this.props.getState().date].learnedWords += 1;
+      }
+    } else {
+      (userWordStatistic.optional as OptionalUserWord).wrongAnswers =
+        (userWordStatistic.optional as OptionalUserWord).wrongAnswers + 1;
+      (userWordStatistic.optional as OptionalUserWord).progress = 0;
+      if (userWordStatistic.optional?.isLearned) {
+        (userWordStatistic.optional as OptionalUserWord).isLearned = false;
+        if (gameStatistic.learnedWords > 0) {
+          gameStatistic.learnedWords -= 1;
+        }
+        if (gameStatistic.optional.wordStatistics[this.props.getState().date].learnedWords > 0) {
+          gameStatistic.optional.wordStatistics[this.props.getState().date].learnedWords -= 1;
+        }
+      }
+    }
+    const isWordSended = await this.sendUserWord(userWordStatistic);
+    if (!isWordSended) {
+      return;
+    } else {
+      this.props.changeStatisticFlag();
+    }
+    let roundScore = 0;
+    let gameScore = this.state.gameScore;
+    let correctSeries = this.state.correctSeries;
+    let multiplier = '';
+    if (isGuessed) {
+      correctSeries += 1;
+      const calculatedResult = this.calculateScore(correctSeries);
+      roundScore = Number(calculatedResult[0]);
+      multiplier = calculatedResult[1];
+      gameScore += roundScore;
+      gameStatistic.optional.audio.correctAnswers += 1;
+      gameStatistic.optional.wordStatistics[this.props.getState().date].correctAnswers += 1;
+      if (gameStatistic.optional.audio.longestSeries < correctSeries) {
+        gameStatistic.optional.audio.longestSeries = correctSeries;
+      }
+      gameStatistic.optional.audio.totalScore += roundScore;
+      if (userWordStatistic.difficulty === 'easy' && userWordStatistic.optional?.correctAnswers === 3) {
+        (userWordStatistic.optional as OptionalUserWord).isLearned = true;
+      } else if (userWordStatistic.difficulty === 'hard' && userWordStatistic.optional?.correctAnswers === 5) {
+        userWordStatistic.difficulty = 'easy';
+        (userWordStatistic.optional as OptionalUserWord).isLearned = true;
+      }
+    } else {
+      correctSeries = 0;
+      multiplier = '';
+      gameStatistic.optional.audio.wrongAnswers += 1;
+      gameStatistic.optional.wordStatistics[this.props.getState().date].mistakes += 1;
+    }
+    this.props.updateStatistic(gameScore, gameStatistic);
     this.props.setResult(prevResults);
+    if (isGuessed) {
+      this.playCorrect();
+    } else {
+      this.playWrong();
+    }
+    this.setState(
+      {
+        roundScore: roundScore,
+        gameScore: gameScore,
+        correctSeries: correctSeries,
+        multiplier: multiplier,
+      },
+      () => {
+        this.setState({
+          isAnswer: true,
+        });
+      }
+    );
+  }
+
+  async sendUserWord(wordStatistic: UserWord) {
+    let result;
+    const ID = this.props.getState().userID;
+    const wordID = this.props.getState().collection[this.props.getState().currentRound].id;
+    const token = localStorage.getItem('token') as string;
+    if (this.props.getState().isWordOnServer) {
+      result = await api.updateWord(ID, wordID, token, wordStatistic);
+    } else {
+      result = await api.createWord(ID, wordID, token, wordStatistic);
+    }
+    return result?.isSuccess;
   }
 
   nextButton() {
@@ -51,9 +201,8 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
 
   playWord() {
     const state = this.props.getState();
-    const round = state.currentRound;
     const wordAudio = new Audio();
-    wordAudio.src = `${BASE_URL}/${state.collection[round].audio}`;
+    wordAudio.src = `${state.audioSrc}`;
     wordAudio.play();
   }
 
@@ -89,7 +238,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     return (
       <div className="audiocall-game-page">
         {this.state.isAnswer ? (
-          <WordExtendedInfo gameState={this.props.getState()} playWord={() => this.playWord()} />
+          <WordExtendedInfo gameState={this.props.getState()} playWord={() => this.playWord()} gameScore={this.state} />
         ) : (
           <WordInfo playWord={() => this.playWord()} />
         )}
@@ -107,13 +256,20 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
           <button
             disabled={!this.state.isAnswer}
             type="button"
-            className={this.state.isAnswer ? 'btn btn-warning btn-lg' : 'btn btn-outline-warning btn-lg'}
+            className={
+              this.state.isAnswer ? 'btn btn-warning btn-lg next-word' : 'btn btn-outline-warning btn-lg next-word'
+            }
             onClick={() => this.nextButton()}
           >
-            Next word
+            Next
           </button>
-          <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => this.props.finishGame()}>
-            Finish game
+          <button
+            disabled={this.state.isAnswer}
+            type="button"
+            className="btn btn-outline-danger btn-sm"
+            onClick={() => this.checkAnswer(false)}
+          >
+            Skip word
           </button>
         </div>
       </div>
