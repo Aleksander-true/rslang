@@ -5,7 +5,7 @@ import { WORDS_MAX, TIMER_TIME, SOUND_ICON, FULL_SCREEN_ICON, CLOSE_ICON } from 
 import Button from '../../Components/Button';
 import ResultsPage from './Components/Results';
 import LevelPage from './Components/LevelPage';
-import Timer from './Components/Timer';
+import Timer from './Components/timer';
 import './sprintStyles.css'
 import closeImg from "../../assets/svg/x-lg.svg"
 import volume from "../../assets/svg/volume-up.svg"
