@@ -5,8 +5,8 @@ function Levels(props: { level: string }) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
   return (
     <div className={`level-wrapper level${props.level}`}>
-      <Level levelName={'Beginner'} levelLetter={'A0'} levelNumber={'0'} level={props.level} />
-      <Level levelName={'Elementary'} levelLetter={'A1'} levelNumber={'1'} level={props.level} />
+      <Level levelName={'Beginner'} levelLetter={'A1'} levelNumber={'0'} level={props.level} />
+      <Level levelName={'Elementary'} levelLetter={'A1+'} levelNumber={'1'} level={props.level} />
       <Level levelName={'Pre-Intermediate'} levelLetter={'A2'} levelNumber={'2'} level={props.level} />
       <Level levelName={'Intermediate'} levelLetter={'B1'} levelNumber={'3'} level={props.level} />
       <Level levelName={'Upper-Intermediate'} levelLetter={'B2'} levelNumber={'4'} level={props.level} />
