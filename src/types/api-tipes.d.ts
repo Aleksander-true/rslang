@@ -54,12 +54,12 @@ export type UserWord = {
 };
 
 export type Statistic = {
-  learnedWords: string;
+  learnedWords: number;
   optional: OptionalStatistic;
 };
 
 export type Setting = {
-  wordsPerDay: string;
+  wordsPerDay: number;
   optional: OptionalSetting;
 };
 
