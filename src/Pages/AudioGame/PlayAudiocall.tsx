@@ -6,7 +6,7 @@ import AnswerButton from './AnswerButton';
 import BlockedButton from './BlockedButton';
 import { GameState } from './audiocall-types';
 import { PropsPlayAudiocall } from './audiocall-types';
-import { OptionalUserWord, UserWord } from './../../types/api-tipes';
+import { OptionalUserWord, UserWord } from './../../Types/api-tipes';
 
 class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   state: GameState;

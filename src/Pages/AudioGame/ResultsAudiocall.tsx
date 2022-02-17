@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropsResultsAudiocall } from './audiocall-types';
 import { RoundResult } from './audiocall-types';
-import { BASE_URL } from '../../constants.js';
+import { BASE_URL } from '../../constants';
 
 class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
   componentDidMount() {}
