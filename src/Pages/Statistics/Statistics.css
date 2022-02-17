@@ -1,0 +1,70 @@
+.statistics {
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px;
+}
+
+.page-title {
+  margin: 30px 0px;
+    font-family: var(--main-font-family);
+  font-size: 2.5em;
+}
+
+.statistics__default {
+    /* margin-left: 20px; */
+    width: 50%;
+}
+
+.statistics__text {
+    font-size: 1.5em;
+}
+
+.statistics__sad-img {
+    height: 150px;
+}
+
+.statistics__total-words {
+    position: absolute;
+    text-align: center;
+    right: 20px;
+    top: 30px;
+    background: url('../../assets/svg/Ellipse.svg') no-repeat center/70%;
+    font-size: 2em;
+    font-family: var(--main-font-family);
+}
+
+.statistics__total-words p {
+    margin: 0px;
+}
+
+.statistics__subtitle {
+    margin: 10px 0px;
+    font-family: var(--main-font-family);
+  font-size: 1.5em;
+}
+
+.statistics__day {
+    display: flex;
+    margin: 30px;
+    gap: 30px;
+    
+}
+
+.statistics__day__card {
+    display: flex;
+    text-align: center;
+}
+
+.statistics__day__words {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.statistics__day__audio, 
+.statistics__day__sprint {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+} 

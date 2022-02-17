@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Statistic } from "../../../types/api-tipes";
+import { Statistic } from "../../../Types/api-tipes";
 import getAllLearned from "../getAllLearned";
 import getStatistics from "../getStatistics";
 import DayStatistics from "./DayStatistics";
@@ -35,9 +35,9 @@ const StatisticsMain:React.FC<StatisticsMainPropsTypes> = ({userID}) => {
     return (
         <>
             <WordsIKnow learnedWords={learnedWords}/>
-            <h3> Прогресс сегодня </h3>
+            <h3 className="statistics__subtitle"> Прогресс сегодня </h3>
             <DayStatistics statistics={currentStatistics}/>
-            <h3> Мои результаты </h3>
+            <h3 className="statistics__subtitle"> Мои результаты </h3>
             <LongStatistics statistics={currentStatistics}/>
         </>
     );

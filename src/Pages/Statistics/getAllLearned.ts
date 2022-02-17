@@ -6,7 +6,7 @@ const getAllLearned = async (userID: string) => {
     let wordsQuantity = 0;
 
 
-    response = (await api.getAllUserAggregatedWords(userID, token, "0", "0", '20', JSON.stringify({ "userWord.optional.isLearned": "true" })))!
+    response = (await api.getAllUserAggregatedWords(userID, token, "", "", '3600', JSON.stringify({ "userWord.optional.isLearned": "true" })))!
     if (response.isSuccess) {
         wordsQuantity = response.data.length
         console.log (response.data)

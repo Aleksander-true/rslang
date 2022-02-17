@@ -5,10 +5,12 @@ import sadFace from "../../../assets/png/sad.png"
 const StatisticsNone = () => {
 
     return (
-        <>
-            <p>Только зарегистрированные пользователи могут просматривать свою статистику</p>
-            <img src={sadFace} alt="saf face"></img>
-        </>
+        <div className="statistics__default">
+           
+            <p className="statistics__text">Только зарегистрированные пользователи могут просматривать свою статистику</p>
+            <img src={sadFace} alt="saf face" className="statistics__sad-img"></img>
+            
+        </div>
     );
 }
 

@@ -1,5 +1,5 @@
 import api from "../../API";
-import { Statistic } from "../../types/api-tipes";
+import { Statistic } from "../../Types/api-tipes";
 
 const getStatistics = async (userID: string) => {
     const token = localStorage.getItem('token')!;
