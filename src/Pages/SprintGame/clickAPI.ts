@@ -81,6 +81,9 @@ const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boo
         statistics.optional.sprint.wrongAnswers += 1;
         wordFromBase.optional!.wrongAnswers! += 1;
         wordFromBase.optional!.time = currentDate;
+        if (statistics.learnedWords > 0) {
+            statistics.learnedWords -= 1;
+          }
     }
 
     console.log(wordFromBase);
