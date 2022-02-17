@@ -16,7 +16,7 @@ type Word = {
 };
 
 type UserWord = {
-  difficulty: string;
+  difficulty: 'easy'|'hard';
   optional?: {
     isLearned: boolean;
     correctAnswers: number;

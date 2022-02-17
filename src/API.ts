@@ -5,7 +5,7 @@ import UsersWords from './api-services/users-words';
 import UsersAggregatedWords from './api-services/users-aggregated-words';
 import UsersStatistic from './api-services/users-statistic';
 import UsersSetting from './api-services/users-setting';
-import { User, UpdateUser, UserWord, Statistic, Setting, Auth } from './types/api-tipes';
+import { User, UpdateUser, UserWord, Statistic, Setting, Auth } from './Types/api-tipes';
 
 class Api {
   wordsMethods: Words;

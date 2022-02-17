@@ -2,7 +2,7 @@ import React from 'react';
 import './audio-call.css';
 import { BASE_URL } from '../../constants';
 import api from '../../API';
-import { Word } from '../../types/api-tipes';
+import { Word } from '../../Types/api-tipes';
 import StartAudiocall from './StartAudiocall';
 import PlayAudiocall from './PlayAudiocall';
 import ResultsAudiocall from './ResultsAudiocall';
