@@ -10,7 +10,10 @@ import DifficultWordList from './DifficultWordList';
 
 import './textbook.css';
 import './words.css';
+import './link-game.css';
 import DifficultWordCard from './DifficultWordCard';
+import LinkSprint from './LinkSprint';
+import LinkAudioCall from './LinkAudioCall';
 
 const PAGES_QUANTITY = 30;
 const WORDS_ON_PAGE = 20;
@@ -108,6 +111,11 @@ function Textbook() {
           <div className="word__list">{wordList}</div>
         </div>
         {pagination}
+        <div className="link-game__wrapper">
+          <h2 className="link-game__title">Играть с этими словами</h2>
+          <LinkSprint />
+          <LinkAudioCall />
+        </div>
       </div>
       <Footer />
     </>
