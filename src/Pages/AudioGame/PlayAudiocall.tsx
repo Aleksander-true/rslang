@@ -19,11 +19,20 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
       correctSeries: 0,
       multiplier: '',
       isAnswer: false,
+      isPreAnswer: false,
       gameResults: [],
     };
   }
 
-  handleKeyup() {
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyup);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyup);
+  }
+
+  handleKeyup = () => {
     if (!this.props.getState().isStarted || this.props.getState().isFinished || this.props.getState().isRequesting) {
       return;
     }
@@ -33,26 +42,31 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     switch (event.code) {
       case 'Digit1':
       case 'Numpad1':
+        if (this.state.isAnswer) break;
         isCorrect = this.checkCorrectProp(0);
         this.checkAnswer(isCorrect);
         break;
       case 'Digit2':
       case 'Numpad2':
+        if (this.state.isAnswer) break;
         isCorrect = this.checkCorrectProp(1);
         this.checkAnswer(isCorrect);
         break;
       case 'Digit3':
       case 'Numpad3':
+        if (this.state.isAnswer) break;
         isCorrect = this.checkCorrectProp(2);
         this.checkAnswer(isCorrect);
         break;
       case 'Digit4':
       case 'Numpad4':
+        if (this.state.isAnswer) break;
         isCorrect = this.checkCorrectProp(3);
         this.checkAnswer(isCorrect);
         break;
       case 'Digit5':
       case 'Numpad5':
+        if (this.state.isAnswer) break;
         isCorrect = this.checkCorrectProp(4);
         this.checkAnswer(isCorrect);
         break;
@@ -72,15 +86,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
       default:
         break;
     }
-  }
-
-  componentDidMount() {
-    document.addEventListener('keydown', () => this.handleKeyup());
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', () => this.handleKeyup());
-  }
+  };
 
   playCorrect() {
     const correct = new Audio(require('../../assets/audio/correct.mp3'));
@@ -132,6 +138,15 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   }
 
   async checkAnswer(status: boolean, value?: string) {
+    if (this.state.isPreAnswer) return;
+    await new Promise<void>((resolve) => {
+      this.setState(
+        {
+          isPreAnswer: true,
+        },
+        () => resolve()
+      );
+    });
     if (!this.props.getState().isWordStatistic) {
       return;
     }
@@ -232,6 +247,9 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         });
       }
     );
+    this.setState({
+      isPreAnswer: false,
+    });
   }
 
   async sendUserWord(wordStatistic: UserWord) {

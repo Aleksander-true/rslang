@@ -16,7 +16,7 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
 
   makeRow(res: RoundResult) {
     return (
-      <tr>
+      <tr key={res.word}>
         <td>
           <button
             type="button"

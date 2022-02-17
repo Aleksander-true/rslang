@@ -10,7 +10,29 @@ class AnswerButton extends React.Component<PropsAnswerButton> {
     this.state = {
       isCorrect: this.props.isCorrect,
       value: this.props.value,
+      timer: setTimeout(() => {}, 0),
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      timer: setTimeout(() => {
+        this.updateButton();
+      }, 0),
+    });
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      timer: clearTimeout(this.state.timer),
+    });
+  }
+
+  updateButton() {
+    this.setState({
+      isCorrect: this.props.isCorrect,
+      value: this.props.value,
+    });
   }
 
   returnStatusAndValue() {

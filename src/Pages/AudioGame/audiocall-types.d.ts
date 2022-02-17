@@ -50,6 +50,7 @@ type AggregatedResponseType = {
 export type AnswerButtonState = {
   value: string;
   isCorrect: boolean;
+  timer: ReturnType<typeof setTimeout>;
 };
 
 export type RoundResult = {
@@ -65,6 +66,7 @@ export type GameState = {
   correctSeries: number;
   multiplier: string;
   isAnswer: boolean;
+  isPreAnswer: boolean;
   gameResults: RoundResult[];
 };
 
