@@ -1,27 +1,21 @@
 import React, { useState } from 'react';
 import { BASE_URL } from '../../constants';
-import { ReactComponent as Bookmark } from './../../assets/svg/bookmark.svg';
 import { ReactComponent as BookmarkDelete } from './../../assets/svg/bookmark-delete.svg';
 import './textbook.css';
 import './words.css';
 import './word-card.css';
 import api from '../../API';
 
-function WordCard(props: WordCardProps) {
-  const isAuthorized = localStorage.getItem('userId') ? true : false;
-  const currentWord = props.words.find((item) => item.id === props.currentWord) || props.words[0];
-  const level = currentWord.group;
+function DifficultWordCard(props: DifficultWordCardProps) {
+  const words = props.userWords[0].paginatedResults;
+  if (words.length === 0) return <>Loading ...</>;
+  const currentWord = words.find((item) => item._id === props.currentWord) || words[0];
+  const level = currentWord?.group || '0';
   const textMeaning = { __html: currentWord.textMeaning };
   const textExample = { __html: currentWord.textExample };
   const imgUrl = `${BASE_URL}/${currentWord.image}`;
   const { word, wordTranslate, transcription, textExampleTranslate, textMeaningTranslate } = currentWord;
   const audio = new Audio();
-
-  const difficult = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
-  const isDifficult = difficult?.userWord?.difficulty === 'hard' ? true : false;
-
-  const learned = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
-  const isLearned = learned?.userWord?.optional?.isLearned;
 
   const playAudio = (str: string) => {
     let url = '';
@@ -101,9 +95,8 @@ function WordCard(props: WordCardProps) {
       <div className="card__description-wrapper">
         <h3 className="card__word">
           {word}
-          <span className={`card__bookmark level${level}` + (isDifficult ? ' checked' : '')}>
-            {isAuthorized && !isDifficult && <Bookmark onClick={() => changeDifficulty(currentWord.id, 'hard')} />}
-            {isAuthorized && isDifficult && <BookmarkDelete onClick={() => changeDifficulty(currentWord.id, 'easy')} />}
+          <span className={`card__bookmark checked`}>
+            <BookmarkDelete onClick={() => changeDifficulty(currentWord._id, 'easy')} />
           </span>
         </h3>
         <h4 className="card__translate">
@@ -125,29 +118,19 @@ function WordCard(props: WordCardProps) {
         </h4>
         <p dangerouslySetInnerHTML={textExample}></p>
         <p>{textExampleTranslate}</p>
-        {isAuthorized && !isLearned && (
-          <button
-            type="button"
-            className={`learned-btn level${level}`}
-            onClick={() => {
-              changeLearned(currentWord.id, true);
-            }}
-          >
-            пометить как выученное
-          </button>
-        )}
-        {isAuthorized && isLearned && (
-          <button
-            type="button"
-            className={`learned-btn level${level}`}
-            onClick={() => changeLearned(currentWord.id, false)}
-          >
-            удалить из выученных
-          </button>
-        )}
+
+        <button
+          type="button"
+          className={`learned-btn level${level}`}
+          onClick={() => {
+            changeLearned(currentWord._id, true);
+          }}
+        >
+          пометить как выученное
+        </button>
       </div>
     </>
   );
 }
 
-export default WordCard;
+export default DifficultWordCard;

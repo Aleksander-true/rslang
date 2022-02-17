@@ -28,7 +28,7 @@ function WordList(props: WordListProps) {
         <i>{item.wordTranslate}</i>
       </h4>
       {isAuthorized && difficultIds.includes(item.id) && (
-        <i className="bi bi-exclamation-circle exclamation_bottom-right icon_red"></i>
+        <i className="bi bi-exclamation-circle exclamation_bottom-right"></i>
       )}
       {isAuthorized && learnedIds.includes(item.id) && (
         <i className="bi bi-check-circle-fill check-square_top-right icon_green"></i>

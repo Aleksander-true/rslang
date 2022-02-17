@@ -66,6 +66,18 @@ type WordListProps = {
   currentWord: CurrentWord;
 };
 
+type DifficultWordListProps = {
+  clickWord: (string) => void;
+  userWords: GetUserWordsData;
+  currentWord: CurrentWord;
+};
+
+type DifficultWordCardProps = {
+  currentWord: CurrentWord;
+  updateUserWords: (group?: string, page?: string) => void;
+  userWords: GetUserWordsData;
+};
+
 type WordCardProps = {
   words: Word[];
   currentWord: CurrentWord;

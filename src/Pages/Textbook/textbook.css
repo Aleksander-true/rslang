@@ -17,6 +17,8 @@
 }
 
 .level__card {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   position: relative;
   height: 70px;
@@ -63,6 +65,11 @@
 
 .level__card:nth-of-type(6) .card__level-letter {
   background-color: #8c75ff;
+}
+
+.level__card:nth-of-type(7) .card__level-letter {
+  background-color: #000000;
+  color: #fff;
 }
 
 .pagination-wrapper {

@@ -6,9 +6,11 @@ import api from '../../API';
 import Pagination from './Pagination';
 import WordCard from './WordCard';
 import WordList from './WordList';
+import DifficultWordList from './DifficultWordList';
 
 import './textbook.css';
 import './words.css';
+import DifficultWordCard from './DifficultWordCard';
 
 const PAGES_QUANTITY = 30;
 const WORDS_ON_PAGE = 20;
@@ -27,6 +29,7 @@ function Textbook() {
   ] as GetUserWordsData);
 
   const getWords = async (level: string, page: string) => {
+    if (+level >= 6) return;
     const response = await api.getChunkOfWords(level, page);
     if (response?.isSuccess) {
       const data = response?.data as Word[];
@@ -39,8 +42,8 @@ function Textbook() {
     const response = await api.getAllUserAggregatedWords(
       localStorage.getItem('userId') || '',
       localStorage.getItem('token') || '',
-      fromGroup,
-      fromPage,
+      +fromGroup > 5 ? undefined : fromGroup,
+      undefined,
       String(WORDS_ON_PAGE),
       '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}',
     );
@@ -60,8 +63,8 @@ function Textbook() {
     updateUserWords(level, page);
   }, [level, page]);
 
-  let wordCard, wordList;
-  if (words.length !== 0) {
+  let wordCard, wordList, pagination;
+  if (words.length !== 0 && +level <= 5) {
     wordCard = (
       <WordCard words={words} currentWord={currentWordID} updateUserWords={updateUserWords} userWords={userWords} />
     );
@@ -74,6 +77,20 @@ function Textbook() {
           changeWord(id);
         }}
       />
+    );
+    pagination = <Pagination page={+page} lastPage={PAGES_QUANTITY - 1} level={level} />;
+  } else if (+level > 5) {
+    wordList = (
+      <DifficultWordList
+        userWords={userWords}
+        currentWord={currentWordID}
+        clickWord={(id: string) => {
+          changeWord(id);
+        }}
+      />
+    );
+    wordCard = (
+      <DifficultWordCard currentWord={currentWordID} updateUserWords={updateUserWords} userWords={userWords} />
     );
   } else {
     wordCard = 'Loading...';
@@ -90,7 +107,7 @@ function Textbook() {
           <div className="word__card">{wordCard}</div>
           <div className="word__list">{wordList}</div>
         </div>
-        <Pagination page={+page} lastPage={PAGES_QUANTITY - 1} level={level} />
+        {pagination}
       </div>
       <Footer />
     </>
