@@ -81,7 +81,7 @@ function Textbook() {
         }}
       />
     );
-    pagination = <Pagination page={+page} lastPage={PAGES_QUANTITY - 1} level={level} />;
+    pagination = <Pagination page={+page} lastPage={PAGES_QUANTITY} level={level} />;
   } else if (+level > 5) {
     wordList = (
       <DifficultWordList
@@ -104,7 +104,7 @@ function Textbook() {
     <>
       <div className="textbook">
         <h2 className="textbook__title">Электронный учебник</h2>
-        <Levels />
+        <Levels level={level} />
         <h2 className="textbook__title">Список слов</h2>
         <div className="words-wrapper">
           <div className="word__card">{wordCard}</div>

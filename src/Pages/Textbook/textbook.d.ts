@@ -57,6 +57,7 @@ type LevelProps = {
   levelNumber: string;
   levelName: string;
   levelLetter: string;
+  level: string;
 };
 
 type WordListProps = {
