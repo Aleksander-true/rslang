@@ -20,6 +20,10 @@ a {
   --bkg-level-4: #5d7cfd;
   --bkg-level-5: #8c75ff;
   --bkg-level-user: #ff009d;
+  --light-red-color: #ffb197;
+  --green-color: #68d4bb;
+  --light-green-color: #aaf3e2;
+  --yellow-color: #fce74e;
 }
 
 .wrapper {

@@ -1,5 +1,5 @@
 import ApiErrorHandler from './api-error-handler';
-import { Statistic } from '../types/api-tipes';
+import { Statistic } from '../Types/api-tipes';
 
 class UsersStatistic extends ApiErrorHandler {
   async getStatistics(id: string, token: string) {

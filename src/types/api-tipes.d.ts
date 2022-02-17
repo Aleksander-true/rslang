@@ -5,7 +5,7 @@ export type OptionalStatistic = {
 };
 
 export type OptionalUserWord = {
-  // isNew?: boolean; //true - впервые использовано в играх вне зависимости, открывались игры на странице учебника или по ссылке в меню
+  // isNew: boolean; //true - впервые использовано в играх вне зависимости, открывались игры на странице учебника или по ссылке в меню
   isLearned: boolean; //true - угадано подряд 3 (если difficulty = 'easy') или 5 (если difficulty = 'hard') раз. false - если игрок ошибся
   correctAnswers: number; //сколько раз это слово угадано
   wrongAnswers: number; //сколько раз это слово НЕ угадано
@@ -68,7 +68,7 @@ type AggregatedWord = {
 };
 
 export type UserWord = {
-  difficulty: string;
+  difficulty: 'easy' | 'hard';
   optional?: Partial<OptionalUserWord>;
 };
 

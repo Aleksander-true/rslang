@@ -1,5 +1,5 @@
 import ApiErrorHandler from './api-error-handler';
-import { Setting } from '../types/api-tipes';
+import { Setting } from '../Types/api-tipes';
 
 class UsersSetting extends ApiErrorHandler {
   async getSettings(id: string, token: string) {
