@@ -4,13 +4,13 @@ type ButtonPropsType = {
     onClick: any;
     title:string;
     type: "danger"|"success";
-    action: string;
+    classType: string;
 }
 
-const Button:React.FC<ButtonPropsType> = ({onClick, title, type, action}) => {
+const Button:React.FC<ButtonPropsType> = ({onClick, title, type, classType}) => {
 
     return (
-        <button className= {`btn btn-${type}`} onClick={() => onClick(action)}>{title}</button>
+        <button className= {`btn btn-${type} ${classType} `} onClick={onClick}>{title}</button>
     )
 }
 

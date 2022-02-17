@@ -1,5 +1,5 @@
 import ApiErrorHandler from './api-error-handler';
-import { UpdateUser } from '../types/api-tipes';
+import { UpdateUser } from '../Types/api-tipes';
 
 class SignIn extends ApiErrorHandler {
   async signIn(requestBody: UpdateUser) {

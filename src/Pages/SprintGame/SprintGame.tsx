@@ -1,144 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { WordFromCollection } from './words';
-import { shuffledWords, randomAnswer, ShowEnglishWord, ShowTranslate, } from './util';
-import { WORDS_MAX, TIMER_TIME, SOUND_ICON, FULL_SCREEN_ICON, CLOSE_ICON } from './const';
-import Button from '../../Components/Button';
-import ResultsPage from './Components/Results';
+import React, { useEffect, useState } from 'react';
 import LevelPage from './Components/LevelPage';
-import Timer from './Components/timer';
+import SprintButtons from './Components/SprintButtons';
 import './sprintStyles.css'
-import closeImg from "../../assets/svg/x-lg.svg"
-import volume from "../../assets/svg/volume-up.svg"
-// import mute from "../../assets/svg/volume-mute.svg"
-import fullscreen from "../../assets/svg/fullscreen.svg"
-// import fullscreenExit from "../../assets/svg/fullscreen-exit.svg"
-
-
-const currentWords: WordFromCollection[] = shuffledWords();
-const correctWords: WordFromCollection[] = [];
-const wrongWords: WordFromCollection[] = [];
-const answers: string[] = randomAnswer(currentWords);
-
+import CountDownTimer from './Components/CountDownTimer';
+import getWords, { WordFromCollection } from './WordsAPI';
+import SprintGameStart from './Components/SprintStart';
+import whatWords from '../../Components/whatWords';
 
 const SprintGame = () => {
-  const [level, setLevel] = useState(0)
-  const [timeToGo, setTimeToGo] = useState(3)
+  const [isDone, setIsDone] = useState(false);
+  const [level, setLevel] = useState(0);
+  const [currentWords, setCurrentWords] = useState<WordFromCollection[]>([]);
+  const [page, setPage] = useState(-1);
+  
+  useEffect(() => {
+  if (whatWords.page) {
+    console.log(whatWords.page);
+    setPage(+whatWords.page);
+  }
+  if (whatWords.level) {
+    console.log(whatWords.level);
+    setLevel(+whatWords.level + 1);
+  }
+}, [])
+
+  const loadWords = async (selectedLevel: number) => {
+    
+      const myWords = await getWords((selectedLevel - 1).toString(), page.toString());
+      setCurrentWords(myWords || []);
+  }
+
+  useEffect(() => {
+    if (level) {
+      loadWords(level)
+    }
+  }, [level])
+
+
   return (
     <div className='sprint'><SprintButtons />
       <div className='sprint__main'>
-        {!level && <LevelPage level={level} setLevel={setLevel} />}
-        {(level && timeToGo !== 0) && <Timer timeLeft={timeToGo} setTimeLeft={setTimeToGo} />}
-        {(level && timeToGo === 0) && <SprintGameInside />}
+        {!level ? <LevelPage setLevel={setLevel} /> : null}
+        {(level && !isDone) ? <CountDownTimer initialValue={3} setIsDone={setIsDone} /> : null}
+        {(level && isDone) ? <SprintGameStart currentWords={currentWords} level={level} page={page}  /> : null}
       </div>
     </div>
   )
 }
 
-const SprintGameInside = () => {
-
-  const [timeLeft, setTimeLeft] = useState(TIMER_TIME);
-  const [wordNum, setWordNum] = useState(0)
-  const [count, setCount] = useState(0);
-  const [maxSeries, setMaxSeries] = useState(0)
-  const realAnswer = (currentWords[wordNum].wordTranslate === answers[wordNum]);
-
-  useEffect(() => {
-    const keyPress = (event: { keyCode: number; }) => {
-      if (wordNum > WORDS_MAX - 1) {
-        return
-      }
-
-      if (event.keyCode === 39) { //right
-        if (realAnswer) {
-          setCount(prev => prev + 1);
-          setMaxSeries(prev => prev + 1);
-          correctWords.push(currentWords[wordNum]);
-          setWordNum(prev => prev + 1);
-        } else {
-          setMaxSeries(0)
-          wrongWords.push(currentWords[wordNum]);
-          setWordNum(prev => prev + 1);
-        }
-      }
-      else if (event.keyCode === 37) {
-        if (!realAnswer) {
-          setCount(prev => prev + 1);
-          setMaxSeries(prev => prev + 1);
-          correctWords.push(currentWords[wordNum]);
-          setWordNum(prev => prev + 1);
-        } else {
-          setMaxSeries(0)
-          wrongWords.push(currentWords[wordNum]);
-          setWordNum(prev => prev + 1);
-        }
-      }
-    }
-    window.addEventListener('keydown', keyPress);
-    return () => {
-      window.removeEventListener('keydown', keyPress);
-    };
-  }, [count, maxSeries, realAnswer, setWordNum, wordNum]);
-
-
-  return (
-    <div className='sprint__question-page'>
-      {(timeLeft === 0 || wordNum === WORDS_MAX) && <ResultsPage correctWords={correctWords} wrongWords={wrongWords} />}
-      {(timeLeft > 0 && wordNum < WORDS_MAX) && <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />}
-      {(timeLeft > 0 && wordNum < WORDS_MAX) && <SprintQuestions wordNum={wordNum} setWordNum={setWordNum} count={count} setCount={setCount} maxSeries={maxSeries} setMaxSeries={setMaxSeries} realAnswer={realAnswer} />}
-    </div>
-  )
-}
-
-type SprintQuestionsPropsType = {
-  wordNum: number;
-  setWordNum: React.Dispatch<React.SetStateAction<number>>;
-  count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-  maxSeries: number;
-  setMaxSeries: React.Dispatch<React.SetStateAction<number>>;
-  realAnswer: boolean
-}
-
-const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({ wordNum, setWordNum, count, setCount, maxSeries, setMaxSeries, realAnswer }) => {
-
-  const handleClick = (userAnswer: string) => {
-
-    if (JSON.parse(userAnswer) === realAnswer) {
-      setCount(prev => prev + 1);
-      setMaxSeries(prev => prev + 1);
-      correctWords.push(currentWords[wordNum]);
-      setWordNum(prev => prev + 1);
-    } else {
-      setMaxSeries(0)
-      wrongWords.push(currentWords[wordNum]);
-      setWordNum(prev => prev + 1);
-    }
-  }
-
-  return (
-    <div className='sprint__question-page'>
-      <h3>Текущий результат: {count}</h3>
-      <p>Угадано подряд: {maxSeries}</p>
-
-      <div>
-        <ShowEnglishWord words={currentWords} wordNum={wordNum} />
-        <ShowTranslate answers={answers[wordNum]} />
-        <Button title='no' onClick={handleClick} type='danger' action='false' />
-        <Button title='yes' onClick={handleClick} type='success' action='true' />
-      </div>
-    </div>
-  )
-}
-
-const SprintButtons = () => {
-  return (
-    <div className='sprint__header' >
-      {CLOSE_ICON}
-      <div className='sprint__header__controls'>
-        {FULL_SCREEN_ICON}
-        {SOUND_ICON} </div>
-    </div>
-  )
-}
-
-export default SprintGame;
+export default SprintGame

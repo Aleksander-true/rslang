@@ -1,4 +1,4 @@
-import { Word } from '../../types/api-tipes';
+import { Word } from '../../Types/api-tipes';
 
 export type AudioGameState = {
   isStarted: boolean;
