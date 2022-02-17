@@ -2,6 +2,7 @@ import { Word, Statistic, UserWord, AggregatedWord } from '../../types/api-tipes
 
 export type AudioGameState = {
   date: string;
+  isAuthorised: boolean;
   isStarted: boolean;
   isFinished: boolean;
   isRequesting: boolean;
@@ -104,9 +105,10 @@ export type PropsPlayAudiocall = {
 };
 
 export type PropsAnswerButton = {
+  id: number;
   isCorrect: boolean;
-  onClick: (isCorrect: boolean, value: string) => void;
   value: string;
+  onClick: (isCorrect: boolean, value: string) => void;
 };
 
 export type PropsBlockedButton = {

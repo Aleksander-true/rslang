@@ -19,9 +19,18 @@ class AnswerButton extends React.Component<PropsAnswerButton> {
     this.props.onClick(isCorrect, value);
   }
 
+  returnIDName() {
+    return `answer-${this.props.id}`;
+  }
+
   render() {
     return (
-      <button type="button" className="btn btn-warning" onClick={() => this.returnStatusAndValue()}>
+      <button
+        type="button"
+        className="btn btn-warning"
+        id={this.returnIDName()}
+        onClick={() => this.returnStatusAndValue()}
+      >
         {this.state.value}
       </button>
     );

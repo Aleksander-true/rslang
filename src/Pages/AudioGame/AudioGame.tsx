@@ -22,6 +22,7 @@ class AudioGame extends React.Component<{}> {
     super(props);
     this.state = {
       date: dateConstructor(),
+      isAuthorised: false,
       isStarted: false,
       isFinished: false,
       isRequesting: false,
@@ -143,6 +144,24 @@ class AudioGame extends React.Component<{}> {
   }
 
   async startGame(menuGroup?: number) {
+    await new Promise<void>((resolve) => {
+      this.setState(
+        {
+          userID: localStorage.getItem('userId') as string,
+        },
+        () => resolve()
+      );
+    });
+    if (this.state.userID !== null) {
+      await new Promise<void>((resolve) => {
+        this.setState(
+          {
+            isAuthorised: true,
+          },
+          () => resolve()
+        );
+      });
+    }
     let response: ResponseType;
     let aggregatedResponse: AggregatedResponseType;
     let filter: AggregatedWordsFilterType;
@@ -244,11 +263,13 @@ class AudioGame extends React.Component<{}> {
   }
 
   async sendStatistic() {
+    if (!this.state.isAuthorised) {
+      return true;
+    }
     const ID = this.state.userID;
     const token = localStorage.getItem('token') as string;
     const requestBody = this.state.statisticGame;
     const response = await api.upsertStatistics(ID, token, requestBody);
-    console.log(response);
     return response?.isSuccess;
   }
 
@@ -321,6 +342,9 @@ class AudioGame extends React.Component<{}> {
   }
 
   async getUserWord(num: number) {
+    if (!this.state.isAuthorised) {
+      return true;
+    }
     const response = (await api.getWord(
       this.state.userID,
       this.state.collection[num].id,
@@ -361,6 +385,9 @@ class AudioGame extends React.Component<{}> {
   }
 
   async getStatistic() {
+    if (!this.state.isAuthorised) {
+      return true;
+    }
     const response = (await api.getStatistics(
       this.state.userID,
       localStorage.getItem('token') as string
@@ -443,6 +470,7 @@ class AudioGame extends React.Component<{}> {
       this.setState(
         {
           date: dateConstructor(),
+          isAuthorised: this.state.userID !== null,
           isStarted: false,
           isFinished: false,
           isRequesting: showDolphins,

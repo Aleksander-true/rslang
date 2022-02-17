@@ -46,12 +46,7 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
     return (
       <div className="audiocall-results-page">
         <div className="word-info-total-score">
-          Ваш результат: <span className="word-info-total-number">{this.props.finalResult.gameScore}</span> очков (
-          <span className="word-info-total-number">{this.makePercents()}%</span>)
-        </div>
-        <div className="word-info-total-score">
-          Изучено слов сегодня:{' '}
-          <span className="word-info-total-number">{this.props.finalResult.statisticGame.learnedWords}</span>
+          Ваш результат: <span className="word-info-total-number">{this.props.finalResult.gameScore}</span> очков
         </div>
         <div className="audiocall-results-list">
           <table className="result-table">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import api from '../../API';
 import WordInfo from './WordInfo';
 import WordExtendedInfo from './WordExtendedInfo';
@@ -23,9 +23,64 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     };
   }
 
-  componentDidMount() {}
+  handleKeyup() {
+    if (!this.props.getState().isStarted || this.props.getState().isFinished || this.props.getState().isRequesting) {
+      return;
+    }
+    const event = window.event as unknown as KeyboardEvent;
+    event.preventDefault();
+    let isCorrect: boolean;
+    switch (event.code) {
+      case 'Digit1':
+      case 'Numpad1':
+        isCorrect = this.checkCorrectProp(0);
+        this.checkAnswer(isCorrect);
+        break;
+      case 'Digit2':
+      case 'Numpad2':
+        isCorrect = this.checkCorrectProp(1);
+        this.checkAnswer(isCorrect);
+        break;
+      case 'Digit3':
+      case 'Numpad3':
+        isCorrect = this.checkCorrectProp(2);
+        this.checkAnswer(isCorrect);
+        break;
+      case 'Digit4':
+      case 'Numpad4':
+        isCorrect = this.checkCorrectProp(3);
+        this.checkAnswer(isCorrect);
+        break;
+      case 'Digit5':
+      case 'Numpad5':
+        isCorrect = this.checkCorrectProp(4);
+        this.checkAnswer(isCorrect);
+        break;
+      case 'Space':
+        this.playWord();
+        break;
+      case 'Enter':
+        if (!this.state.isAnswer) {
+          this.checkAnswer(false);
+        } else {
+          this.nextButton();
+        }
+        break;
+      case 'Escape':
+        this.props.resetGame();
+        break;
+      default:
+        break;
+    }
+  }
 
-  componentWillUnmount() {}
+  componentDidMount() {
+    document.addEventListener('keydown', () => this.handleKeyup());
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', () => this.handleKeyup());
+  }
 
   playCorrect() {
     const correct = new Audio(require('../../assets/audio/correct.mp3'));
@@ -60,15 +115,15 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         score = 50;
         multiplier = 'X5';
         break;
-      case series < 19:
+      case series <= 19:
         score = 100;
         multiplier = 'X10';
         break;
-      case series === 19:
+      case series === 20:
         score = 150;
         multiplier = 'X15';
         break;
-      case series >= 20:
+      case series > 20:
         score = 200;
         multiplier = 'X20';
         break;
@@ -180,6 +235,9 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   }
 
   async sendUserWord(wordStatistic: UserWord) {
+    if (!this.props.getState().isAuthorised) {
+      return true;
+    }
     let result;
     const ID = this.props.getState().userID;
     const wordID = this.props.getState().collection[this.props.getState().currentRound].id;
@@ -227,6 +285,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   returnAnswerButton(num: number) {
     return (
       <AnswerButton
+        id={num + 1}
         isCorrect={this.checkCorrectProp(num)}
         value={this.props.getState().answers[num]}
         onClick={(isCorrect, value) => this.checkAnswer(isCorrect, value)}
