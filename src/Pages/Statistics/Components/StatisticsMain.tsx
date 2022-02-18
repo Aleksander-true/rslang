@@ -19,14 +19,11 @@ const StatisticsMain: React.FC<StatisticsMainPropsTypes> = ({ userID }) => {
     useState<Statistic>(statistics);
   const [learnedWords, setLearnedWords] = useState<number>(0);
 
-  console.log(learnedWords);
-
   const loadStatistics = async (userID: string) => {
     const myStat = await getStatistics(userID);
     const myWords = await getAllLearned(userID);
     setLearnedWords(myWords || 0);
     setCurrentStatistics(myStat || statistics);
-    console.log(myStat);
   };
 
   useEffect(() => {

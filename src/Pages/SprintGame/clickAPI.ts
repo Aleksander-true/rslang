@@ -72,7 +72,6 @@ export const clickApiActions = async (
     localStorage.getItem("token")!,
     newDataToAPI.statistics
   );
-  console.log(newDataToAPI.wordFromBase);
 };
 
 const update = async (
@@ -119,7 +118,6 @@ const update = async (
     if (statistics.optional.sprint.longestSeries < maxSeries) {
       statistics.optional.sprint.longestSeries = maxSeries;
     }
-    console.log(score, statistics.optional.sprint.totalScore);
     if (statistics.optional.sprint.totalScore < score) {
       statistics.optional.sprint.totalScore = score;
     }

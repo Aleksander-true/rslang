@@ -56,7 +56,6 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
       answer = true;
       audio.src = correctSound;
       audio.play();
-      console.log(score, "score");
       if (localStorage.getItem("userId")) {
         clickApiActions(
           answer,
