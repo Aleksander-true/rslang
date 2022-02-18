@@ -41,6 +41,9 @@ class StartAudiocall extends React.Component<PropsStartAudiocall> {
             <li>
               <span className="keys">Enter</span> - переход к следующему слову
             </li>
+            <li>
+              <span className="keys">Escape</span> - выход из игры
+            </li>
           </ul>
         </div>
       </div>
