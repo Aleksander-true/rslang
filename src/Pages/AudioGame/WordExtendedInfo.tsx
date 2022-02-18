@@ -22,9 +22,24 @@ class WordExtendedInfo extends React.Component<PropsWordExtendedInfo> {
     audio.play();
   }
 
+  createTextMeaning() {
+    const string = this.props.gameState.collection[this.props.gameState.currentRound].textMeaning;
+    return { __html: string };
+  }
+
+  createTextExample() {
+    const string = this.props.gameState.collection[this.props.gameState.currentRound].textExample;
+    return { __html: string };
+  }
+
   render() {
     return (
       <div className="word-info">
+        <div className="word-info-score">+ {this.props.gameScore.roundScore}</div>
+        <div className="word-info-multiplier">{this.props.gameScore.multiplier}</div>
+        <div className="word-info-total-score">
+          Итого: <span className="word-info-total-number">{this.props.gameScore.gameScore}</span>
+        </div>
         <table className="word-table">
           <tbody>
             <tr className="word-table-head">
@@ -65,7 +80,7 @@ class WordExtendedInfo extends React.Component<PropsWordExtendedInfo> {
                   }
                 ></button>
               </td>
-              <td>{this.props.gameState.collection[this.props.gameState.currentRound].textMeaning}</td>
+              <td dangerouslySetInnerHTML={this.createTextMeaning()} />
               <td>{this.props.gameState.collection[this.props.gameState.currentRound].textMeaningTranslate}</td>
             </tr>
             <tr>
@@ -79,7 +94,7 @@ class WordExtendedInfo extends React.Component<PropsWordExtendedInfo> {
                   }
                 ></button>
               </td>
-              <td>{this.props.gameState.collection[this.props.gameState.currentRound].textExample}</td>
+              <td dangerouslySetInnerHTML={this.createTextExample()} />
               <td>{this.props.gameState.collection[this.props.gameState.currentRound].textExampleTranslate}</td>
             </tr>
           </tbody>

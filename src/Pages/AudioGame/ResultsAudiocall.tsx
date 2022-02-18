@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropsResultsAudiocall } from './audiocall-types';
 import { RoundResult } from './audiocall-types';
-import { BASE_URL } from '../../constants.js';
+import { BASE_URL } from '../../constants';
 
 class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
   componentDidMount() {}
@@ -16,7 +16,7 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
 
   makeRow(res: RoundResult) {
     return (
-      <tr>
+      <tr key={res.word}>
         <td>
           <button
             type="button"
@@ -34,6 +34,10 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
     );
   }
 
+  makePercents() {
+    return Math.trunc((this.props.finalResult.gameScore * 100) / 1100);
+  }
+
   render() {
     const tableTemplate = this.props.results.map((res: RoundResult) => {
       return this.makeRow(res);
@@ -41,6 +45,9 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
 
     return (
       <div className="audiocall-results-page">
+        <div className="word-info-total-score">
+          Ваш результат: <span className="word-info-total-number">{this.props.finalResult.gameScore}</span> очков
+        </div>
         <div className="audiocall-results-list">
           <table className="result-table">
             <tbody>{tableTemplate}</tbody>
