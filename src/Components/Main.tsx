@@ -9,7 +9,7 @@ import whatWords from './whatWords';
 import './main.css';
 
 function Main() {
-  whatWords.fromURL(useLocation().search);
+  whatWords.fromURL(useLocation().pathname, useLocation().search);
 
   return (
     <main className="main">
