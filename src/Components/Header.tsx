@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from './../assets/svg/logo.svg';
 import './header.css';
@@ -9,13 +9,27 @@ const ACTIVE_LINK_CLASS = 'header__link_active';
 
 function Header(props: { modal: ModalProp }) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
+  const [isOpen, setOpen] = useState(false);
+
+  const toggleOpen = () => {
+    if (isOpen) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  };
 
   return (
     <header className="header">
       <NavLink to="/">
         <img className="logo" src={logo} alt="logo" />
       </NavLink>
-      <nav className="nav">
+      <nav className="navigation">
+        <div className={'nav-icon' + (isOpen ? ' open' : '')} onClick={() => toggleOpen()}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <NavLink
           className={({ isActive }) => (isActive ? `${NAV_CLASSES} ${ACTIVE_LINK_CLASS}` : NAV_CLASSES)}
           to="/textbook"
@@ -42,9 +56,8 @@ function Header(props: { modal: ModalProp }) {
             Статистика
           </NavLink>
         )}
-
-        <Authorization modal={props.modal} mainClasses={NAV_CLASSES} activeClass={ACTIVE_LINK_CLASS} />
       </nav>
+      <Authorization modal={props.modal} mainClasses={NAV_CLASSES + ' authorization'} activeClass={ACTIVE_LINK_CLASS} />
     </header>
   );
 }

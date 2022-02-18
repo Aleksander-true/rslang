@@ -87,8 +87,3 @@ type WordCardProps = {
 };
 
 type WordsProps = { words: never[] | Word[] };
-
-const enum Difficulty {
-  hard = 'hard',
-  easy = 'easy',
-}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BASE_URL } from '../../constants';
 import { ReactComponent as Bookmark } from './../../assets/svg/bookmark.svg';
 import { ReactComponent as BookmarkDelete } from './../../assets/svg/bookmark-delete.svg';
@@ -6,6 +6,11 @@ import './textbook.css';
 import './words.css';
 import './word-card.css';
 import api from '../../API';
+
+const enum Difficulty {
+  hard = 'hard',
+  easy = 'easy',
+}
 
 function WordCard(props: WordCardProps) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
@@ -18,7 +23,7 @@ function WordCard(props: WordCardProps) {
   const audio = new Audio();
 
   const difficult = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
-  const isDifficult = difficult?.userWord?.difficulty === 'hard' ? true : false;
+  const isDifficult = difficult?.userWord?.difficulty === Difficulty.hard ? true : false;
 
   const learned = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
   const isLearned = learned?.userWord?.optional?.isLearned;
@@ -44,7 +49,7 @@ function WordCard(props: WordCardProps) {
     const userId = localStorage.getItem('userId') || '';
     const token = localStorage.getItem('token') || '';
     const requestBody: UserWord = {
-      difficulty: 'easy',
+      difficulty: Difficulty.easy,
       optional: {
         isLearned: false,
         correctAnswers: 0,
@@ -63,7 +68,7 @@ function WordCard(props: WordCardProps) {
       await api.updateWord(userId, id, token, {
         difficulty: value,
         optional: {
-          isLearned: value === 'hard' ? false : optional?.isLearned,
+          isLearned: value === Difficulty.hard ? false : optional?.isLearned,
           correctAnswers: optional?.correctAnswers,
           wrongAnswers: optional?.wrongAnswers,
         },
@@ -81,7 +86,7 @@ function WordCard(props: WordCardProps) {
     if (response?.isSuccess) {
       const optional = response?.data.optional;
       await api.updateWord(userId, id, token, {
-        difficulty: value ? 'easy' : response?.data.difficulty,
+        difficulty: value ? Difficulty.easy : response?.data.difficulty,
         optional: {
           isLearned: value,
           correctAnswers: optional?.correctAnswers,
