@@ -2,12 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 2rem;
+  gap: var(--fs-4);
 }
 
 .link-game__card {
   display: inline-flex;
-
   padding: 10px;
   border-radius: 15px;
   background-color: #ededed;
@@ -24,8 +23,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 260px;
   padding: 5px;
+  width: calc(var(--fs-6) * 12);
+  font-size: var(--fs-6);
+}
+
+.link-game__description_title {
+  font-size: var(--fs-4);
 }
 
 .link-game__description p {
@@ -34,4 +38,10 @@
 
 .link-game__title {
   width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .link-game__icon {
+    height: 100px;
+  }
 }

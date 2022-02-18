@@ -7,18 +7,18 @@ import Pagination from './Pagination';
 import WordCard from './WordCard';
 import WordList from './WordList';
 import DifficultWordList from './DifficultWordList';
-
-import './textbook.css';
-import './words.css';
-import './link-game.css';
 import DifficultWordCard from './DifficultWordCard';
 import LinkSprint from './LinkSprint';
 import LinkAudioCall from './LinkAudioCall';
+
+import './textbook.css';
+import './link-game.css';
 
 const PAGES_QUANTITY = 30;
 const WORDS_ON_PAGE = 20;
 
 function Textbook() {
+  const isAuthorized = localStorage.getItem('userId') ? true : false;
   const [search] = useSearchParams();
   const level = search.get('level') || '0';
   const page = search.get('page') || '0';
@@ -42,6 +42,7 @@ function Textbook() {
   };
 
   const updateUserWords = async (fromGroup: string = level, fromPage: string = page) => {
+    if (!isAuthorized) return;
     const response = await api.getAllUserAggregatedWords(
       localStorage.getItem('userId') || '',
       localStorage.getItem('token') || '',
@@ -53,11 +54,9 @@ function Textbook() {
     if (response?.isSuccess) {
       setUserWords(response.data as GetUserWordsData);
     }
-    console.log('difficultWords', response?.data);
   };
 
   const changeWord = (id: string) => {
-    console.log('changeWord');
     setCurrWord(id);
   };
 
@@ -112,7 +111,7 @@ function Textbook() {
         </div>
         {pagination}
         <div className="link-game__wrapper">
-          <h2 className="link-game__title">Играть с этими словами</h2>
+          <h2 className="link-game__title textbook__title">Играть с этими словами</h2>
           <LinkSprint />
           <LinkAudioCall />
         </div>

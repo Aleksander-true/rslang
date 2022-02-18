@@ -21,7 +21,7 @@
 
 .footer__developer {
   font-family: var(--second-font-family);
-  font-size: 24px;
+  font-size: var(--fs-5);
   font-weight: 600;
   color: var(--main-text-color);
 }
@@ -34,18 +34,26 @@
   content: '';
   display: inline-block;
   transform: translateY(25%);
-  width: 50px;
-  height: 36px;
+  width: var(--fs-3);
+  height: var(--fs-3);
   background: url('./../assets/svg/github-logo.svg') no-repeat;
-  background-size: 36px;
+  background-size: var(--fs-3);
   color: #000;
   transition: all 0.3s;
+  margin-right: 5px;
 }
 
 .rs-logo {
   width: 200px;
 }
+
 .footer__year {
-  font-size: 36px;
+  font-size: var(--fs-3);
   font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .rs-logo {
+    width: 120px;
+  }
 }

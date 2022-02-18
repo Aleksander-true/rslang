@@ -1,11 +1,10 @@
-
 .advantages {
   display: flex;
   align-items: center;
   flex-direction: column;
   margin: 80px 200px 0;
   padding: 20px;
-  background-color: #EDEDED;
+  background-color: #ededed;
 }
 
 .advantages a {
@@ -14,11 +13,11 @@
 
 .advantages__title {
   font-family: var(--main-font-family);
-  font-size: 64px;
+  font-size: var(--fs-1);
 }
 
 .advantages__subtitle {
-  font-size: 36px;
+  font-size: var(--fs-3);
   margin: 0 0 40px 0;
 }
 
@@ -31,7 +30,7 @@
 }
 
 .advantages__item {
-  font-size: 28px;
+  font-size: var(--fs-4);
   margin: 0 0 20px 0;
 }
 
@@ -44,7 +43,7 @@
 
 .advantages__icon {
   display: block;
-  height: 240px;
+  max-height: 200px;
   width: 20%;
   transition: all 0.2s;
 }
@@ -64,4 +63,14 @@
   font-weight: 700;
   text-decoration: none;
   color: var(--main-text-color);
+}
+
+@media (max-width: 1440px) {
+  .advantages {
+    margin: 40px 40px 0;
+  }
+
+  .advantages__icons-wrapper {
+    margin: 0 0 20px 0;
+  }
 }

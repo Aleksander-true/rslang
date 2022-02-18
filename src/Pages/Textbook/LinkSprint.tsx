@@ -11,7 +11,7 @@ function LinkSprint() {
         <SprintIcon />
       </span>
       <span className="link-game__description">
-        <h4>Спринт</h4>
+        <h4 className="link-game__description_title">Спринт</h4>
         <p>попробуй угадать как можно больше слов за 30 секунд</p>
       </span>
     </div>

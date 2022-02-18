@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './textbook.css';
-import './words.css';
+import './word-list.css';
 
 function WordList(props: WordListProps) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
@@ -24,9 +24,7 @@ function WordList(props: WordListProps) {
       }}
     >
       <h3 className="list__word">{item.word}</h3>
-      <h4>
-        <i>{item.wordTranslate}</i>
-      </h4>
+      <i>{item.wordTranslate}</i>
       {isAuthorized && difficultIds.includes(item.id) && (
         <i className="bi bi-exclamation-circle exclamation_bottom-right"></i>
       )}

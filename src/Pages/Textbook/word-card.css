@@ -1,3 +1,11 @@
+.word__card {
+  position: relative;
+  min-width: 400px;
+  width: 400px;
+  background-color: #f3f4f8;
+  border-radius: 15px;
+}
+
 .card__volume-icon {
   font-size: 30px;
   line-height: 30px;
@@ -14,10 +22,12 @@
   position: relative;
   margin: 10px 0;
   text-transform: capitalize;
+  font-size: var(--fs-4);
 }
 
 .card__description-wrapper {
   padding: 10px;
+  font-size: var(--fs-6);
 }
 
 .card__img {
@@ -29,6 +39,7 @@
 
 .card__translate {
   position: relative;
+  font-size: var(--fs-4);
 }
 
 .card__bookmark {
@@ -36,6 +47,11 @@
   right: -10px;
   vertical-align: text-top;
   cursor: pointer;
+  height: var(--fs-2);
+}
+
+.card__title {
+  font-size: 1.4em;
 }
 
 .card__bookmark.level0 svg {
@@ -111,4 +127,15 @@
 .learned-btn.level5 {
   color: #fff;
   background-color: var(--bkg-level-5);
+}
+
+@media (max-width: 1024px) {
+  .word__card {
+    min-width: 300px;
+    width: 300px;
+  }
+
+  .card__img {
+    height: 180px;
+  }
 }

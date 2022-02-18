@@ -2,10 +2,8 @@ import React from 'react';
 import { BASE_URL } from '../../constants';
 import { ReactComponent as Bookmark } from './../../assets/svg/bookmark.svg';
 import { ReactComponent as BookmarkDelete } from './../../assets/svg/bookmark-delete.svg';
-import './textbook.css';
-import './words.css';
-import './word-card.css';
 import api from '../../API';
+import './word-card.css';
 
 const enum Difficulty {
   hard = 'hard',
@@ -122,13 +120,13 @@ function WordCard(props: WordCardProps) {
           <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('translate')}></i>
         </h4>
         <hr></hr>
-        <h4>
+        <h4 className="card__title">
           Значение
           <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('meaning')}></i>
         </h4>
         <p dangerouslySetInnerHTML={textMeaning}></p>
         <p>{textMeaningTranslate}</p>
-        <h4>
+        <h4 className="card__title">
           Пример
           <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('example')}></i>
         </h4>

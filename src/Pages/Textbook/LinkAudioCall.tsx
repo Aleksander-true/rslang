@@ -11,7 +11,7 @@ function LinkAudioCall() {
         <SprintIcon />
       </span>
       <span className="link-game__description">
-        <h4>Аудиовызов</h4>
+        <h4 className="link-game__description_title">Аудиовызов</h4>
         <p>угадай правильный перевод слова на слух</p>
       </span>
     </div>

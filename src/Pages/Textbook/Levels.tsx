@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import './levels.css';
 
 function Levels(props: { level: string }) {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
@@ -24,9 +25,7 @@ function Level(props: LevelProps) {
       className={'level__card' + (props.level === props.levelNumber ? ' active' : '')}
       onClick={() => setSearchParams({ level: props.levelNumber, page: '0' })}
     >
-      <div>
-        <p className="fs-4 m-0">{props.levelName}</p>
-      </div>
+      <div className="card__level-name">{props.levelName}</div>
       <div className="card__level-circle">
         <h2 className="card__level-letter">{props.levelLetter}</h2>
       </div>

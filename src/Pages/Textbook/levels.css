@@ -1,0 +1,90 @@
+.level-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.level-wrapper a {
+  text-decoration: none;
+}
+
+.level__card {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  height: 70px;
+  min-width: 220px;
+  background-color: #f3f4f8;
+  border-radius: 10px;
+  padding: 0 10px 0 70px;
+  cursor: pointer;
+  color: var(--main-text-color);
+  transition: all easy 0.5s;
+}
+
+.card__level-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: -20px;
+  top: -10px;
+  width: 90px;
+  height: 60px;
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  background-color: #ededed;
+}
+
+.card__level-name {
+  font-size: var(--fs-4);
+}
+
+.card__level-letter {
+  font-size: var(--fs-4);
+  transform: rotate(30deg);
+}
+
+.level__card:nth-child(1).active .card__level-circle {
+  background-color: #fce74e;
+}
+
+.level__card:nth-child(2).active .card__level-circle {
+  background-color: #ffba4a;
+}
+
+.level__card:nth-of-type(3).active .card__level-circle {
+  background-color: #68d4bb;
+}
+
+.level__card:nth-of-type(4).active .card__level-circle {
+  background-color: #fc7e53;
+}
+
+.level__card:nth-of-type(5).active .card__level-circle {
+  background-color: #5d7cfd;
+}
+
+.level__card:nth-of-type(6).active .card__level-circle {
+  background-color: #8c75ff;
+}
+
+.level__card:nth-of-type(7).active .card__level-circle {
+  background-color: #000000;
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .level__card {
+    height: 50px;
+    min-width: 180px;
+    padding: 0 10px 0 40px;
+  }
+
+  .card__level-circle {
+    width: 60px;
+    height: 45px;
+  }
+}
