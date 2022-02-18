@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import './pagination.css';
 
 function Pagination(props: { page: number; lastPage: number; level: string }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,13 +28,13 @@ function Pagination(props: { page: number; lastPage: number; level: string }) {
 
   if (props.page >= props.lastPage - 4) {
     [firstLink, secondLink, thirdLink, forthLink, fifthLink, sixthLink, seventhLink] = [
+      `${props.lastPage - 6}`,
       `${props.lastPage - 5}`,
       `${props.lastPage - 4}`,
       `${props.lastPage - 3}`,
       `${props.lastPage - 2}`,
       `${props.lastPage - 1}`,
       `${props.lastPage}`,
-      `${props.lastPage + 1}`,
     ];
   }
 
@@ -47,54 +48,54 @@ function Pagination(props: { page: number; lastPage: number; level: string }) {
 
   return (
     <nav className="pagination-wrapper">
-      <ul className="pagination">
-        <li className="page-item" onClick={() => setPage(props.page)}>
-          <span className="page-link">&laquo;</span>
+      <ul className="textbook__pagination">
+        <li className="textbook__page-item" onClick={() => setPage(props.page)}>
+          <span className="textbook__page-link">&laquo;</span>
         </li>
         <li
-          className={'page-item' + (+firstLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+firstLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(firstLink)}
         >
-          <span className="page-link">{firstLink}</span>
+          <span className="textbook__page-link">{firstLink}</span>
         </li>
         <li
-          className={'page-item' + (+secondLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+secondLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(secondLink)}
         >
-          <span className="page-link">{secondLink}</span>
+          <span className="textbook__page-link">{secondLink}</span>
         </li>
         <li
-          className={'page-item' + (+thirdLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+thirdLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(thirdLink)}
         >
-          <span className="page-link">{thirdLink}</span>
+          <span className="textbook__page-link">{thirdLink}</span>
         </li>
         <li
-          className={'page-item' + (+forthLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+forthLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(forthLink)}
         >
-          <span className="page-link">{forthLink}</span>
+          <span className="textbook__page-link">{forthLink}</span>
         </li>
         <li
-          className={'page-item' + (+fifthLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+fifthLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(fifthLink)}
         >
-          <span className="page-link">{fifthLink}</span>
+          <span className="textbook__page-link">{fifthLink}</span>
         </li>
         <li
-          className={'page-item' + (+sixthLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+sixthLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(sixthLink)}
         >
-          <span className="page-link">{sixthLink}</span>
+          <span className="textbook__page-link">{sixthLink}</span>
         </li>
         <li
-          className={'page-item' + (+seventhLink === props.page + 1 ? ' active' : '')}
+          className={'textbook__page-item' + (+seventhLink === props.page + 1 ? ' active' : '')}
           onClick={() => setPage(seventhLink)}
         >
-          <span className="page-link">{seventhLink}</span>
+          <span className="textbook__page-link">{seventhLink}</span>
         </li>
-        <li className="page-item" onClick={() => setPage(props.page + 2)}>
-          <span className="page-link">&raquo;</span>
+        <li className="textbook__page-item" onClick={() => setPage(props.page + 2)}>
+          <span className="textbook__page-link">&raquo;</span>
         </li>
       </ul>
     </nav>

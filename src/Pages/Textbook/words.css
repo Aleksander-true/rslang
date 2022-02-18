@@ -7,7 +7,9 @@
 .word__card {
   position: relative;
   min-width: 400px;
+  width: 400px;
   background-color: #f3f4f8;
+  border-radius: 15px;
 }
 
 .word__list {

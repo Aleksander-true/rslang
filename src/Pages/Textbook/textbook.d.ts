@@ -16,7 +16,7 @@ type Word = {
 };
 
 type UserWord = {
-  difficulty: 'easy'|'hard';
+  difficulty: 'easy' | 'hard';
   optional?: {
     isLearned: boolean;
     correctAnswers: number;
@@ -57,6 +57,7 @@ type LevelProps = {
   levelNumber: string;
   levelName: string;
   levelLetter: string;
+  level: string;
 };
 
 type WordListProps = {
@@ -64,6 +65,18 @@ type WordListProps = {
   clickWord: (string) => void;
   userWords: GetUserWordsData;
   currentWord: CurrentWord;
+};
+
+type DifficultWordListProps = {
+  clickWord: (string) => void;
+  userWords: GetUserWordsData;
+  currentWord: CurrentWord;
+};
+
+type DifficultWordCardProps = {
+  currentWord: CurrentWord;
+  updateUserWords: (group?: string, page?: string) => void;
+  userWords: GetUserWordsData;
 };
 
 type WordCardProps = {
@@ -74,3 +87,8 @@ type WordCardProps = {
 };
 
 type WordsProps = { words: never[] | Word[] };
+
+const enum Difficulty {
+  hard = 'hard',
+  easy = 'easy',
+}
