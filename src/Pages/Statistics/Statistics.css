@@ -32,7 +32,7 @@
     right: 20px;
     top: 30px;
     background: url('../../assets/svg/Ellipse.svg') no-repeat center/70%;
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: var(--main-font-family);
 }
 
@@ -50,21 +50,52 @@
     display: flex;
     margin: 30px;
     gap: 30px;
-    
+
 }
 
 .statistics__day__card {
-    display: flex;
+    position: relative;
     text-align: center;
+    background-color: var(--grey-color);
+    border-radius: 20px;
+    padding: 10px;
+    padding-right: 40px;
+    justify-content: space-between;
+}
+
+.statistics__day__percent {
+    width: 80%;
 }
 
 .statistics__day__words {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    gap: 10px;
 }
 
 .statistics__day__audio, 
 .statistics__day__sprint {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr; 
+    justify-items: center;
+    gap: 10px;
 } 
+
+.statistics__day__number {
+    font-family: var(--main-font-family);
+    color: var(--mark-color);
+    font-size: 3em;
+    -webkit-text-stroke: 0.5px #000000;
+}
+
+.statistics__day__logo {
+    width: 130px;
+    position: absolute;
+    top: -30px;
+    right: -30px;
+}
+
+.card__subscription {
+    text-align: left;
+}

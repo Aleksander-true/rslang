@@ -27,7 +27,7 @@
 
 .sprint__main {
   background-color: rgb(255, 255, 255, .9);
-  width: 70%;
+  width: 50%;
   min-height: 50vh;
   margin: 0px auto;
   padding: 30px;
@@ -37,6 +37,12 @@
   text-align: center;
   justify-content: space-between;
   border-radius: 30px;
+}
+
+.sprint__title {
+  font-family: var(--main-font-family);
+  color: var(--mark-color);
+  font-size: 2em;
 }
 
 .sprint__levels {

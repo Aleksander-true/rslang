@@ -15,17 +15,14 @@ const SprintGame = () => {
   
   useEffect(() => {
   if (whatWords.page) {
-    console.log(whatWords.page);
     setPage(+whatWords.page);
   }
   if (whatWords.level) {
-    console.log(whatWords.level);
     setLevel(+whatWords.level + 1);
   }
 }, [])
 
   const loadWords = async (selectedLevel: number) => {
-    
       const myWords = await getWords((selectedLevel - 1).toString(), page.toString());
       setCurrentWords(myWords || []);
   }

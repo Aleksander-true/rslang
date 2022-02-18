@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Button from "../../../Components/Button"
 import SprintGame from "../SprintGame"
 
@@ -7,7 +8,7 @@ import SprintGame from "../SprintGame"
 const ResultBtn = () => {
 
     return (
-        <Button title='Играть с этими словами ещё' onClick={() => SprintGame()} type='success' classType='sprint__btns'/>
+       <Link to="/sprintGame"> <div className='sprint__btns'>Играть с этими словами ещё </div> </Link>
     )
 }
 

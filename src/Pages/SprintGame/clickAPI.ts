@@ -23,6 +23,7 @@ export const clickApiActions = async (answer: boolean, currentWords: WordFromCol
 
     if (!wordResponse?.isSuccess || (words.optional!.correctAnswers! + words.optional!.wrongAnswers!) < 1) {
         statistics.optional.sprint.newWords += 1;
+        statistics.optional.wordStatistics[formDate(date)].newWords += 1;
     }
 
     const newDataToAPI = await update(words, statistics, answer, date, maxSeries, currentWords[wordNum].id, score);
@@ -31,17 +32,12 @@ export const clickApiActions = async (answer: boolean, currentWords: WordFromCol
         api.updateWord(localStorage.getItem('userId')!, currentWords[wordNum].id, localStorage.getItem('token')!, newDataToAPI.wordFromBase);
     } else api.createWord(localStorage.getItem('userId')!, currentWords[wordNum].id, localStorage.getItem('token')!, newDataToAPI.wordFromBase)
 
-    console.log(newDataToAPI.statistics);
     const ifSetStat = api.upsertStatistics(localStorage.getItem('userId')!, localStorage.getItem('token')!, newDataToAPI.statistics);
-    console.log(ifSetStat)
 }
 
 const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boolean, date: Date, maxSeries: number, id: string, score: number) => {
     const currentDate = await formDate(date);
     wordFromBase.optional!.time = formDate(date);
-
-    console.log(statistics);
-    console.log(wordFromBase);
 
     if (statistics.optional.sprint.lastChanged !== currentDate) {
         statistics.optional.sprint = setNewDayStatistics(date);
@@ -70,6 +66,9 @@ const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boo
         if (statistics.optional.sprint.longestSeries < maxSeries) {
             statistics.optional.sprint.longestSeries = maxSeries
         };
+        if (statistics.optional.sprint.totalScore < score) {
+            statistics.optional.sprint.totalScore = score
+        }
         wordFromBase.optional!.time = currentDate;
 
     } else {
@@ -85,9 +84,6 @@ const update = async (wordFromBase: UserWord, statistics: Statistic, answer: boo
             statistics.learnedWords -= 1;
           }
     }
-
-    console.log(wordFromBase);
-    console.log(statistics);
 
     return { wordFromBase, statistics };
 }

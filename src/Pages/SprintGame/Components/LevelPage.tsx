@@ -5,6 +5,7 @@ const LevelPage = (props: { setLevel: (value: number) => void }) => {
   const iconSize = '50';
   return (
     <div className="sprint__levels">
+      <h2 className="sprint__title">Спринт</h2>
       <h4>У тебя 30 секунд, попробуй угадать как можно больше слов</h4>
       <h4>Выбери уровень сложности чтобы начать</h4>
       <div className="sprint__levels-options">

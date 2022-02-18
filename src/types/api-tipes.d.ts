@@ -9,8 +9,8 @@ export type OptionalUserWord = {
   isLearned: boolean; //true - угадано подряд 3 (если difficulty = 'easy') или 5 (если difficulty = 'hard') раз. false - если игрок ошибся
   correctAnswers: number; //сколько раз это слово угадано
   wrongAnswers: number; //сколько раз это слово НЕ угадано
-  progress?: number; // сколько раз угадано подряд
-  time?: string;
+  progress: number; // сколько раз угадано подряд
+  time: string;
 };
 
 export type OptionalSetting = {

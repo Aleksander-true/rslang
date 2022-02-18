@@ -1,6 +1,6 @@
 import React from "react";
 import { Statistic } from "../../../Types/api-tipes";
-import WordsLongStatistics from "./wordsLongStatistics";
+// import WordsLongStatistics from "./wordsLongStatistics";
 
 
 
