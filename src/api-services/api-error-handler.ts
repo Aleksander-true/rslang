@@ -1,5 +1,5 @@
 import { BASE_URL } from '../constants';
-import { APIOptions } from '../types/api-tipes';
+import { APIOptions } from '../Types/api-tipes';
 
 class ApiErrorHandler {
   BASE_URL: string;

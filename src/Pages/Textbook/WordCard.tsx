@@ -43,7 +43,7 @@ function WordCard(props: WordCardProps) {
   const requestData = (id: string) => {
     const userId = localStorage.getItem('userId') || '';
     const token = localStorage.getItem('token') || '';
-    const requestBody = {
+    const requestBody: UserWord = {
       difficulty: 'easy',
       optional: {
         isLearned: false,
@@ -55,7 +55,7 @@ function WordCard(props: WordCardProps) {
     return { userId, token, requestBody, responsePromise };
   };
 
-  const changeDifficulty = async (id: string, value: string) => {
+  const changeDifficulty = async (id: string, value: Difficulty) => {
     const { userId, token, requestBody, responsePromise } = requestData(id);
     const response = (await responsePromise) as GetUserWordResponse;
     if (response?.isSuccess) {
@@ -89,7 +89,7 @@ function WordCard(props: WordCardProps) {
         },
       });
     } else {
-      requestBody.optional.isLearned = value;
+      requestBody.optional!.isLearned = true;
       await api.createWord(userId, id, token, requestBody);
     }
     props.updateUserWords();
@@ -102,8 +102,12 @@ function WordCard(props: WordCardProps) {
         <h3 className="card__word">
           {word}
           <span className={`card__bookmark level${level}` + (isDifficult ? ' checked' : '')}>
-            {isAuthorized && !isDifficult && <Bookmark onClick={() => changeDifficulty(currentWord.id, 'hard')} />}
-            {isAuthorized && isDifficult && <BookmarkDelete onClick={() => changeDifficulty(currentWord.id, 'easy')} />}
+            {isAuthorized && !isDifficult && (
+              <Bookmark onClick={() => changeDifficulty(currentWord.id, Difficulty.hard)} />
+            )}
+            {isAuthorized && isDifficult && (
+              <BookmarkDelete onClick={() => changeDifficulty(currentWord.id, Difficulty.easy)} />
+            )}
           </span>
         </h3>
         <h4 className="card__translate">

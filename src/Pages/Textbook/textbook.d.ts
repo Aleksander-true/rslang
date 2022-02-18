@@ -16,7 +16,7 @@ type Word = {
 };
 
 type UserWord = {
-  difficulty: string;
+  difficulty: 'easy' | 'hard';
   optional?: {
     isLearned: boolean;
     correctAnswers: number;
@@ -87,3 +87,8 @@ type WordCardProps = {
 };
 
 type WordsProps = { words: never[] | Word[] };
+
+const enum Difficulty {
+  hard = 'hard',
+  easy = 'easy',
+}
