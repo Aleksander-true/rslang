@@ -5,18 +5,13 @@ import { randomAnswer } from "../util";
 import { WordFromCollection } from "../WordsAPI";
 import ResultsPage from "./Results";
 import SprintQuestions from "./SprintQuestions";
-import ResultBtn from "./Restart";
 
 type SprintGameStartPropsTypes = {
   currentWords: WordFromCollection[];
-  level: number;
-  page: number;
 };
 
 const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
   currentWords,
-  level,
-  page,
 }) => {
   const [answers, setAnswers] = useState([""]);
   const [isDone, setIsDone] = useState(false);
@@ -43,7 +38,7 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
     if (currentWords) {
       formAnswers(currentWords);
     }
-  }, [currentWords]);
+  }, []);
 
   return (
     <div className="sprint__question-page">

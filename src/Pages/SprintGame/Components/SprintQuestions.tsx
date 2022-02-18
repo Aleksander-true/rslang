@@ -7,9 +7,9 @@ import { TIMER_TIME, WORDS_MAX } from "../const";
 import CountDownTimer from "./CountDownTimer";
 import ShowEnglishWord from "./ShowEnglishWord";
 import ShowTranslate from "./ShowTranslate";
-import Stars from "./Stars";
 import correctSound from "../../../assets/audio/correct.mp3";
 import wrongSound from "../../../assets/audio/wrong.mp3";
+import { ReactComponent as Star } from "../../../assets/svg/star.svg";
 
 const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
   setCorrectWords,
@@ -56,6 +56,16 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
       answer = true;
       audio.src = correctSound;
       audio.play();
+      console.log(score, "score");
+      if (localStorage.getItem("userId")) {
+        clickApiActions(
+          answer,
+          currentWords,
+          wordNum,
+          maxSeries + 1,
+          score + 10 * multiplier
+        );
+      }
     } else {
       setMaxSeries(0);
       setWrongWords((prev) => [...prev, currentWords[wordNum]]);
@@ -63,9 +73,9 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
       answer = false;
       audio.src = wrongSound;
       audio.play();
-    }
-    if (localStorage.getItem("userId")) {
-      clickApiActions(answer, currentWords, wordNum, maxSeries, score);
+      if (localStorage.getItem("userId")) {
+        clickApiActions(answer, currentWords, wordNum, maxSeries, score);
+      }
     }
   };
 
@@ -74,51 +84,49 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
       setStars(<></>);
       setMultiplier(1);
     } else if (maxSeries < 6) {
-      setStars(<Stars />);
+      setStars(<Star />);
       setMultiplier(2);
     } else if (maxSeries < 9) {
       setStars(
         <>
-          <Stars />
-          <Stars />
+          <Star />
+          <Star />
         </>
       );
       setMultiplier(3);
     } else if (maxSeries < 12) {
       setStars(
         <>
-          <Stars />
-          <Stars />
-          <Stars />
+          <Star />
+          <Star />
+          <Star />
         </>
       );
       setMultiplier(4);
     } else if (maxSeries < 16) {
       setStars(
         <>
-          <Stars />
-          <Stars />
-          <Stars />
-          <Stars />
+          <Star />
+          <Star />
+          <Star />
+          <Star />
         </>
       );
       setMultiplier(5);
     } else {
       setStars(
         <>
-          <Stars />
-          <Stars />
-          <Stars />
-          <Stars />
-          <Stars />
+          <Star />
+          <Star />
+          <Star />
+          <Star />
+          <Star />
         </>
       );
       setMultiplier(6);
     }
   }, [maxSeries]);
 
-  console.log(answers, "answers");
-  console.log(wordNum, "wordNum");
   return (
     <div className="sprint__question-page">
       <div className="sprint__question-page__header">
