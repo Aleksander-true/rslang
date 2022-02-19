@@ -9,10 +9,10 @@ type LongStatisticsPropsTypes = {
 
 const LongStatistics: React.FC<LongStatisticsPropsTypes> = (statistics) => {
   return (
-    <>
-      <Line />
-      <Chart />
-    </>
+    <div className="statistics__long">
+      <Line lineData={statistics.statistics.optional} />
+      <Chart lineData={statistics.statistics.optional} />
+    </div>
   );
 };
 

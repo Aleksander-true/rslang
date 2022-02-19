@@ -87,6 +87,7 @@
 
 .CircularProgressbar-text {
   font-family: var(--main-font-family);
+  font-size: 2.5em;
 }
 
 .sprint__question-page {

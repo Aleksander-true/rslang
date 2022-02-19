@@ -99,3 +99,56 @@
 .card__subscription {
     text-align: left;
 }
+
+.statistics__long {
+    display: flex;
+    margin: 30px;
+    gap: 30px;
+}
+
+@media (max-width: 1024px) { 
+    .statistics__day {
+        flex-direction: column;
+        max-width: 50%;
+    }
+  
+  }
+@media (max-width: 780px) { 
+    .statistics__long {
+       
+        flex-direction: column;
+    }
+
+    .statistics__day__logo {
+        width: 80px;
+        top: -10px;
+    right: -10px;
+    }
+
+    .statistics__day__number {
+       
+        font-size: 2em;
+       
+    }
+
+    .CircularProgressbar-text {
+        font-size: 1.5em;
+    }
+
+    .statistics__day {
+        font-size: .8em;
+    }
+  
+  }
+@media (max-width: 630px) { 
+    .statistics__day {
+        max-width: 80%;
+    }
+  
+  }
+@media (max-width: 480px) { 
+    .statistics__day {
+        max-width: 100%;
+    }
+  
+  }
