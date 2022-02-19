@@ -6,7 +6,7 @@ import AnswerButton from './AnswerButton';
 import BlockedButton from './BlockedButton';
 import { GameState } from './audiocall-types';
 import { PropsPlayAudiocall } from './audiocall-types';
-import { OptionalUserWord, UserWord } from './../../Types/api-tipes';
+import { OptionalUserWord, UserWord } from '../../Types/api-tipes';
 
 class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
   state: GameState;
@@ -144,7 +144,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         {
           isPreAnswer: true,
         },
-        () => resolve()
+        () => resolve(),
       );
     });
     if (!this.props.getState().isWordStatistic) {
@@ -245,7 +245,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         this.setState({
           isAnswer: true,
         });
-      }
+      },
     );
     this.setState({
       isPreAnswer: false,

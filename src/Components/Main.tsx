@@ -16,7 +16,6 @@ function Main() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/textbook" element={<Textbook />} />
-        <Route path="textbook/level=:newLevel&page:newPage" element={<Textbook />}></Route>
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/sprintGame" element={<SprintGame />} />
         <Route path="/audioGame" element={<AudioGame />} />

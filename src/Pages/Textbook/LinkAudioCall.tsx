@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as SprintIcon } from './../../assets/svg/audiocall-game_icon.svg';
 import './link-game.css';
 
-function LinkAudioCall() {
+function LinkAudioCall(props: { isLearnedAllWords: boolean }) {
   const navigate = useNavigate();
   return (
-    <div className="link-game__card" onClick={() => navigate('/audioGame')}>
+    <div
+      className={'link-game__card' + (props.isLearnedAllWords ? ' disable' : '')}
+      onClick={() => {
+        if (!props.isLearnedAllWords) navigate('/audioGame');
+      }}
+    >
       <span className="link-game__icon">
         <SprintIcon />
       </span>

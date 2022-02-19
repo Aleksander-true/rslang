@@ -14,3 +14,7 @@ export const LEVELS_NAMES = [
   'real pain in the neck',
   'nightmare',
 ];
+
+/* Textbook */
+export const PAGES_QUANTITY = 30;
+export const WORDS_ON_PAGE = 20;

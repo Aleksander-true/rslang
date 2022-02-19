@@ -20,11 +20,11 @@ function WordCard(props: WordCardProps) {
   const { word, wordTranslate, transcription, textExampleTranslate, textMeaningTranslate } = currentWord;
   const audio = new Audio();
 
-  const difficult = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
-  const isDifficult = difficult?.userWord?.difficulty === Difficulty.hard ? true : false;
-
-  const learned = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
-  const isLearned = learned?.userWord?.optional?.isLearned;
+  const userWord = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
+  const isDifficult = userWord?.userWord?.difficulty === Difficulty.hard ? true : false;
+  const isLearned = userWord?.userWord?.optional?.isLearned;
+  const correctAnswersQuantity = userWord?.userWord?.optional?.correctAnswers;
+  const wrongAnswersQuantity = userWord?.userWord?.optional?.wrongAnswers;
 
   const playAudio = (str: string) => {
     let url = '';
@@ -98,8 +98,20 @@ function WordCard(props: WordCardProps) {
     props.updateUserWords();
   };
 
+  let gameResults;
+  if (correctAnswersQuantity !== undefined || wrongAnswersQuantity !== undefined) {
+    gameResults = (
+      <>
+        <div className="card__answers card__answers_correct">верно {correctAnswersQuantity}</div>
+        <div className="card__answers card__answers_wrong">ошибочно {wrongAnswersQuantity}</div>
+      </>
+    );
+  } else {
+    gameResults = <div>Ещё не игралось</div>;
+  }
+
   return (
-    <>
+    <div className={'word__card' + (props.isLearnedAllWords ? ' complete' : '')}>
       <img className="card__img" src={imgUrl} alt=""></img>
       <div className="card__description-wrapper">
         <h3 className="card__word">
@@ -119,19 +131,6 @@ function WordCard(props: WordCardProps) {
           </i>
           <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('translate')}></i>
         </h4>
-        <hr></hr>
-        <h4 className="card__title">
-          Значение
-          <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('meaning')}></i>
-        </h4>
-        <p dangerouslySetInnerHTML={textMeaning}></p>
-        <p>{textMeaningTranslate}</p>
-        <h4 className="card__title">
-          Пример
-          <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('example')}></i>
-        </h4>
-        <p dangerouslySetInnerHTML={textExample}></p>
-        <p>{textExampleTranslate}</p>
         {isAuthorized && !isLearned && (
           <button
             type="button"
@@ -152,8 +151,26 @@ function WordCard(props: WordCardProps) {
             удалить из выученных
           </button>
         )}
+        <hr></hr>
+        <h4 className="card__title">
+          Значение
+          <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('meaning')}></i>
+        </h4>
+        <p dangerouslySetInnerHTML={textMeaning}></p>
+        <p>{textMeaningTranslate}</p>
+        <h4 className="card__title">
+          Пример
+          <i className="bi bi-volume-down-fill card__volume-icon" onClick={() => playAudio('example')}></i>
+        </h4>
+        <p dangerouslySetInnerHTML={textExample}></p>
+        <p>{textExampleTranslate}</p>
+        <hr></hr>
+        <div>
+          <h4 className="card__title">Ответы в играх</h4>
+          {gameResults}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

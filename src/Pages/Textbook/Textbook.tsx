@@ -13,9 +13,7 @@ import LinkAudioCall from './LinkAudioCall';
 
 import './textbook.css';
 import './link-game.css';
-
-const PAGES_QUANTITY = 30;
-const WORDS_ON_PAGE = 20;
+import { PAGES_QUANTITY, WORDS_ON_PAGE } from '../../constants';
 
 function Textbook() {
   const isAuthorized = localStorage.getItem('userId') ? true : false;
@@ -30,6 +28,7 @@ function Textbook() {
       totalCount: { count: 0 },
     },
   ] as GetUserWordsData);
+  const [isLearnedAllWords, SetLearned] = useState(false);
 
   const getWords = async (level: string, page: string) => {
     if (+level >= 6) return;
@@ -41,6 +40,8 @@ function Textbook() {
     }
   };
 
+  const filter = '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}';
+
   const updateUserWords = async (fromGroup: string = level, fromPage: string = page) => {
     if (!isAuthorized) return;
     const response = await api.getAllUserAggregatedWords(
@@ -49,10 +50,15 @@ function Textbook() {
       +fromGroup > 5 ? undefined : fromGroup,
       undefined,
       String(WORDS_ON_PAGE),
-      '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}',
+      undefined,
     );
     if (response?.isSuccess) {
-      setUserWords(response.data as GetUserWordsData);
+      const data = response.data as GetUserWordsData;
+      setUserWords(data);
+      const learnedWords = data[0].paginatedResults.filter(
+        (item) => item.userWord?.optional?.isLearned && item.group === +level && item.page === +page,
+      );
+      SetLearned(learnedWords.length === WORDS_ON_PAGE);
     }
   };
 
@@ -68,19 +74,28 @@ function Textbook() {
   let wordCard, wordList, pagination;
   if (words.length !== 0 && +level <= 5) {
     wordCard = (
-      <WordCard words={words} currentWord={currentWordID} updateUserWords={updateUserWords} userWords={userWords} />
+      <WordCard
+        words={words}
+        currentWord={currentWordID}
+        updateUserWords={updateUserWords}
+        userWords={userWords}
+        isLearnedAllWords={isLearnedAllWords}
+      />
     );
     wordList = (
       <WordList
         words={words}
         userWords={userWords}
         currentWord={currentWordID}
+        isLearnedAllWords={isLearnedAllWords}
         clickWord={(id: string) => {
           changeWord(id);
         }}
       />
     );
-    pagination = <Pagination page={+page} lastPage={PAGES_QUANTITY} level={level} />;
+    pagination = (
+      <Pagination page={+page} lastPage={PAGES_QUANTITY} level={level} isLearnedAllWords={isLearnedAllWords} />
+    );
   } else if (+level > 5) {
     wordList = (
       <DifficultWordList
@@ -106,14 +121,14 @@ function Textbook() {
         <Levels level={level} />
         <h2 className="textbook__title">Список слов</h2>
         <div className="words-wrapper">
-          <div className="word__card">{wordCard}</div>
-          <div className="word__list">{wordList}</div>
+          {wordCard}
+          {wordList}
         </div>
         {pagination}
         <div className="link-game__wrapper">
           <h2 className="link-game__title textbook__title">Играть с этими словами</h2>
-          <LinkSprint />
-          <LinkAudioCall />
+          <LinkSprint isLearnedAllWords={isLearnedAllWords} />
+          <LinkAudioCall isLearnedAllWords={isLearnedAllWords} />
         </div>
       </div>
       <Footer />

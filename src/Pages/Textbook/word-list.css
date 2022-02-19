@@ -5,6 +5,14 @@
   align-content: flex-start;
 }
 
+.word__list.complete {
+  opacity: 0.6;
+}
+
+.word__list.complete .list__button {
+  border: 3px green solid;
+}
+
 .list__button {
   position: relative;
   width: 260px;

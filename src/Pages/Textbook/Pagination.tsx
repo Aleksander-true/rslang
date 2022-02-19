@@ -2,7 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './pagination.css';
 
-function Pagination(props: { page: number; lastPage: number; level: string }) {
+function Pagination(props: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   let [firstLink, secondLink, thirdLink, forthLink, fifthLink, sixthLink, seventhLink] = [
@@ -47,7 +47,7 @@ function Pagination(props: { page: number; lastPage: number; level: string }) {
   };
 
   return (
-    <nav className="pagination-wrapper">
+    <nav className={'pagination-wrapper' + (props.isLearnedAllWords ? ' complete' : '')}>
       <ul className="textbook__pagination">
         <li className="textbook__page-item" onClick={() => setPage(props.page)}>
           <span className="textbook__page-link">&laquo;</span>
