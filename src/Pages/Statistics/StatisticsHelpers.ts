@@ -26,6 +26,5 @@ export const formSumData = (statistics: OptionalStatistic) => {
       y: sumWords,
     });
   }
-  console.log(myLineData);
   return myLineData;
 };
