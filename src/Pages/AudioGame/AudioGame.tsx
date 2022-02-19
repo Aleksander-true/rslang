@@ -165,10 +165,12 @@ class AudioGame extends React.Component<{}> {
     let response: ResponseType;
     let aggregatedResponse: AggregatedResponseType;
     let filter: AggregatedWordsFilterType;
-    const group = Number(whatWords.level as string);
-    const page = Number(whatWords.page as string);
+    const group = whatWords.level;
+    const page = whatWords.page;
+    // const group = Number(whatWords.level as string);
+    // const page = Number(whatWords.page as string);
     await this.changeIsRequestingStatus();
-    if (menuGroup !== undefined) {
+    if (group === null && page === null) {
       response = (await api.getChunkOfWords(String(menuGroup), String(getRandomIntInclusive(0, 29)))) as ResponseType;
       if (response.isSuccess) {
         this.setState({
@@ -177,7 +179,7 @@ class AudioGame extends React.Component<{}> {
       } else {
         return;
       }
-    } else if (group !== 6) {
+    } else if (Number(group) !== 6) {
       filter = {
         $or: [{ 'userWord.optional.isLearned': false }, { userWord: null }],
       };
@@ -190,10 +192,10 @@ class AudioGame extends React.Component<{}> {
         JSON.stringify(filter)
       )) as AggregatedResponseType;
       if (aggregatedResponse.isSuccess) {
-        response = await this.normaliseAggregatedResponse(aggregatedResponse, page);
+        response = await this.normaliseAggregatedResponse(aggregatedResponse, Number(page));
         if (response.data.length < this.state.roundLength) {
           let currentLength = response.data.length;
-          let currentGroup = group;
+          let currentGroup = Number(group);
           while (currentLength < this.state.roundLength) {
             if (currentGroup === 0) {
               break;
