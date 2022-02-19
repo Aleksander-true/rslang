@@ -1,6 +1,7 @@
 import React from "react";
 import { Statistic } from "../../../Types/api-tipes";
-import Line from "./Chart";
+import Chart from "./Chart";
+import Line from "./Line";
 
 type LongStatisticsPropsTypes = {
   statistics: Statistic;
@@ -9,8 +10,8 @@ type LongStatisticsPropsTypes = {
 const LongStatistics: React.FC<LongStatisticsPropsTypes> = (statistics) => {
   return (
     <>
-      {/* <WordsLongStatistics wordsLongStatistics={wordsLongStatistics} /> */}
       <Line />
+      <Chart />
     </>
   );
 };
