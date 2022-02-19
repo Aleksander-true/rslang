@@ -10,10 +10,12 @@ export const clickApiActions = async (
   maxSeries: number,
   score: number
 ) => {
+  const id: keyof WordFromCollection = currentWords[wordNum].id ? "id" : "_id";
+
   const date = new Date();
   const wordResponse = await api.getWord(
     localStorage.getItem("userId")!,
-    currentWords[wordNum].id,
+    currentWords[wordNum][id]!,
     localStorage.getItem("token")!
   );
   const statisticsResponse = await api.getStatistics(
@@ -48,26 +50,26 @@ export const clickApiActions = async (
     answer,
     date,
     maxSeries,
-    currentWords[wordNum].id,
     score
   );
 
   if (wordResponse?.isSuccess) {
     api.updateWord(
       localStorage.getItem("userId")!,
-      currentWords[wordNum].id,
+      currentWords[wordNum][id]!,
       localStorage.getItem("token")!,
       newDataToAPI.wordFromBase
     );
-  } else
+  } else {
     api.createWord(
       localStorage.getItem("userId")!,
-      currentWords[wordNum].id,
+      currentWords[wordNum][id]!,
       localStorage.getItem("token")!,
       newDataToAPI.wordFromBase
     );
+  }
 
-  const ifSetStat = api.upsertStatistics(
+  api.upsertStatistics(
     localStorage.getItem("userId")!,
     localStorage.getItem("token")!,
     newDataToAPI.statistics
@@ -80,11 +82,13 @@ const update = async (
   answer: boolean,
   date: Date,
   maxSeries: number,
-  id: string,
   score: number
 ) => {
   const currentDate = await formDate(date);
   wordFromBase.optional!.time = formDate(date);
+  if (!wordFromBase.optional!.progress!) {
+    wordFromBase.optional!.progress! = 0;
+  }
 
   if (statistics.optional.sprint.lastChanged !== currentDate) {
     statistics.optional.sprint = setNewDayStatistics(date);
@@ -111,6 +115,7 @@ const update = async (
       wordFromBase.optional!.isLearned = true;
       statistics.learnedWords += 1;
       statistics.optional.wordStatistics[currentDate].learnedWords += 1;
+      wordFromBase.difficulty = "easy";
     }
     statistics.optional.wordStatistics[currentDate].correctAnswers += 1;
 

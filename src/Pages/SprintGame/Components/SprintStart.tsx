@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { WORDS_MAX } from "../const";
 import { randomAnswer } from "../util";
 import { WordFromCollection } from "../WordsAPI";
 import ResultsPage from "./Results";
@@ -42,7 +41,7 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
 
   return (
     <div className="sprint__question-page">
-      {isDone || wordNum === WORDS_MAX + 1 ? (
+      {isDone || wordNum === currentWords.length ? (
         <>
           {" "}
           <ResultsPage
@@ -53,7 +52,7 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
           />
         </>
       ) : null}
-      {!isDone && wordNum < WORDS_MAX + 1 ? (
+      {!isDone && wordNum < currentWords.length ? (
         <>
           <SprintQuestions
             setCorrectWords={setCorrectWords}

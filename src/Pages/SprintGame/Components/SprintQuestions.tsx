@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "../../../Components/Button";
 import { SprintQuestionsPropsType } from "../../../Types/sprint";
 import { clickApiActions } from "../clickAPI";
-import { TIMER_TIME, WORDS_MAX } from "../const";
+import { TIMER_TIME } from "../const";
 import CountDownTimer from "./CountDownTimer";
 import ShowEnglishWord from "./ShowEnglishWord";
 import ShowTranslate from "./ShowTranslate";
@@ -27,7 +27,7 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
 
   useEffect(() => {
     const keyPress = (event: { keyCode: number }) => {
-      if (wordNum > WORDS_MAX) {
+      if (wordNum > currentWords.length - 1) {
         return;
       }
       if (event.keyCode === 39) {

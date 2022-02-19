@@ -2,7 +2,8 @@ import api from "../../API";
 import { randomize, shuffledWords } from "./util";
 
 export interface WordFromCollection {
-  id: string;
+  id?: string;
+  _id?: string;
   group: number;
   page: number;
   word: string;
@@ -30,17 +31,17 @@ const getWords = async (group: string, page: string) => {
   } else {
     thisPage = randomize(0, 29).toString();
   }
-  if (+page === 6) {
+  if (+group === 6) {
     currentResponse = (await api.getAllUserAggregatedWords(
       localStorage.getItem("userId")!,
       localStorage.getItem("token")!,
-      group,
-      thisPage,
-      "20",
+      undefined,
+      undefined,
+      "3600",
       JSON.stringify({ "userWord.difficulty": "hard" })
     ))!;
     if (currentResponse.isSuccess) {
-      response.data = currentResponse.data;
+      response.data = currentResponse.data[0].paginatedResults;
       response.isSuccess = currentResponse.isSuccess;
     }
   } else

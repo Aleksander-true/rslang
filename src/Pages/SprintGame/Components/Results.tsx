@@ -22,7 +22,7 @@ const ResultsPage: React.FC<ResultsPagePropsType> = ({
       englishWord={word.word}
       russianWord={word.wordTranslate}
       sound={word.audio}
-      key={word.id}
+      key={word.word}
       type={"v"}
     />
   ));
@@ -32,7 +32,7 @@ const ResultsPage: React.FC<ResultsPagePropsType> = ({
       englishWord={word.word}
       russianWord={word.wordTranslate}
       sound={word.audio}
-      key={word.id}
+      key={word.word}
       type={"x"}
     />
   ));

@@ -1,5 +1,4 @@
 import { WordFromCollection } from "./WordsAPI";
-import { WORDS_MAX } from "./const";
 
 export const shuffledWords = (words: WordFromCollection[]) => {
   let arr = words.slice();
@@ -20,7 +19,7 @@ export const randomAnswer = (words: WordFromCollection[]) => {
     if (randomize(0, 1)) {
       answers.push(word.wordTranslate);
     } else {
-      answers.push(words[randomize(0, WORDS_MAX)].wordTranslate);
+      answers.push(words[randomize(0, words.length - 1)].wordTranslate);
     }
   });
   return answers;
