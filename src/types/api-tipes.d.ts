@@ -8,8 +8,8 @@ export type OptionalUserWord = {
   isLearned: boolean;
   correctAnswers: number;
   wrongAnswers: number;
-  progress?: number;
-  time?: string;
+  progress: number;
+  time: string;
 };
 
 export type OptionalSetting = {};

@@ -53,11 +53,9 @@ function Textbook() {
     if (response?.isSuccess) {
       setUserWords(response.data as GetUserWordsData);
     }
-    console.log('difficultWords', response?.data);
   };
 
   const changeWord = (id: string) => {
-    console.log('changeWord');
     setCurrWord(id);
   };
 
