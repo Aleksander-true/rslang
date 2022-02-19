@@ -1,65 +1,28 @@
-import {
-  Chart,
-  ChartSeries,
-  ChartSeriesItem,
-  ChartValueAxis,
-  ChartValueAxisItem,
-  ChartCategoryAxis,
-  ChartCategoryAxisItem,
-  ChartTitle,
-  ChartLegend,
-} from "@progress/kendo-react-charts";
 import React from "react";
-import { COLORS } from "../Constants";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
-export const series = [
-  {
-    name: "Total",
-    data: [19, 9, 20],
-    color: COLORS.total,
-  },
-  {
-    name: "Pending",
-    data: [12, 6, 15],
-    color: COLORS.pending,
-  },
-  {
-    name: "Fulfilled",
-    data: [7, 3, 5],
-    color: COLORS.accepted,
-  },
+const data = [
+  { quarter: 1, earnings: 13000 },
+  { quarter: 2, earnings: 16500 },
+  { quarter: 3, earnings: 14250 },
+  { quarter: 4, earnings: 19000 },
 ];
 
-const categories = ["January", "February", "March"];
-
-const Line = () => {
+const Chart = () => {
   return (
-    <Chart pannable zoomable style={{ height: 350 }}>
-      <ChartTitle text="Application status - last 3 months" />
-      <ChartLegend position="top" orientation="horizontal" />
-      <ChartValueAxis>
-        <ChartValueAxisItem
-          title={{ text: "Job Positions" }}
-          min={0}
-          max={30}
-        />
-      </ChartValueAxis>
-      <ChartCategoryAxis>
-        <ChartCategoryAxisItem categories={categories} />
-      </ChartCategoryAxis>
-      <ChartSeries>
-        {series.map((item, idx) => (
-          <ChartSeriesItem
-            key={idx}
-            type="line"
-            tooltip={{ visible: true }}
-            data={item.data}
-            name={item.name}
-          />
-        ))}
-      </ChartSeries>
-    </Chart>
+    <VictoryChart
+      // adding the material theme provided with Victory
+      theme={VictoryTheme.material}
+      domainPadding={20}
+    >
+      <VictoryAxis
+        tickValues={[1, 2, 3, 4]}
+        tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+      />
+      <VictoryAxis dependentAxis tickFormat={(x) => `$${x / 1000}k`} />
+      <VictoryBar data={data} x="quarter" y="earnings" />
+    </VictoryChart>
   );
 };
 
-export default Line;
+export default Chart;
