@@ -24,6 +24,8 @@ a {
   --green-color: #68d4bb;
   --light-green-color: #aaf3e2;
   --yellow-color: #fce74e;
+  --grey-color: #ededed;
+
   --fs-1: 64px;
   --fs-2: 48px;
   --fs-3: 36px;
@@ -31,13 +33,6 @@ a {
   --fs-5: 24px;
   --fs-6: 18px;
   --fs-7: 16px;
-
-  --bp-laptop-L: 1440px;
-  --bp-laptop: 1024px;
-  --bp-tablet: 768px;
-  --bp-mobile-L: 425px;
-  --bp-mobile: 375px;
-  --bp-mobile-S: 320px;
 }
 
 @media (max-width: 1024px) {
