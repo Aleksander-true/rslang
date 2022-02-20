@@ -1,10 +1,10 @@
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css");
 
 .sprint {
   min-width: 100%;
   min-height: 100%;
   position: relative;
-  background: url('../../assets/jpg/SprintBg.jpg') 100% no-repeat;
+  background: url("../../assets/jpg/SprintBg.jpg") 100% no-repeat;
   background-size: cover;
   vertical-align: middle;
   display: flex;
@@ -23,7 +23,18 @@
 
 .sprint__header__controls {
   display: flex;
-  gap: 5px;
+  gap: 15px;
+}
+
+.sprint__header__controls div,
+.sprint__header a {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sprint__header__controls div:hover,
+.sprint__header a:hover {
+  transform: scale(1.15);
 }
 
 .sprint__main {

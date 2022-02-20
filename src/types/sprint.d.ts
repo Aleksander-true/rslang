@@ -1,24 +1,24 @@
 import { WordFromCollection } from "../Pages/SprintGame/WordsAPI";
 
 type SprintQuestionsPropsType = {
-
-    setCorrectWords: React.Dispatch<React.SetStateAction<WordFromCollection[]>>;
-    setWrongWords: React.Dispatch<React.SetStateAction<WordFromCollection[]>>;
-    answers: string[];
-    currentWords: WordFromCollection[];
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
-    score: number;
-    setScore: React.Dispatch<React.SetStateAction<number>>;
-}
+  setCorrectWords: React.Dispatch<React.SetStateAction<WordFromCollection[]>>;
+  setWrongWords: React.Dispatch<React.SetStateAction<WordFromCollection[]>>;
+  answers: string[];
+  currentWords: WordFromCollection[];
+  setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  muted: boolean;
+};
 
 type ShowEnglishWordPropsType = {
-    words: WordFromCollection[];
-    wordNum: number;
-}
+  words: WordFromCollection[];
+  wordNum: number;
+};
 
 type SprintGameInsidePropsType = {
-    level: number;
-}
+  level: number;
+};
 
 // type optionalWord = {
 //     difficulty: string;

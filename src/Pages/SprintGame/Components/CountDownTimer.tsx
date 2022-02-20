@@ -37,6 +37,7 @@ const CountDownTimer: React.FC<CountDownTimerPropsType> = ({
         maxValue={initialValue}
         text={`${value}`}
         styles={buildStyles({
+          textSize: "2em",
           pathColor: `#68d4bb`,
           textColor: "#68d4bb",
         })}

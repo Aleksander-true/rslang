@@ -89,6 +89,12 @@ const update = async (
   if (!wordFromBase.optional!.progress!) {
     wordFromBase.optional!.progress! = 0;
   }
+  if (!wordFromBase.optional!.correctAnswers) {
+    wordFromBase.optional!.correctAnswers! = 0;
+  }
+  if (!wordFromBase.optional!.wrongAnswers) {
+    wordFromBase.optional!.wrongAnswers! = 0;
+  }
 
   if (statistics.optional.sprint.lastChanged !== currentDate) {
     statistics.optional.sprint = setNewDayStatistics(date);
