@@ -87,7 +87,7 @@ function DifficultWordCard(props: DifficultWordCardProps) {
   };
 
   return (
-    <>
+    <div className="word__card">
       <img className="card__img" src={imgUrl} alt=""></img>
       <div className="card__description-wrapper">
         <h3 className="card__word">
@@ -126,7 +126,7 @@ function DifficultWordCard(props: DifficultWordCardProps) {
           пометить как выученное
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

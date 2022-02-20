@@ -35,7 +35,7 @@ a {
   --fs-7: 16px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
   :root {
     --fs-1: 48px;
     --fs-2: 36px;
@@ -44,6 +44,18 @@ a {
     --fs-5: 18px;
     --fs-6: 16px;
     --fs-7: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-1: 36px;
+    --fs-2: 28px;
+    --fs-3: 24px;
+    --fs-4: 20px;
+    --fs-5: 18px;
+    --fs-6: 14px;
+    --fs-7: 12px;
   }
 }
 

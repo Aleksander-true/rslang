@@ -31,7 +31,9 @@ function Header(props: { modal: ModalProp }) {
           <span></span>
         </div>
         <NavLink
-          className={({ isActive }) => (isActive ? `header__home ${NAV_CLASSES} ${ACTIVE_LINK_CLASS}` : NAV_CLASSES)}
+          className={({ isActive }) =>
+            'header__home ' + (isActive ? `${NAV_CLASSES} ${ACTIVE_LINK_CLASS}` : NAV_CLASSES)
+          }
           to="/"
         >
           Главная

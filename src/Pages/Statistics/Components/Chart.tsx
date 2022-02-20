@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryLegend } from "victory";
-import { OptionalStatistic } from "../../../Types/api-tipes";
-import { COLORS } from "../Constants";
-import { formSumData } from "../StatisticsHelpers";
+import React, { useEffect, useState } from 'react';
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLegend } from 'victory';
+import { OptionalStatistic } from '../../../Types/api-tipes';
+import { COLORS } from '../Constants';
+import { formSumData } from '../StatisticsHelpers';
 
 interface ChartDataItem {
   x: string;
@@ -37,7 +37,7 @@ const Chart: React.FC<LinePropsType> = ({ lineData }) => {
         gutter={20}
         data={[
           {
-            name: "Прогресс по выученным словам",
+            name: 'Прогресс по выученным словам',
             symbol: { fill: COLORS.learnedWords },
           },
         ]}

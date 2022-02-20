@@ -14,7 +14,7 @@
 }
 
 .header__link {
-  font-size: 28px;
+  font-size: var(--fs-4);
   padding: 10px 20px;
   /*align-self: center;*/
   text-decoration: none;
@@ -54,6 +54,22 @@
 
 .header__home {
   display: none;
+}
+
+@media (max-width: 1440px) {
+  .logo {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .logo {
+    width: 250px;
+  }
+  .header__link {
+    font-size: var(--fs-4);
+    padding: 10px 10px;
+  }
 }
 
 @media (max-width: 1024px) {

@@ -19,7 +19,7 @@ function DifficultWordList(props: DifficultWordListProps) {
         <i className="bi bi-exclamation-circle exclamation_bottom-right"></i>
       </button>
     ));
-  return <>{words}</>;
+  return <div className="word__list">{words}</div>;
 }
 
 export default DifficultWordList;
