@@ -40,7 +40,8 @@ function Textbook() {
     }
   };
 
-  const filter = '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}';
+  //const filter = '{"$or":[{"userWord.difficulty":"hard"},{"userWord.optional.isLearned":true}]}';
+  const filter = '{"$or":[{"userWord.difficulty":"hard"},{"userWord.difficulty":"easy"}]}';
 
   const updateUserWords = async (fromGroup: string = level, fromPage: string = page) => {
     if (!isAuthorized) return;
@@ -49,8 +50,8 @@ function Textbook() {
       localStorage.getItem('token') || '',
       +fromGroup > 5 ? undefined : fromGroup,
       undefined,
-      String(WORDS_ON_PAGE),
-      undefined,
+      '600',
+      filter,
     );
     if (response?.isSuccess) {
       const data = response.data as GetUserWordsData;

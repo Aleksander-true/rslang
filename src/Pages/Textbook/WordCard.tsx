@@ -23,8 +23,8 @@ function WordCard(props: WordCardProps) {
   const userWord = props.userWords[0].paginatedResults.find((item) => item._id === currentWord.id);
   const isDifficult = userWord?.userWord?.difficulty === Difficulty.hard ? true : false;
   const isLearned = userWord?.userWord?.optional?.isLearned;
-  const correctAnswersQuantity = userWord?.userWord?.optional?.correctAnswers;
-  const wrongAnswersQuantity = userWord?.userWord?.optional?.wrongAnswers;
+  const correctAnswersQuantity = userWord?.userWord?.optional?.correctAnswers || 0;
+  const wrongAnswersQuantity = userWord?.userWord?.optional?.wrongAnswers || 0;
 
   const playAudio = (str: string) => {
     let url = '';
@@ -99,7 +99,7 @@ function WordCard(props: WordCardProps) {
   };
 
   let gameResults;
-  if (correctAnswersQuantity !== undefined || wrongAnswersQuantity !== undefined) {
+  if (correctAnswersQuantity > 0 || wrongAnswersQuantity > 0) {
     gameResults = (
       <>
         <div className="card__answers card__answers_correct">верно {correctAnswersQuantity}</div>
