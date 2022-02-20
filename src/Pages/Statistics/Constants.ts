@@ -1,7 +1,6 @@
 export const COLORS = {
-  accepted: "#059669",
-  rejected: "#B91C1C",
-  pending: "#6366F1",
-  interviewing: "#2563EB",
-  total: "#D97706",
+  correctAnswers: "#68D4BB",
+  mistakes: "#FC7E53",
+  newWords: "#8C75FF",
+  learnedWords: "#FFBA4A",
 };

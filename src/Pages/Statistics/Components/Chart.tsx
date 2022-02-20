@@ -1,26 +1,54 @@
-import React from "react";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
+import React, { useEffect, useState } from "react";
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLegend } from "victory";
+import { OptionalStatistic } from "../../../Types/api-tipes";
+import { COLORS } from "../Constants";
+import { formSumData } from "../StatisticsHelpers";
 
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
-];
+interface ChartDataItem {
+  x: string;
+  y: number;
+}
 
-const Chart = () => {
+type ChartData = ChartDataItem[];
+
+type LinePropsType = {
+  lineData: OptionalStatistic;
+};
+
+const Chart: React.FC<LinePropsType> = ({ lineData }) => {
+  const [wining, setWining] = useState<ChartData>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const data: ChartData = formSumData(lineData);
+    const keys = Object.keys(lineData.wordStatistics);
+    setCategories(keys);
+    setWining(data);
+  }, [lineData]);
+
   return (
-    <VictoryChart
-      // adding the material theme provided with Victory
-      theme={VictoryTheme.material}
-      domainPadding={20}
-    >
-      <VictoryAxis
-        tickValues={[1, 2, 3, 4]}
-        tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+    <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
+      <VictoryLegend
+        x={0}
+        y={0}
+        itemsPerRow={2}
+        centerTitle
+        orientation="vertical"
+        gutter={20}
+        data={[
+          {
+            name: "Прогресс по выученным словам",
+            symbol: { fill: COLORS.learnedWords },
+          },
+        ]}
       />
-      <VictoryAxis dependentAxis tickFormat={(x) => `$${x / 1000}k`} />
-      <VictoryBar data={data} x="quarter" y="earnings" />
+      <VictoryBar
+        style={{ data: { fill: COLORS.learnedWords } }}
+        categories={{
+          x: categories,
+        }}
+        data={wining}
+      />
     </VictoryChart>
   );
 };

@@ -92,7 +92,6 @@ const DayStatistics: React.FC<DayStatisticsPropsTypes> = (statistics) => {
                 textColor: "white",
                 trailColor: "#fc7e53",
                 strokeLinecap: "butt",
-                // backgroundColor: '#3e98c7',
               })}
             />
           </div>
@@ -133,7 +132,6 @@ const DayStatistics: React.FC<DayStatisticsPropsTypes> = (statistics) => {
                 textColor: "white",
                 trailColor: "#fc7e53",
                 strokeLinecap: "butt",
-                // backgroundColor: '#3e98c7',
               })}
             />
           </div>
@@ -181,7 +179,6 @@ const DayStatistics: React.FC<DayStatisticsPropsTypes> = (statistics) => {
                 textColor: "white",
                 trailColor: "#fc7e53",
                 strokeLinecap: "butt",
-                // backgroundColor: '#3e98c7',
               })}
             />
           </div>
