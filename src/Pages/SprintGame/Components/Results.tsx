@@ -9,6 +9,7 @@ type ResultsPagePropsType = {
   wrongWords: WordFromCollection[];
   score: number;
   onResetToInitialValues: () => void;
+  muted: boolean;
 };
 
 const ResultsPage: React.FC<ResultsPagePropsType> = ({
@@ -16,6 +17,7 @@ const ResultsPage: React.FC<ResultsPagePropsType> = ({
   wrongWords,
   score,
   onResetToInitialValues,
+  muted,
 }) => {
   const correctWordsElements = correctWords.map((word) => (
     <WordString
@@ -39,6 +41,7 @@ const ResultsPage: React.FC<ResultsPagePropsType> = ({
 
   const audio = new Audio();
   audio.src = endSound;
+  audio.muted = muted;
   audio.play();
 
   return (

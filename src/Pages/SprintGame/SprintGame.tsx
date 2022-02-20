@@ -6,12 +6,16 @@ import CountDownTimer from "./Components/CountDownTimer";
 import getWords, { WordFromCollection } from "./WordsAPI";
 import SprintGameStart from "./Components/SprintStart";
 import whatWords from "../../Components/whatWords";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 const SprintGame = () => {
   const [isDone, setIsDone] = useState(false);
   const [level, setLevel] = useState(0);
   const [currentWords, setCurrentWords] = useState<WordFromCollection[]>([]);
   const [page, setPage] = useState(-1);
+  const [muted, setMuted] = useState(false);
+
+  const handle = useFullScreenHandle();
 
   useEffect(() => {
     if (whatWords.page) {
@@ -37,18 +41,20 @@ const SprintGame = () => {
   }, [level]);
 
   return (
-    <div className="sprint">
-      <SprintButtons />
-      <div className="sprint__main">
-        {!level ? <LevelPage setLevel={setLevel} /> : null}
-        {level && !isDone ? (
-          <CountDownTimer initialValue={3} setIsDone={setIsDone} />
-        ) : null}
-        {level && isDone ? (
-          <SprintGameStart currentWords={currentWords} />
-        ) : null}
+    <FullScreen handle={handle} className="sprint">
+      <div>
+        <SprintButtons muted={muted} setMuted={setMuted} handle={handle} />
+        <div className="sprint__main">
+          {!level ? <LevelPage setLevel={setLevel} /> : null}
+          {level && !isDone ? (
+            <CountDownTimer initialValue={3} setIsDone={setIsDone} />
+          ) : null}
+          {level && isDone ? (
+            <SprintGameStart currentWords={currentWords} muted={muted} />
+          ) : null}
+        </div>
       </div>
-    </div>
+    </FullScreen>
   );
 };
 

@@ -9,10 +9,22 @@ export const SOUND_ICON = (
     style={{ color: "white", fontSize: "2rem" }}
   ></i>
 );
+export const NO_SOUND_ICON = (
+  <i
+    className="bi bi-volume-mute"
+    style={{ color: "white", fontSize: "2rem" }}
+  ></i>
+);
 
 export const FULL_SCREEN_ICON = (
   <i
     className="bi bi-fullscreen"
+    style={{ color: "white", fontSize: "2rem" }}
+  ></i>
+);
+export const NO_FULL_SCREEN_ICON = (
+  <i
+    className="bi bi-fullscreen-exit"
     style={{ color: "white", fontSize: "2rem" }}
   ></i>
 );

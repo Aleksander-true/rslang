@@ -48,7 +48,7 @@ const getWords = async (group: string, page: string) => {
     do {
       currentResponse = (await api.getChunkOfWords(group, thisPage))!;
       if (currentResponse.isSuccess) {
-        response.data = currentResponse.data;
+        response.data.push(...currentResponse.data);
         response.isSuccess = currentResponse.isSuccess;
       }
       if (localStorage.getItem("userId")) {
@@ -56,15 +56,20 @@ const getWords = async (group: string, page: string) => {
           localStorage.getItem("userId")!,
           localStorage.getItem("token")!,
           group,
-          thisPage,
-          "20",
-          JSON.stringify({ "userWord.optional.isLearned": "true" })
+          undefined,
+          "600",
+          JSON.stringify({ "userWord.optional.isLearned": true })
         ))!;
+
         if (userWords.isSuccess) {
-          for (let i = 0; i < userWords.data.length; i++) {
+          for (let i = 0; i < userWords.data[0].paginatedResults.length; i++) {
             for (let j = 0; j < response.data.length; j++) {
-              if (response.data[j].id === userWords.data[i].id) {
+              if (
+                response.data[j].id ===
+                userWords.data[0].paginatedResults[i]._id
+              ) {
                 response.data.splice(j, 1);
+                j -= 1;
               }
             }
           }
