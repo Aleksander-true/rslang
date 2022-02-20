@@ -19,6 +19,7 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
   setIsDone,
   score,
   setScore,
+  muted,
 }) => {
   const [wordNum, setWordNum] = useState(0);
   const [maxSeries, setMaxSeries] = useState(0);
@@ -47,6 +48,7 @@ const SprintQuestions: React.FC<SprintQuestionsPropsType> = ({
     const realAnswer = currentWords[wordNum].wordTranslate === answers[wordNum];
     let answer: boolean;
     const audio = new Audio();
+    audio.muted = muted;
 
     if (userAnswer === realAnswer) {
       setMaxSeries((prev) => prev + 1);

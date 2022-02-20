@@ -101,13 +101,20 @@
 }
 
 .statistics__long {
+    align-self: center;
+    width: 70%;
     display: flex;
     margin: 30px;
     gap: 30px;
 }
 
-@media (max-width: 1024px) { 
+@media (max-width: 1200px) { 
+
+    .statistics__long {
+        width: 100%;
+    }
     .statistics__day {
+        align-self: center;
         flex-direction: column;
         max-width: 50%;
     }
@@ -115,14 +122,14 @@
   }
 @media (max-width: 780px) { 
     .statistics__long {
-       
+        width: 70%;
         flex-direction: column;
     }
 
     .statistics__day__logo {
         width: 80px;
         top: -10px;
-    right: -10px;
+        right: -10px;
     }
 
     .statistics__day__number {

@@ -4,6 +4,7 @@ import {
   VictoryTheme,
   VictoryLine,
   VictoryLegend,
+  VictoryScatter,
 } from "victory";
 import {
   OptionalStatistic,
@@ -58,6 +59,11 @@ const Line: React.FC<LinePropsType> = ({ lineData }) => {
           { name: "Новые слова", symbol: { fill: COLORS.newWords } },
         ]}
       />
+      <VictoryScatter
+        style={{ data: { fill: COLORS.correctAnswers } }}
+        size={5}
+        data={wining[0]}
+      />
       <VictoryLine
         categories={{
           x: categories,
@@ -68,7 +74,11 @@ const Line: React.FC<LinePropsType> = ({ lineData }) => {
         }}
         data={wining[0]}
       />
-
+      <VictoryScatter
+        style={{ data: { fill: COLORS.learnedWords } }}
+        size={5}
+        data={wining[1]}
+      />
       <VictoryLine
         categories={{
           x: categories,
@@ -79,6 +89,12 @@ const Line: React.FC<LinePropsType> = ({ lineData }) => {
         }}
         data={wining[1]}
       />
+
+      <VictoryScatter
+        style={{ data: { fill: COLORS.mistakes } }}
+        size={5}
+        data={wining[2]}
+      />
       <VictoryLine
         categories={{
           x: categories,
@@ -88,6 +104,11 @@ const Line: React.FC<LinePropsType> = ({ lineData }) => {
           parent: { border: "1px solid #ccc" },
         }}
         data={wining[2]}
+      />
+      <VictoryScatter
+        style={{ data: { fill: COLORS.newWords } }}
+        size={5}
+        data={wining[3]}
       />
       <VictoryLine
         categories={{

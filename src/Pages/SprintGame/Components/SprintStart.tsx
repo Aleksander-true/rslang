@@ -7,10 +7,12 @@ import SprintQuestions from "./SprintQuestions";
 
 type SprintGameStartPropsTypes = {
   currentWords: WordFromCollection[];
+  muted: boolean;
 };
 
 const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
   currentWords,
+  muted,
 }) => {
   const [answers, setAnswers] = useState([""]);
   const [isDone, setIsDone] = useState(false);
@@ -49,6 +51,7 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
             wrongWords={wrongWords}
             score={score}
             onResetToInitialValues={onResetToInitialValues}
+            muted={muted}
           />
         </>
       ) : null}
@@ -62,6 +65,7 @@ const SprintGameStart: React.FC<SprintGameStartPropsTypes> = ({
             setIsDone={setIsDone}
             score={score}
             setScore={setScore}
+            muted={muted}
           />
         </>
       ) : null}
