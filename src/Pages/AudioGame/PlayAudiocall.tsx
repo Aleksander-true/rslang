@@ -144,10 +144,18 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         {
           isPreAnswer: true,
         },
-        () => resolve(),
+        () => resolve()
       );
     });
     if (!this.props.getState().isWordStatistic) {
+      await new Promise<void>((resolve) => {
+        this.setState(
+          {
+            isPreAnswer: false,
+          },
+          () => resolve()
+        );
+      });
       return;
     }
     const isGuessed = status;
@@ -195,6 +203,14 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     }
     const isWordSended = await this.sendUserWord(userWordStatistic);
     if (!isWordSended) {
+      await new Promise<void>((resolve) => {
+        this.setState(
+          {
+            isPreAnswer: false,
+          },
+          () => resolve()
+        );
+      });
       return;
     } else {
       this.props.changeStatisticFlag();
@@ -227,7 +243,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
       gameStatistic.optional.audio.wrongAnswers += 1;
       gameStatistic.optional.wordStatistics[this.props.getState().date].mistakes += 1;
     }
-    this.props.updateStatistic(gameScore, gameStatistic);
+    await this.props.updateStatistic(gameScore, gameStatistic);
     this.props.setResult(prevResults);
     if (isGuessed) {
       this.playCorrect();
@@ -245,7 +261,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
         this.setState({
           isAnswer: true,
         });
-      },
+      }
     );
     this.setState({
       isPreAnswer: false,
