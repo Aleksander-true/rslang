@@ -2,3 +2,10 @@
   min-height: calc(100vh - 90px);
   height: 1px;
 }
+
+@media (max-width: 1024px) {
+  .main {
+    min-height: 100vh;
+    padding-top: 90px;
+  }
+}

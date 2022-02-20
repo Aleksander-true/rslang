@@ -1,15 +1,18 @@
 .team {
-  padding: 80px 50px;
+  padding: 0 40px;
 }
 
 .team__img-wrapper {
   display: grid;
-  grid-template-areas: "empty1 photo2 empty3"  
-                        "photo1 photo2 photo3"  
-                        "photo1 empty2 photo3";
-  grid-template-rows: 1fr 2fr 1fr; 
-  column-gap: 100px;
-  margin: 40px 0 80px;
+  grid-template-areas:
+    'empty1 photo2 empty3'
+    'photo1 photo2 photo3'
+    'photo1 empty2 photo3';
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10%;
+  margin: 40px 0;
+  font-size: var(--fs-3);
 }
 
 .team__person:nth-of-type(1) {
@@ -25,11 +28,11 @@
 }
 
 .team__name {
-  font-size: 36px;
+  font-size: var(--fs-3);
 }
 
 .team__description {
-  font-size: 28px;
+  font-size: var(--fs-5);
 }
 
 .team__img {

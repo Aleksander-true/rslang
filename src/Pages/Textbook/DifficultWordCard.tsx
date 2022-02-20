@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { BASE_URL } from '../../constants';
 import { ReactComponent as BookmarkDelete } from './../../assets/svg/bookmark-delete.svg';
-import './textbook.css';
-import './words.css';
-import './word-card.css';
 import api from '../../API';
 
 function DifficultWordCard(props: DifficultWordCardProps) {

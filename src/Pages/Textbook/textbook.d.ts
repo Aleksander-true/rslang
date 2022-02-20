@@ -65,6 +65,7 @@ type WordListProps = {
   clickWord: (string) => void;
   userWords: GetUserWordsData;
   currentWord: CurrentWord;
+  isLearnedAllWords: boolean;
 };
 
 type DifficultWordListProps = {
@@ -84,11 +85,14 @@ type WordCardProps = {
   currentWord: CurrentWord;
   updateUserWords: (group?: string, page?: string) => void;
   userWords: GetUserWordsData;
+  isLearnedAllWords: boolean;
 };
 
 type WordsProps = { words: never[] | Word[] };
 
-const enum Difficulty {
-  hard = 'hard',
-  easy = 'easy',
-}
+type PaginationProps = {
+  page: number;
+  lastPage: number;
+  level: string;
+  isLearnedAllWords: boolean;
+};

@@ -17,7 +17,7 @@ function Team() {
             <i>Роль:</i> тимлидер{' '}
           </p>
           <p className="team__description">
-            <i>Достижения:</i>
+            <i>Реализованно:</i> Главная страница, навигация, учебник.
           </p>
         </figure>
         <figure className="team__person">
@@ -27,7 +27,7 @@ function Team() {
             <i>Роль:</i> дизайнер, разработчик
           </p>
           <p className="team__description">
-            <i>Достижения:</i>
+            <i>Реализованно:</i> Дизайн всех страниц, игра Спринт, страница статистики
           </p>
         </figure>
         <figure className="team__person">
@@ -37,7 +37,7 @@ function Team() {
             <i>Роль:</i> ведущий-разработчик
           </p>
           <p className="team__description">
-            <i>Достижения:</i>
+            <i>Реализованно:</i> Игра Аудиовызов, API для работы с сервером.
           </p>
         </figure>
       </div>

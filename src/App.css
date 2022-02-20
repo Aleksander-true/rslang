@@ -25,7 +25,25 @@ a {
   --light-green-color: #aaf3e2;
   --yellow-color: #fce74e;
   --grey-color: #ededed
+  --fs-1: 64px;
+  --fs-2: 48px;
+  --fs-3: 36px;
+  --fs-4: 28px;
+  --fs-5: 24px;
+  --fs-6: 18px;
+  --fs-7: 16px;
 }
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-1: 48px;
+    --fs-2: 36px;
+    --fs-3: 28px;
+    --fs-4: 24px;
+    --fs-5: 18px;
+    --fs-6: 16px;
+    --fs-7: 14px;
+  }
 
 .wrapper {
   max-width: 1920px;
