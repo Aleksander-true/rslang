@@ -195,8 +195,6 @@ class AudioGame extends React.Component<{}> {
     let filter: AggregatedWordsFilterType;
     const group = whatWords.level;
     const page = whatWords.page;
-    // const group = Number(whatWords.level as string);
-    // const page = Number(whatWords.page as string);
     await this.changeIsRequestingStatus();
     if (group === null && page === null) {
       response = (await api.getChunkOfWords(
@@ -296,7 +294,7 @@ class AudioGame extends React.Component<{}> {
     this.setState({
       isStarted: true,
       isFinished: false,
-      statisticGame: returnsStatisticTemplate(this.state.date),
+      //statisticGame: returnsStatisticTemplate(this.state.date),
     });
     await this.changeIsRequestingStatus();
   }
@@ -419,11 +417,17 @@ class AudioGame extends React.Component<{}> {
     }
   }
 
-  updateStatistic(gameScore: number, gameStatistic: Statistic) {
-    this.setState({
-      gameScore: gameScore,
-      statisticGame: gameStatistic,
+  async updateStatistic(gameScore: number, gameStatistic: Statistic) {
+    const result = await new Promise<void>((resolve) => {
+      this.setState(
+        {
+          gameScore: gameScore,
+          statisticGame: gameStatistic,
+        },
+        () => resolve()
+      );
     });
+    return result;
   }
 
   async getStatistic() {
@@ -569,9 +573,7 @@ class AudioGame extends React.Component<{}> {
             getState={() => this.getState()}
             resetGame={() => this.resetGame()}
             finishGame={() => this.finishGame()}
-            updateStatistic={(gameScore, gameStatistic) =>
-              this.updateStatistic(gameScore, gameStatistic)
-            }
+            updateStatistic={async (gameScore, gameStatistic) => await this.updateStatistic(gameScore, gameStatistic)}
             changeStatisticFlag={() => this.changeStatisticFlag()}
           />
         ) : null}
