@@ -22,6 +22,7 @@ class AudioGame extends React.Component<{}> {
     super(props);
     this.state = {
       date: dateConstructor(),
+      isFullscreenEnabled: false,
       isStartedFromManual: Boolean(whatWords.level) && Boolean(whatWords.page),
       isAuthorised: false,
       isStarted: false,
@@ -149,9 +150,6 @@ class AudioGame extends React.Component<{}> {
   }
 
   async startGame(menuGroup?: number) {
-    //await api.deleteWord(this.state.userID, '5e9f5ee35eb9e72bc21af4a0', localStorage.getItem('token') as string);
-    //await this.deleteUser();
-    console.log(this.state.isStartedFromManual);
     await new Promise<void>((resolve) => {
       this.setState(
         {
@@ -505,6 +503,7 @@ class AudioGame extends React.Component<{}> {
       this.setState(
         {
           date: dateConstructor(),
+          isFullscreenEnabled: this.state.isFullscreenEnabled,
           isAuthorised: this.state.userID !== null,
           isStartedFromManual: this.getManualState(),
           isStarted: false,
@@ -560,9 +559,23 @@ class AudioGame extends React.Component<{}> {
     return this.state.isStartedFromManual;
   }
 
+  fullscreen() {
+    this.setState({
+      isFullscreenEnabled: !this.state.isFullscreenEnabled,
+    });
+  }
+
   render() {
     return (
-      <section className="audiocall-section">
+      <section
+        className={this.state.isFullscreenEnabled ? 'audiocall-section fullscreen-audiocall' : 'audiocall-section'}
+      >
+        <div className="fullscreen-button" onClick={() => this.fullscreen()}>
+          <i
+            className={this.state.isFullscreenEnabled ? 'bi bi-fullscreen-exit' : 'bi bi-fullscreen'}
+            style={{ color: 'white', fontSize: '2rem' }}
+          ></i>
+        </div>
         {this.state.isStarted ? null : this.state.isRequesting ? (
           <Requesting />
         ) : (

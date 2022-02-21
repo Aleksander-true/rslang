@@ -2,6 +2,7 @@ import { Word, Statistic, UserWord, AggregatedWord } from '../../Types/api-tipes
 
 export type AudioGameState = {
   date: string;
+  isFullscreenEnabled: boolean;
   isStartedFromManual: boolean;
   isAuthorised: boolean;
   isStarted: boolean;
