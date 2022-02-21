@@ -1,41 +1,19 @@
-import React from "react";
-import "./audio-call.css";
-import { BASE_URL } from "../../constants";
-import api from "../../API";
-import whatWords from "../../Components/whatWords";
-import {
-  AggregatedWordsFilterType,
-  AggregatedWord,
-  GameOptional,
-  WordStatisticsType,
-} from "../../Types/api-tipes";
-import { Statistic, UserWord } from "../../Types/api-tipes";
-import StartAudiocall from "./StartAudiocall";
-import PlayAudiocall from "./PlayAudiocall";
-import ResultsAudiocall from "./ResultsAudiocall";
-import Requesting from "./Requesting";
-import {
-  AudioGameState,
-  ResponseType,
-  RoundResult,
-  AggregatedResponseType,
-} from "./audiocall-types";
-import {
-  ResponseStatisticType,
-  ErrorMessage,
-  ResponseUserWordType,
-} from "./audiocall-types";
-import {
-  getRandomIntInclusive,
-  shuffle,
-  returnsStatisticTemplate,
-  dateConstructor,
-} from "./functions-helpers";
-import {
-  returnsWordStatisticTemplate,
-  returnsStatisticGameTemplate,
-} from "./functions-helpers";
-import { returnsStatisticWordsTemplate } from "./functions-helpers";
+import React from 'react';
+import './audio-call.css';
+import { BASE_URL } from '../../constants';
+import api from '../../API';
+import whatWords from '../../Components/whatWords';
+import { AggregatedWordsFilterType, AggregatedWord, GameOptional, WordStatisticsType } from '../../Types/api-tipes';
+import { Statistic, UserWord } from '../../Types/api-tipes';
+import StartAudiocall from './StartAudiocall';
+import PlayAudiocall from './PlayAudiocall';
+import ResultsAudiocall from './ResultsAudiocall';
+import Requesting from './Requesting';
+import { AudioGameState, ResponseType, RoundResult, AggregatedResponseType } from './audiocall-types';
+import { ResponseStatisticType, ErrorMessage, ResponseUserWordType } from './audiocall-types';
+import { getRandomIntInclusive, shuffle, returnsStatisticTemplate, dateConstructor } from './functions-helpers';
+import { returnsWordStatisticTemplate, returnsStatisticGameTemplate } from './functions-helpers';
+import { returnsStatisticWordsTemplate } from './functions-helpers';
 
 class AudioGame extends React.Component<{}> {
   state: AudioGameState;
@@ -44,6 +22,7 @@ class AudioGame extends React.Component<{}> {
     super(props);
     this.state = {
       date: dateConstructor(),
+      isStartedFromManual: Boolean(whatWords.level) && Boolean(whatWords.page),
       isAuthorised: false,
       isStarted: false,
       isFinished: false,
@@ -52,23 +31,27 @@ class AudioGame extends React.Component<{}> {
       isWordOnServer: false,
       difficulty: 0,
       currentRound: 0,
-      correctAnswer: "",
+      correctAnswer: '',
       russianWords: [],
       answers: [],
       collection: [],
       gameResults: [],
       roundLength: 20,
       gameScore: 0,
-      audioSrc: "",
-      userID: localStorage.getItem("userId") as string,
+      audioSrc: '',
+      userID: localStorage.getItem('userId') as string,
       statisticGame: returnsStatisticTemplate(dateConstructor()),
       statisticWord: returnsWordStatisticTemplate(dateConstructor()),
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.setDefaultSettings(false);
+  }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setDefaultSettings(false);
+  }
 
   finishGame() {
     this.setState({
@@ -77,10 +60,7 @@ class AudioGame extends React.Component<{}> {
     });
   }
 
-  async normaliseAggregatedResponse(
-    response: AggregatedResponseType,
-    page?: number
-  ): Promise<ResponseType> {
+  async normaliseAggregatedResponse(response: AggregatedResponseType, page?: number): Promise<ResponseType> {
     let wordsIn = response.data[0].paginatedResults.slice();
     if (page !== undefined) {
       wordsIn.sort((a, b) => {
@@ -164,18 +144,18 @@ class AudioGame extends React.Component<{}> {
   }
 
   async deleteUser() {
-    const result = await api.deleteUser(
-      this.state.userID,
-      localStorage.getItem("token") as string
-    );
+    const result = await api.deleteUser(this.state.userID, localStorage.getItem('token') as string);
     return result;
   }
 
   async startGame(menuGroup?: number) {
+    //await api.deleteWord(this.state.userID, '5e9f5ee35eb9e72bc21af4a0', localStorage.getItem('token') as string);
+    //await this.deleteUser();
+    console.log(this.state.isStartedFromManual);
     await new Promise<void>((resolve) => {
       this.setState(
         {
-          userID: localStorage.getItem("userId") as string,
+          userID: localStorage.getItem('userId') as string,
         },
         () => resolve()
       );
@@ -197,10 +177,7 @@ class AudioGame extends React.Component<{}> {
     const page = whatWords.page;
     await this.changeIsRequestingStatus();
     if (group === null && page === null) {
-      response = (await api.getChunkOfWords(
-        String(menuGroup),
-        String(getRandomIntInclusive(0, 29))
-      )) as ResponseType;
+      response = (await api.getChunkOfWords(String(menuGroup), String(getRandomIntInclusive(0, 29)))) as ResponseType;
       if (response.isSuccess) {
         this.setState({
           collection: response.data,
@@ -210,21 +187,18 @@ class AudioGame extends React.Component<{}> {
       }
     } else if (Number(group) !== 6) {
       filter = {
-        $or: [{ "userWord.optional.isLearned": false }, { userWord: null }],
+        $or: [{ 'userWord.optional.isLearned': false }, { userWord: null }],
       };
       aggregatedResponse = (await api.getAllUserAggregatedWords(
         this.state.userID,
-        localStorage.getItem("token") as string,
+        localStorage.getItem('token') as string,
         String(group),
         undefined,
-        "600",
+        '600',
         JSON.stringify(filter)
       )) as AggregatedResponseType;
       if (aggregatedResponse.isSuccess) {
-        response = await this.normaliseAggregatedResponse(
-          aggregatedResponse,
-          Number(page)
-        );
+        response = await this.normaliseAggregatedResponse(aggregatedResponse, Number(page));
         if (response.data.length < this.state.roundLength) {
           let currentLength = response.data.length;
           let currentGroup = Number(group);
@@ -235,16 +209,13 @@ class AudioGame extends React.Component<{}> {
             currentGroup -= 1;
             let newAggregatedResponse = (await api.getAllUserAggregatedWords(
               this.state.userID,
-              localStorage.getItem("token") as string,
+              localStorage.getItem('token') as string,
               String(currentGroup),
               undefined,
-              "600",
+              '600',
               JSON.stringify(filter)
             )) as AggregatedResponseType;
-            let newResponse = await this.normaliseAggregatedResponse(
-              newAggregatedResponse,
-              currentGroup
-            );
+            let newResponse = await this.normaliseAggregatedResponse(newAggregatedResponse, currentGroup);
             response.data = response.data.concat(newResponse.data);
             if (response.data.length > this.state.roundLength) {
               response.data = response.data.slice(0, 20);
@@ -257,14 +228,14 @@ class AudioGame extends React.Component<{}> {
       }
     } else {
       filter = {
-        $and: [{ "userWord.difficulty": "hard" }],
+        $and: [{ 'userWord.difficulty': 'hard' }],
       };
       aggregatedResponse = (await api.getAllUserAggregatedWords(
         this.state.userID,
-        localStorage.getItem("token") as string,
+        localStorage.getItem('token') as string,
         undefined,
         undefined,
-        "3600",
+        '3600',
         JSON.stringify(filter)
       )) as AggregatedResponseType;
       if (aggregatedResponse.isSuccess) {
@@ -281,6 +252,23 @@ class AudioGame extends React.Component<{}> {
     }
     let russianWords: string[] = [];
     response.data.forEach((w) => russianWords.push(w.wordTranslate));
+    if (russianWords.length < 20) {
+      let tempSet = new Set(russianWords);
+      const potentialAnswers = (await api.getChunkOfWords(
+        String(getRandomIntInclusive(0, 5)),
+        String(getRandomIntInclusive(0, 29))
+      )) as ResponseType;
+      if (response.isSuccess) {
+        let i = 0;
+        while (tempSet.size < 20) {
+          tempSet.add(potentialAnswers.data[i].wordTranslate);
+          i++;
+        }
+        russianWords = Array.from(tempSet);
+      } else {
+        return;
+      }
+    }
     this.setState(
       {
         russianWords: russianWords,
@@ -294,7 +282,6 @@ class AudioGame extends React.Component<{}> {
     this.setState({
       isStarted: true,
       isFinished: false,
-      //statisticGame: returnsStatisticTemplate(this.state.date),
     });
     await this.changeIsRequestingStatus();
   }
@@ -304,14 +291,14 @@ class AudioGame extends React.Component<{}> {
       return true;
     }
     const ID = this.state.userID;
-    const token = localStorage.getItem("token") as string;
+    const token = localStorage.getItem('token') as string;
     const requestBody = this.state.statisticGame;
     const response = await api.upsertStatistics(ID, token, requestBody);
     return response?.isSuccess;
   }
 
   playEnd() {
-    const end = new Audio(require("../../assets/audio/end.mp3"));
+    const end = new Audio(require('../../assets/audio/end.mp3'));
     end.play();
   }
 
@@ -385,12 +372,17 @@ class AudioGame extends React.Component<{}> {
     const response = (await api.getWord(
       this.state.userID,
       this.state.collection[num].id,
-      localStorage.getItem("token") as string
+      localStorage.getItem('token') as string
     )) as ResponseUserWordType;
     if (response?.isSuccess) {
       const statisticWord = {
         difficulty: (response.data as UserWord).difficulty,
-        optional: (response.data as UserWord).optional,
+        optional: {
+          isLearned: (response.data as UserWord).optional?.isLearned,
+          correctAnswers: (response.data as UserWord).optional?.correctAnswers,
+          wrongAnswers: (response.data as UserWord).optional?.wrongAnswers,
+          progress: (response.data as UserWord).optional?.progress ? (response.data as UserWord).optional?.progress : 0,
+        },
       };
       this.setState({
         isWordOnServer: true,
@@ -398,13 +390,10 @@ class AudioGame extends React.Component<{}> {
       });
       return true;
     } else {
-      if (
-        (response.data as ErrorMessage).errorMessage === "User's word not found"
-      ) {
+      if ((response.data as ErrorMessage).errorMessage === "User's word not found") {
         const currentStatistic = this.state.statisticGame;
         currentStatistic.optional.audio.newWords += 1;
-        currentStatistic.optional.wordStatistics[this.state.date].newWords =
-          currentStatistic.optional.audio.newWords;
+        currentStatistic.optional.wordStatistics[this.state.date].newWords = currentStatistic.optional.audio.newWords;
         this.setState({
           isWordOnServer: false,
           statisticGame: currentStatistic,
@@ -436,7 +425,7 @@ class AudioGame extends React.Component<{}> {
     }
     const response = (await api.getStatistics(
       this.state.userID,
-      localStorage.getItem("token") as string
+      localStorage.getItem('token') as string
     )) as ResponseStatisticType;
     if (response?.isSuccess) {
       let audiocall: GameOptional;
@@ -471,9 +460,7 @@ class AudioGame extends React.Component<{}> {
       });
       return true;
     } else {
-      if (
-        (response.data as ErrorMessage).errorMessage === "Statistics not found"
-      ) {
+      if ((response.data as ErrorMessage).errorMessage === 'Statistics not found') {
         await new Promise<void>((resolve) => {
           this.setState(
             {
@@ -519,6 +506,7 @@ class AudioGame extends React.Component<{}> {
         {
           date: dateConstructor(),
           isAuthorised: this.state.userID !== null,
+          isStartedFromManual: this.getManualState(),
           isStarted: false,
           isFinished: false,
           isRequesting: showDolphins,
@@ -526,14 +514,14 @@ class AudioGame extends React.Component<{}> {
           isWordOnServer: false,
           difficulty: 0,
           currentRound: 0,
-          correctAnswer: "",
+          correctAnswer: '',
           russianWords: [],
           answers: [],
           collection: [],
           gameResults: [],
           roundLength: 20,
           gameScore: 0,
-          audioSrc: "",
+          audioSrc: '',
           statisticGame: returnsStatisticTemplate(dateConstructor()),
           statisticWord: returnsWordStatisticTemplate(dateConstructor()),
         },
@@ -554,6 +542,24 @@ class AudioGame extends React.Component<{}> {
     });
   }
 
+  async setManualState() {
+    const result = await new Promise((resolve) => {
+      this.setState(
+        {
+          isStartedFromManual: Boolean(whatWords.level) && Boolean(whatWords.page),
+        },
+        () => {
+          resolve(this.state.isStartedFromManual);
+        }
+      );
+    });
+    return result;
+  }
+
+  getManualState() {
+    return this.state.isStartedFromManual;
+  }
+
   render() {
     return (
       <section className="audiocall-section">
@@ -561,9 +567,11 @@ class AudioGame extends React.Component<{}> {
           <Requesting />
         ) : (
           <StartAudiocall
-            startGame={() => this.startGame(this.state.difficulty)}
+            startGame={(level: number) => this.startGame(level)}
             setDifficulty={(number: number) => this.setDifficulty(number)}
             getDifficulty={() => this.getDifficulty()}
+            setManualState={() => this.setManualState() as Promise<boolean>}
+            getManualState={() => this.getManualState()}
           />
         )}
         {this.state.isStarted && !this.state.isFinished ? (

@@ -59,6 +59,11 @@
   border-radius: 0.5vw;
 }
 
+.audiocall-start-description {
+  width: 80%;
+  text-align: center;
+}
+
 .keys {
   font-family: var(--main-font-family);
   color: var(--mark-color);

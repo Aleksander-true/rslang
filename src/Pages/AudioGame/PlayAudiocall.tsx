@@ -327,6 +327,17 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
     );
   }
 
+  exitButton() {
+    return (
+      <a href="/">
+        {' '}
+        <button type="button" className="btn btn-outline-danger btn-sm">
+          Exit game
+        </button>
+      </a>
+    );
+  }
+
   render() {
     return (
       <div className="audiocall-game-page">
@@ -343,9 +354,7 @@ class PlayAudiocall extends React.Component<PropsPlayAudiocall> {
           {this.state.isAnswer ? this.returnBlockedButton(4) : this.returnAnswerButton(4)}
         </div>
         <div className="audiocall-controls">
-          <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => this.props.resetGame()}>
-            Reset game
-          </button>
+          {this.exitButton()}
           <button
             disabled={!this.state.isAnswer}
             type="button"
