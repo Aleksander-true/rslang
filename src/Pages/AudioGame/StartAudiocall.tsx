@@ -1,35 +1,60 @@
 import React from 'react';
-import SelectDifficulty from './SelectDifficulty';
-import { LEVELS_NAMES } from '../../constants';
-import { PropsStartAudiocall } from './audiocall-types';
+import { PropsStartAudiocall, StartAudiocallState } from './audiocall-types';
+import Level from './Level';
+import whatWords from '../../Components/whatWords';
 
 class StartAudiocall extends React.Component<PropsStartAudiocall> {
+  state: StartAudiocallState;
+
   constructor(props: PropsStartAudiocall) {
     super(props);
     this.state = {
-      gameName: 'Audiocall',
+      isStartedFromManual: this.props.getManualState(),
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.updateState();
+    if (this.state.isStartedFromManual) {
+      this.props.startGame();
+    }
+  }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.updateState();
+  }
+
+  updateState() {
+    this.setState({
+      isStartedFromManual: Boolean(whatWords.level) && Boolean(whatWords.page),
+    });
+  }
+
+  returnLevelButton(color: string, label: string, value: number) {
+    return <Level color={color} label={label} value={value} onClick={(value) => this.props.startGame(value)} />;
+  }
+
+  returnSettings() {
+    return (
+      <div className="audiocall-settings">
+        <h3>Уровень cложности:</h3>
+        <div className="sprint__levels-options">
+          {this.returnLevelButton('#AAF3E2', 'A1', 0)}
+          {this.returnLevelButton('#68D4BB', 'A1+', 1)}
+          {this.returnLevelButton('#FCE74E', 'A2', 2)}
+          {this.returnLevelButton('#FFBA4A', 'B1', 3)}
+          {this.returnLevelButton('#FFB197', 'B2', 4)}
+          {this.returnLevelButton('#FC7E53', 'C1', 5)}
+        </div>
+      </div>
+    );
+  }
 
   render() {
     return (
       <div className="audiocall-start-page">
         <h2 className="audiocall-title">Аудиовызов</h2>
-        <div className="audiocall-settings">
-          <h3>
-            Уровень cложности: <span className="difficulty-level">{LEVELS_NAMES[this.props.getDifficulty()]}</span>
-          </h3>
-          <div className="audiocall-select-start">
-            <SelectDifficulty onChange={(value: string) => this.props.setDifficulty(Number(value))}></SelectDifficulty>
-            <button type="button" className="btn btn-warning" onClick={() => this.props.startGame()}>
-              Старт
-            </button>
-          </div>
-        </div>
+        {this.returnSettings()}
         <div className="description-audiocall">
           <ul>
             <li>

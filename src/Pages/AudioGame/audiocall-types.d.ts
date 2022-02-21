@@ -2,6 +2,8 @@ import { Word, Statistic, UserWord, AggregatedWord } from '../../Types/api-tipes
 
 export type AudioGameState = {
   date: string;
+  isFullscreenEnabled: boolean;
+  isStartedFromManual: boolean;
   isAuthorised: boolean;
   isStarted: boolean;
   isFinished: boolean;
@@ -21,6 +23,10 @@ export type AudioGameState = {
   userID: string;
   statisticGame: Statistic;
   statisticWord: UserWord;
+};
+
+type StartAudiocallState = {
+  isStartedFromManual: boolean;
 };
 
 export type ResponseType = { isSuccess: boolean; data: Word[] };
@@ -81,9 +87,11 @@ export type ArgumentCheckAnswer = {
 };
 
 export type PropsStartAudiocall = {
-  startGame: () => Promise<void>;
+  startGame: (number?) => Promise<void>;
   setDifficulty: (number: number) => void;
   getDifficulty: () => number;
+  setManualState: () => Promise<boolean>;
+  getManualState: () => boolean;
 };
 
 export type PropsResultsAudiocall = {
@@ -127,4 +135,11 @@ export type PropsWordExtendedInfo = {
   gameState: AudioGameState;
   playWord: () => void;
   gameScore: GameState;
+};
+
+export type PropsLevel = {
+  color: string;
+  label: string;
+  value: number;
+  onClick: (value: number) => void;
 };

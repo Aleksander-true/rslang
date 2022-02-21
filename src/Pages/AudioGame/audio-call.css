@@ -7,14 +7,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  padding: 1vw;
+}
+
+.fullscreen-button {
+  cursor: pointer;
+  align-self: flex-end;
+  transition: 200ms;
+}
+
+.fullscreen-button:hover,
+.fullscreen-button:active {
+  transform: scale(1.15);
+}
+
+.fullscreen-audiocall {
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .audiocall-start-page,
 .audiocall-game-page,
 .audiocall-results-page {
   background: rgba(255, 255, 255, 0.9);
-  height: 90%;
-  width: 70%;
+  min-height: 90%;
+  min-width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -59,6 +81,11 @@
   border-radius: 0.5vw;
 }
 
+.audiocall-start-description {
+  width: 80%;
+  text-align: center;
+}
+
 .keys {
   font-family: var(--main-font-family);
   color: var(--mark-color);
@@ -99,7 +126,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  row-gap: 1vw;
 }
 
 .word-info-score {

@@ -53,9 +53,12 @@ class ResultsAudiocall extends React.Component<PropsResultsAudiocall> {
             <tbody>{tableTemplate}</tbody>
           </table>
         </div>
-        <button type="button" className="btn btn-warning" onClick={() => this.props.resetGame()}>
-          Меню
-        </button>
+        <a href="/">
+          {' '}
+          <button type="button" className="btn btn-outline-danger btn-sm">
+            Exit game
+          </button>
+        </a>
       </div>
     );
   }
