@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Mouth Breather';
+  src: local('v_mouthbreatherbb'), url('./assets/fonts/v_mouthbreatherbb.ttf');
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --main-font-family: 'Mouth Breather';
+  --second-font-family: 'Verdana';
+  --main-text-color: #000;
+  --mark-color: #ffba4a;
+  --link-hover-color: #fc7e53;
+  --bkg-level-0: #fce74e;
+  --bkg-level-1: #ffba4a;
+  --bkg-level-2: #68d4bb;
+  --bkg-level-3: #fc7e53;
+  --bkg-level-4: #5d7cfd;
+  --bkg-level-5: #8c75ff;
+  --bkg-level-user: #ff009d;
+  --light-red-color: #ffb197;
+  --green-color: #68d4bb;
+  --light-green-color: #aaf3e2;
+  --yellow-color: #fce74e;
+  --grey-color: #ededed;
+
+  --fs-1: 64px;
+  --fs-2: 48px;
+  --fs-3: 36px;
+  --fs-4: 28px;
+  --fs-5: 24px;
+  --fs-6: 18px;
+  --fs-7: 16px;
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --fs-1: 48px;
+    --fs-2: 36px;
+    --fs-3: 28px;
+    --fs-4: 24px;
+    --fs-5: 18px;
+    --fs-6: 16px;
+    --fs-7: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-1: 36px;
+    --fs-2: 28px;
+    --fs-3: 24px;
+    --fs-4: 20px;
+    --fs-5: 18px;
+    --fs-6: 14px;
+    --fs-7: 12px;
+  }
+}
+
+.wrapper {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 10px;
+}

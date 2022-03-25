@@ -1,0 +1,14 @@
+.textbook {
+  padding: 0 0 120px 0;
+}
+
+.textbook__title {
+  margin: 1.5em 0 1em;
+  font-family: var(--main-font-family);
+}
+
+.words-wrapper {
+  display: flex;
+  gap: var(--fs-4);
+  min-height: 800px;
+}

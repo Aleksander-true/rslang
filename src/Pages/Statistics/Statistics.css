@@ -1,0 +1,153 @@
+.statistics {
+  min-width: 100%;
+  min-height: calc(100% - 107px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+}
+
+.page-title {
+  margin: 30px 0px;
+  font-family: var(--main-font-family);
+  font-size: 2.5em;
+}
+
+.statistics__default {
+  /* margin-left: 20px; */
+  width: 50%;
+}
+
+.statistics__text {
+  font-size: 1.5em;
+}
+
+.statistics__sad-img {
+  height: 150px;
+}
+
+.statistics__total-words {
+  position: absolute;
+  text-align: center;
+  right: 20px;
+  top: 30px;
+  background: url('../../assets/svg/Ellipse.svg') no-repeat center/70%;
+  font-size: 1.5em;
+  font-family: var(--main-font-family);
+}
+
+.statistics__total-words p {
+  margin: 0px;
+}
+
+.statistics__subtitle {
+  margin: 10px 0px;
+  font-family: var(--main-font-family);
+  font-size: 1.5em;
+}
+
+.statistics__day {
+  display: flex;
+  margin: 30px;
+  gap: 30px;
+}
+
+.statistics__day__card {
+  position: relative;
+  text-align: center;
+  background-color: var(--grey-color);
+  border-radius: 20px;
+  padding: 10px;
+  padding-right: 40px;
+  justify-content: space-between;
+}
+
+.statistics__day__percent {
+  width: 80%;
+}
+
+.statistics__day__words {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  gap: 10px;
+}
+
+.statistics__day__audio,
+.statistics__day__sprint {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  gap: 10px;
+}
+
+.statistics__day__number {
+  font-family: var(--main-font-family);
+  color: var(--mark-color);
+  font-size: 3em;
+  -webkit-text-stroke: 0.5px #000000;
+}
+
+.statistics__day__logo {
+  width: 130px;
+  position: absolute;
+  top: -30px;
+  right: -30px;
+}
+
+.card__subscription {
+  text-align: left;
+}
+
+.statistics__long {
+  align-self: center;
+  width: 70%;
+  display: flex;
+  margin: 30px;
+  gap: 30px;
+}
+
+@media (max-width: 1200px) {
+  .statistics__long {
+    width: 100%;
+  }
+  .statistics__day {
+    align-self: center;
+    flex-direction: column;
+    max-width: 50%;
+  }
+}
+@media (max-width: 780px) {
+  .statistics__long {
+    width: 70%;
+    flex-direction: column;
+  }
+
+  .statistics__day__logo {
+    width: 80px;
+    top: -10px;
+    right: -10px;
+  }
+
+  .statistics__day__number {
+    font-size: 2em;
+  }
+
+  .CircularProgressbar-text {
+    font-size: 1.5em;
+  }
+
+  .statistics__day {
+    font-size: 0.8em;
+  }
+}
+@media (max-width: 630px) {
+  .statistics__day {
+    max-width: 80%;
+  }
+}
+@media (max-width: 480px) {
+  .statistics__day {
+    max-width: 100%;
+  }
+}

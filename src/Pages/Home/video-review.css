@@ -1,0 +1,32 @@
+.video-section {
+  position: relative;
+}
+
+.player-wrapper {
+  position: relative;
+  max-width: 1280px;
+  max-height: 720px;
+  margin: 40px auto;
+}
+
+.player-ratio {
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-section__icon {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 30%;
+  min-height: 300px;
+  background: url('./../../assets/svg/video-section_icon.svg') no-repeat left;
+  background-size: contain;
+  z-index: 10;
+}

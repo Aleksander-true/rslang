@@ -1,0 +1,35 @@
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.textbook__pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}
+
+.pagination-wrapper.complete .textbook__page-item.active {
+  border: 2px green solid;
+}
+
+.textbook__page-item {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  color: var(--main-text-color);
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 100%;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  padding: 0.5em;
+  text-align: center;
+  min-width: 2.5em;
+  cursor: pointer;
+}
+
+.textbook__page-item.active {
+  background-color: var(--mark-color);
+}

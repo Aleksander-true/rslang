@@ -1,0 +1,15 @@
+.home {
+}
+
+.home__title {
+  font-family: var(--main-font-family);
+  font-size: var(--fs-2);
+  text-align: center;
+  margin-top: 80px;
+}
+
+@media (max-width: 1024px) {
+  .home__title {
+    margin-top: 40px;
+  }
+}

@@ -1,0 +1,59 @@
+.footer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background-color: var(--mark-color);
+  z-index: 10;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 20px 50px;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer__developer {
+  font-family: var(--second-font-family);
+  font-size: var(--fs-5);
+  font-weight: 600;
+  color: var(--main-text-color);
+}
+
+.footer__developer:hover::before {
+  transform: scale(1.3) translateY(25%);
+}
+
+.footer__developer::before {
+  content: '';
+  display: inline-block;
+  transform: translateY(25%);
+  width: var(--fs-3);
+  height: var(--fs-3);
+  background: url('./../assets/svg/github-logo.svg') no-repeat;
+  background-size: var(--fs-3);
+  color: #000;
+  transition: all 0.3s;
+  margin-right: 5px;
+}
+
+.rs-logo {
+  width: 200px;
+}
+
+.footer__year {
+  font-size: var(--fs-3);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .rs-logo {
+    width: 120px;
+  }
+}
